@@ -20,7 +20,7 @@
     <Grid>
         <Border
             Background="#F5F5F5"
-            BorderBrush=""
+            BorderBrush="AliceBlue"
             BorderThickness="4"
             CornerRadius="5"
         />
