@@ -3,29 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:XRFAnalyzer"
+        xmlns:local="clr-namespace:XRFAnalyzer.Views.UserControls"
         mc:Ignorable="d"
         Title="XRFAnalyzer"
         x:Name="AppWindow"
-        Height="512"
-        Width="911"
-        MinHeight="512"
-        MinWidth="911"
+        Height="768"
+        Width="1366"
+        MinHeight="600"
+        MinWidth="800"
         WindowStyle="None"
         AllowsTransparency="True"
-        ResizeMode="CanResize"
+        ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         >
-    <Grid>
+
+    <Grid Background="Transparent">
         <Border
-            Background="#F5F5F5"
-            BorderBrush="AliceBlue"
-            BorderThickness="4"
-            CornerRadius="5"
-        />
+                Background="#F5F5F5"
+                BorderBrush="AliceBlue"
+                BorderThickness="4 4 4 4"
+                CornerRadius="5">
+            <local:MainMenu>
 
-
-
+        </local:MainMenu>
+        </Border>
     </Grid>
 </Window>

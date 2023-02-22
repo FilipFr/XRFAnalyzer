@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="XRFAnalyzer.Views.UserControls.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="442">
+    <Grid Name="Menu">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Name="Option1" Grid.Row="0">
+            
+        </Button>
+        
+        <Button Name="Option2" Grid.Row="1">
+
+        </Button>
+        <Button Name="Option3" Grid.Row="2">
+
+        </Button>
+        <Button Name="Option4" Grid.Row="3">
+
+        </Button>
+        <Button Name="Option5" Grid.Row="4">
+
+        </Button>
+        <Button Name="Option6" Grid.Row="5">
+
+        </Button>
+        <Button Name="Option7" Grid.Row="6">
+
+        </Button>
+    </Grid>
+</UserControl>
