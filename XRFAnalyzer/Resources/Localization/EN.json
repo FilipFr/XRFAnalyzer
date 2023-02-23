@@ -1,0 +1,9 @@
+﻿{
+  "MainMenuOption1": "Load Spectrum",
+  "MainMenuOption2": "Spectrum Processing",
+  "MainMenuOption3": "Qualitative Analysis",
+  "MainMenuOption4": "Quantitative Analysis",
+  "MainMenuOption5": "Save Results",
+  "MainMenuOption6": "Data Tables",
+  "MainMenuOption7": "About"
+}
