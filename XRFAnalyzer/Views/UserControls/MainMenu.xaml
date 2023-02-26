@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lang="XRFAnalyzer.Resources.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
@@ -47,7 +48,7 @@
         <Button Name="Option1" Grid.Row="0" HorizontalContentAlignment="Stretch">
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
                 <materialDesign:PackIcon Height="32" Width="32" Margin="32 0 32 0" Kind="ApplicationImport"  DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label Margin="0 0 24 0" HorizontalContentAlignment="Left" Foreground="Whitesmoke">Load File</Label>
+                <Label Margin="0 0 24 0" HorizontalContentAlignment="Left" Foreground="Whitesmoke" Content="{Binding LocalizationResourceManager[MainMenuOption1], Mode=OneWay}"></Label>
             </DockPanel>
         </Button>
         <Button Name="Option2" Grid.Row="1">

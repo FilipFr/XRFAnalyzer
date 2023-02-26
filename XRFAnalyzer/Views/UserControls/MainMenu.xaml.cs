@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XRFAnalyzer.Resources.Localization;
 
 namespace XRFAnalyzer.Views.UserControls
 {
@@ -20,9 +21,11 @@ namespace XRFAnalyzer.Views.UserControls
     /// </summary>
     public partial class MainMenu : UserControl
     {
+        public LocalizationResourceManager LocalizationResourceManager = LocalizationResourceManager.Instance;
         public MainMenu()
         {
             InitializeComponent();
+            DataContext = LocalizationResourceManager;
         }
     }
 }
