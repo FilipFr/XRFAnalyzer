@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XRFAnalyzer.Views.UserControls"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="XRFAnalyzer"
         TitleCharacterCasing="Normal"
@@ -16,14 +17,162 @@
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         >
+    <Window.Resources>
+        <Style TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border 
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            >
+                            <ContentPresenter 
+                                x:Name="contentPresenter"
+                                Focusable="False" RecognizesAccessKey="True"
+                                />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style x:Key="MenuButton" TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="Height" Value="64"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0 3 0 0"/>
+        </Style>
+    </Window.Resources>
+    <!--Window Layout-->
+    <Grid>
 
-    <!--Main content-->
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <local:MainMenu Margin="0 4 0 4"/>
+        <!--Side Navigation Menu Container-->
+        <Grid>
+            
+            <!--Menu Layout-->
+            <DockPanel 
+                x:Name="SideNavigationMenuStackPanel"
+                Width="64"
+                HorizontalAlignment="Left"
+                Background="{DynamicResource MahApps.Brushes.Accent}"
+                >
+                
+                <!--Menu Toggle Button-->
+                <ToggleButton
+                    x:Name="MenuToggleButton"
+                    DockPanel.Dock="Top"
+                    Padding="0"
+                    Width="280" Height="64"
+                    BorderThickness="0 3 0 0"
+                    HorizontalContentAlignment="Left"
+                        >
+                    <ToggleButton.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="ShowMenu">
+                                    <DoubleAnimation 
+                                            Storyboard.TargetName="SideNavigationMenuStackPanel"
+                                            Storyboard.TargetProperty="Width"
+                                            From="64" To="280"
+                                            Duration="0:0:0.5"
+                                            >
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="HideMenu">
+                                    <DoubleAnimation 
+                                            Storyboard.TargetName="SideNavigationMenuStackPanel"
+                                            Storyboard.TargetProperty="Width"
+                                            From="280" To="64"
+                                            Duration="0:0:0.5"
+                                            >
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                    <local:MenuButtonContent 
+                        PackIconKind="Menu" 
+                        LabelContent="{Binding LocalizationResourceManager[AppTitle]}"
+                        LabelFontSize="24"/>
+                </ToggleButton>
+
+                <!--Top Menu Items-->
+                <StackPanel
+                    Margin="0 32 0 0"
+                    DockPanel.Dock="Top"
+                    >
+                    
+                    <Button Style="{StaticResource MenuButton}">
+                        <local:MenuButtonContent
+                            PackIconKind="Applicationimport"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"
+                            LabelFontSize="16"/>
+                    </Button>
+                    
+                    <Button Style="{StaticResource MenuButton}">
+                        <local:MenuButtonContent
+                            PackIconKind="Charthistogram"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption2]}"
+                            LabelFontSize="16"/>
+                    </Button>
+                    
+                    <Button Style="{StaticResource MenuButton}">
+                        <local:MenuButtonContent
+                            PackIconKind="Flask"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption3]}"
+                            LabelFontSize="16"/>
+                    </Button>
+
+                    <Button 
+                        Style="{StaticResource MenuButton}"
+                        BorderThickness="0 3 0 3">
+                        <local:MenuButtonContent
+                            PackIconKind="Fileexportoutline"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption4]}"
+                            LabelFontSize="16"/>
+                    </Button>
+                    
+                </StackPanel>
+                
+                <!--Bottom Menu Items-->
+                <StackPanel
+                    DockPanel.Dock="Bottom"
+                    Orientation="Vertical"
+                    VerticalAlignment="Bottom"
+                    >
+
+                    <Button Style="{StaticResource MenuButton}">
+                        <local:MenuButtonContent
+                            PackIconKind="Cog"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption5]}"
+                            LabelFontSize="16"/>
+                    </Button>
+                    
+                    <Button Style="{StaticResource MenuButton}">
+                        <local:MenuButtonContent
+                            PackIconKind="Tablelarge"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption6]}"
+                            LabelFontSize="16"/>
+                    </Button>
+
+                    <Button Style="{StaticResource MenuButton}">
+                        <local:MenuButtonContent
+                            PackIconKind="Information"
+                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption7]}"
+                            LabelFontSize="16"/>
+                    </Button>
+
+                </StackPanel>
+            </DockPanel>
+            
+        </Grid>
+        
     </Grid>
 
 </mah:MetroWindow>

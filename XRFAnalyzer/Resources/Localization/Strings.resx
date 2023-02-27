@@ -117,6 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>XRFAnalyzer</value>
+  </data>
+  <data name="MainMenuOption7" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MainMenuOption6" xml:space="preserve">
+    <value>Tables of XRF constants</value>
+  </data>
+  <data name="MainMenuOption5" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainMenuOption4" xml:space="preserve">
+    <value>Export results</value>
+  </data>
+  <data name="MainMenuOption3" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="MainMenuOption2" xml:space="preserve">
+    <value>Spectrum processing</value>
+  </data>
   <data name="MainMenuOption1" xml:space="preserve">
     <value>Load file</value>
   </data>

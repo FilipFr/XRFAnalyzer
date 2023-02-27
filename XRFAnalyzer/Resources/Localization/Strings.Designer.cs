@@ -61,11 +61,74 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XRFAnalyzer.
+        /// </summary>
+        internal static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load file.
         /// </summary>
         internal static string MainMenuOption1 {
             get {
                 return ResourceManager.GetString("MainMenuOption1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spectrum processing.
+        /// </summary>
+        internal static string MainMenuOption2 {
+            get {
+                return ResourceManager.GetString("MainMenuOption2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis.
+        /// </summary>
+        internal static string MainMenuOption3 {
+            get {
+                return ResourceManager.GetString("MainMenuOption3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export results.
+        /// </summary>
+        internal static string MainMenuOption4 {
+            get {
+                return ResourceManager.GetString("MainMenuOption4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string MainMenuOption5 {
+            get {
+                return ResourceManager.GetString("MainMenuOption5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tables of XRF constants.
+        /// </summary>
+        internal static string MainMenuOption6 {
+            get {
+                return ResourceManager.GetString("MainMenuOption6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string MainMenuOption7 {
+            get {
+                return ResourceManager.GetString("MainMenuOption7", resourceCulture);
             }
         }
     }

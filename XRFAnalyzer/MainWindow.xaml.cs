@@ -21,9 +21,11 @@ namespace XRFAnalyzer
     /// </summary>
     public partial class MainWindow
     {
+        public LocalizationResourceManager LocalizationResourceManager => LocalizationResourceManager.Instance;
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
     }
 }
