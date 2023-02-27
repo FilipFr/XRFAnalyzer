@@ -17,34 +17,7 @@
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         >
-    <Window.Resources>
-        <Style TargetType="{x:Type ToggleButton}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Border 
-                            x:Name="border"
-                            Background="{TemplateBinding Background}"
-                            >
-                            <ContentPresenter 
-                                x:Name="contentPresenter"
-                                Focusable="False" RecognizesAccessKey="True"
-                                />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Background" Value="Transparent"/>
-        </Style>
-        <Style x:Key="MenuButton" TargetType="{x:Type Button}">
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Width" Value="320"/>
-            <Setter Property="Height" Value="64"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0 3 0 0"/>
-        </Style>
-    </Window.Resources>
+ 
     <!--Window Layout-->
     <Grid>
 
@@ -62,12 +35,13 @@
                 <!--Menu Toggle Button-->
                 <ToggleButton
                     x:Name="MenuToggleButton"
+                    Style="{StaticResource MainMenuToggleButton}"
                     DockPanel.Dock="Top"
                     Padding="0"
                     Width="280" Height="64"
                     BorderThickness="0 3 0 0"
                     HorizontalContentAlignment="Left"
-                        >
+                    >
                     <ToggleButton.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <BeginStoryboard>
@@ -108,21 +82,21 @@
                     DockPanel.Dock="Top"
                     >
                     
-                    <Button Style="{StaticResource MenuButton}">
+                    <Button Style="{StaticResource MainMenuButton}">
                         <local:MenuButtonContent
                             PackIconKind="Applicationimport"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"
                             LabelFontSize="16"/>
                     </Button>
                     
-                    <Button Style="{StaticResource MenuButton}">
+                    <Button Style="{StaticResource MainMenuButton}">
                         <local:MenuButtonContent
                             PackIconKind="Charthistogram"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption2]}"
                             LabelFontSize="16"/>
                     </Button>
                     
-                    <Button Style="{StaticResource MenuButton}">
+                    <Button Style="{StaticResource MainMenuButton}">
                         <local:MenuButtonContent
                             PackIconKind="Flask"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption3]}"
@@ -130,7 +104,7 @@
                     </Button>
 
                     <Button 
-                        Style="{StaticResource MenuButton}"
+                        Style="{StaticResource MainMenuButton}"
                         BorderThickness="0 3 0 3">
                         <local:MenuButtonContent
                             PackIconKind="Fileexportoutline"
@@ -147,21 +121,21 @@
                     VerticalAlignment="Bottom"
                     >
 
-                    <Button Style="{StaticResource MenuButton}">
+                    <Button Style="{StaticResource MainMenuButton}">
                         <local:MenuButtonContent
                             PackIconKind="Cog"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption5]}"
                             LabelFontSize="16"/>
                     </Button>
                     
-                    <Button Style="{StaticResource MenuButton}">
+                    <Button Style="{StaticResource MainMenuButton}">
                         <local:MenuButtonContent
                             PackIconKind="Tablelarge"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption6]}"
                             LabelFontSize="16"/>
                     </Button>
 
-                    <Button Style="{StaticResource MenuButton}">
+                    <Button Style="{StaticResource MainMenuButton}">
                         <local:MenuButtonContent
                             PackIconKind="Information"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption7]}"
