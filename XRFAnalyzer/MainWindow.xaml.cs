@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,14 @@ namespace XRFAnalyzer
         {
             InitializeComponent();
             DataContext = this;
+        }
+
+        private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
+        {
+            CultureInfo culture = 
+                Strings.Culture.TwoLetterISOLanguageName.Equals("sk", StringComparison.InvariantCultureIgnoreCase) ?
+                new CultureInfo("en-US") : new CultureInfo("sk");
+            LocalizationResourceManager.Instance.SetCulture(culture);
         }
     }
 }

@@ -39,7 +39,7 @@
                     DockPanel.Dock="Top"
                     Padding="0"
                     Width="280" Height="64"
-                    BorderThickness="0 3 0 0"
+                    BorderThickness="0 0 0 3"
                     HorizontalContentAlignment="Left"
                     >
                     <ToggleButton.Triggers>
@@ -78,25 +78,34 @@
 
                 <!--Top Menu Items-->
                 <StackPanel
-                    Margin="0 32 0 0"
+                    Margin="0 16 0 0"
                     DockPanel.Dock="Top"
                     >
                     
-                    <Button Style="{StaticResource MainMenuButton}">
+                    <Button 
+                        x:Name="MainMenuButton1"
+                        Style="{StaticResource MainMenuButton}"
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}">
                         <local:MenuButtonContent
                             PackIconKind="Applicationimport"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"
-                            LabelFontSize="16"/>
+                            LabelFontSize="16"
+                            />
                     </Button>
                     
-                    <Button Style="{StaticResource MainMenuButton}">
+                    <Button
+                        x:Name="MainMenuButton2"
+                        Style="{StaticResource MainMenuButton}"
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption2]}">
                         <local:MenuButtonContent
                             PackIconKind="Charthistogram"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption2]}"
                             LabelFontSize="16"/>
                     </Button>
-                    
-                    <Button Style="{StaticResource MainMenuButton}">
+
+                    <Button 
+                        Style="{StaticResource MainMenuButton}" 
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption3]}">
                         <local:MenuButtonContent
                             PackIconKind="Flask"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption3]}"
@@ -104,7 +113,8 @@
                     </Button>
 
                     <Button 
-                        Style="{StaticResource MainMenuButton}"
+                        Style="{StaticResource MainMenuButton}" 
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption4]}"
                         BorderThickness="0 3 0 3">
                         <local:MenuButtonContent
                             PackIconKind="Fileexportoutline"
@@ -121,21 +131,29 @@
                     VerticalAlignment="Bottom"
                     >
 
-                    <Button Style="{StaticResource MainMenuButton}">
+                    <Button
+                        Click="ChangeLanguage_Click"
+                        Style="{StaticResource MainMenuButton}" 
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption5]}"
+                        >
                         <local:MenuButtonContent
                             PackIconKind="Cog"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption5]}"
                             LabelFontSize="16"/>
                     </Button>
-                    
-                    <Button Style="{StaticResource MainMenuButton}">
+
+                    <Button 
+                        Style="{StaticResource MainMenuButton}" 
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption6]}">
                         <local:MenuButtonContent
                             PackIconKind="Tablelarge"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption6]}"
                             LabelFontSize="16"/>
                     </Button>
 
-                    <Button Style="{StaticResource MainMenuButton}">
+                    <Button 
+                        Style="{StaticResource MainMenuButton}" 
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption7]}">
                         <local:MenuButtonContent
                             PackIconKind="Information"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption7]}"
