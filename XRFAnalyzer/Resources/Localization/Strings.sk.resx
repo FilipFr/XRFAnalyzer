@@ -141,4 +141,13 @@
   <data name="MainMenuOption1" xml:space="preserve">
     <value>Načítať súbor</value>
   </data>
+  <data name="SpectrumWpfPlotYLabel" xml:space="preserve">
+    <value>Početnosť</value>
+  </data>
+  <data name="SpectrumWpfPlotXLabel" xml:space="preserve">
+    <value>Kanál</value>
+  </data>
+  <data name="SpectrumWpfPlotXLabelAlt" xml:space="preserve">
+    <value>Energia [kEv]</value>
+  </data>
 </root>

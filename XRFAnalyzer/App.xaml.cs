@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Theming;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,6 @@ namespace XRFAnalyzer
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

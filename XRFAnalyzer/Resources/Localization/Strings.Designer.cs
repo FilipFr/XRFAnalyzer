@@ -131,5 +131,32 @@ namespace XRFAnalyzer.Resources.Localization {
                 return ResourceManager.GetString("MainMenuOption7", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel.
+        /// </summary>
+        internal static string SpectrumWpfPlotXLabel {
+            get {
+                return ResourceManager.GetString("SpectrumWpfPlotXLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy [kEv].
+        /// </summary>
+        internal static string SpectrumWpfPlotXLabelAlt {
+            get {
+                return ResourceManager.GetString("SpectrumWpfPlotXLabelAlt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counts.
+        /// </summary>
+        internal static string SpectrumWpfPlotYLabel {
+            get {
+                return ResourceManager.GetString("SpectrumWpfPlotYLabel", resourceCulture);
+            }
+        }
     }
 }

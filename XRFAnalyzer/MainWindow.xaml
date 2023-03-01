@@ -16,10 +16,15 @@
         AllowsTransparency="False"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
+        WindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
         >
  
     <!--Window Layout-->
-    <Grid>
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="64"/>
             <ColumnDefinition Width="*"/>
@@ -27,8 +32,9 @@
         </Grid.ColumnDefinitions>
 
         <!--Side Navigation Menu Container-->
-        <Grid 
+        <Grid
             Grid.ColumnSpan="3"
+            Grid.Row="1"
             Panel.ZIndex="3">
             
             <!--Menu Layout-->
@@ -36,7 +42,7 @@
                 x:Name="SideNavigationMenuStackPanel"
                 Width="64"
                 HorizontalAlignment="Left"
-                Background="#83919f"
+                Background="{StaticResource MahApps.Brushes.AccentBase}"
                 >
                 
                 <!--Menu Toggle Button-->
@@ -46,7 +52,7 @@
                     DockPanel.Dock="Top"
                     Padding="0"
                     Width="280" Height="64"
-                    BorderThickness="0 0 0 3"
+                    BorderThickness="0"
                     HorizontalContentAlignment="Left"
                     >
                     <ToggleButton.Triggers>
@@ -85,7 +91,7 @@
 
                 <!--Top Menu Items-->
                 <StackPanel
-                    Margin="0 16 0 0"
+                    Margin="0"
                     DockPanel.Dock="Top"
                     >
                     
@@ -122,7 +128,7 @@
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption4]}"
-                        BorderThickness="0 3 0 3">
+                        BorderThickness="0">
                         <local:MenuButtonContent
                             PackIconKind="Fileexportoutline"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption4]}"
@@ -172,13 +178,19 @@
             
         </Grid>
         
-        <!--Spectrum Plot Control-->
-        <Grid Grid.Column="1" Background="Aquamarine">
+        <!--Plot Container-->
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1" 
+            Background="WhiteSmoke">
             <WpfPlot x:Name="SpectrumWpfPlot"></WpfPlot>
         </Grid>
         
-        <!--Subview Area-->
-        <Grid Grid.Column="2" Background="AliceBlue">
+        <!--Subview Container-->
+        <Grid 
+            Grid.Row="1"
+            Grid.Column="2"
+            Background="{StaticResource MahApps.Brushes.AccentBase}">
             
         </Grid>
 

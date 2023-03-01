@@ -141,4 +141,13 @@
   <data name="MainMenuOption1" xml:space="preserve">
     <value>Load file</value>
   </data>
+  <data name="SpectrumWpfPlotYLabel" xml:space="preserve">
+    <value>Counts</value>
+  </data>
+  <data name="SpectrumWpfPlotXLabel" xml:space="preserve">
+    <value>Channel</value>
+  </data>
+  <data name="SpectrumWpfPlotXLabelAlt" xml:space="preserve">
+    <value>Energy [kEv]</value>
+  </data>
 </root>
