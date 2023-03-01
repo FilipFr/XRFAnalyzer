@@ -20,16 +20,23 @@
  
     <!--Window Layout-->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
+        </Grid.ColumnDefinitions>
 
         <!--Side Navigation Menu Container-->
-        <Grid>
+        <Grid 
+            Grid.ColumnSpan="3"
+            Panel.ZIndex="3">
             
             <!--Menu Layout-->
             <DockPanel 
                 x:Name="SideNavigationMenuStackPanel"
                 Width="64"
                 HorizontalAlignment="Left"
-                Background="{DynamicResource MahApps.Brushes.Accent}"
+                Background="#83919f"
                 >
                 
                 <!--Menu Toggle Button-->
@@ -165,6 +172,16 @@
             
         </Grid>
         
+        <!--Spectrum Plot Control-->
+        <Grid Grid.Column="1" Background="Aquamarine">
+            <WpfPlot x:Name="SpectrumWpfPlot"></WpfPlot>
+        </Grid>
+        
+        <!--Subview Area-->
+        <Grid Grid.Column="2" Background="AliceBlue">
+            
+        </Grid>
+
     </Grid>
 
 </mah:MetroWindow>
