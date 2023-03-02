@@ -190,8 +190,12 @@
         <Grid 
             Grid.Row="1"
             Grid.Column="2"
-            Background="{StaticResource MahApps.Brushes.AccentBase}">
-            
+            Background="#B2C3D4">
+            <Grid
+                Margin="16"
+                Background="WhiteSmoke">
+                
+            </Grid>
         </Grid>
 
     </Grid>
