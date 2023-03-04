@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grpc.Net.Client;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -49,6 +50,14 @@ namespace XRFAnalyzer
             SpectrumWpfPlot.Plot.YLabel(LocalizationResourceManager["SpectrumWpfPlotYLabel"].ToString());
             SpectrumWpfPlot.Plot.XLabel(LocalizationResourceManager["SpectrumWpfPlotXLabel"].ToString());
             SpectrumWpfPlot.Render();
+        }
+
+        private void Load_Click(object sender, RoutedEventArgs e) 
+        {
+            using var channel = GrpcChannel.ForAddress("http://localhost:50051");
+            var client = new msg.msgClient(channel);
+            var reply = client.TransferMessage(new SomethingRequest { Msg = "oplan" });
+            MessageBox.Show(reply.ToString());
         }
     }
 }

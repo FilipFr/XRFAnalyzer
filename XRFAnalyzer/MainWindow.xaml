@@ -98,7 +98,8 @@
                     <Button 
                         x:Name="MainMenuButton1"
                         Style="{StaticResource MainMenuButton}"
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}">
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}"
+                        Click="Load_Click">
                         <local:MenuButtonContent
                             PackIconKind="Applicationimport"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"

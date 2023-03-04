@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace="XRFAnalyzer";
+
+service msg {
+  rpc TransferMessage (SomethingRequest) returns (SomethingReply);
+}
+
+message SomethingRequest {
+  string msg = 1;
+}
+
+message SomethingReply {
+  string msg = 1;
+}

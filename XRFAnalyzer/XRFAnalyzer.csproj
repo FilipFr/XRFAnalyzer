@@ -5,22 +5,47 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+	<CoreCompileDependsOn>$(CoreCompileDependsOn);Protobuf_Compile</CoreCompileDependsOn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Processes\Protos\spectrum.proto" />
+    <None Remove="Processes\Server\XRFAnalyzerGrpcServer.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Processes\Server\XRFAnalyzerGrpcServer.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Converters\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Processes\Client\" />
     <Folder Include="Resources\Icons\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.22.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.49.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.52.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.7.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
     <PackageReference Include="ScottPlot.WPF" Version="4.1.61" />
     <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
   </ItemGroup>
+
+	<ItemGroup>
+
+		<Protobuf Include="Processes\Protos\spectrum.proto" GrpcServices="Client" />
+	</ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resources\Localization\Strings.Designer.cs">
