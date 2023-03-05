@@ -23,7 +23,6 @@
     <Folder Include="Models\" />
     <Folder Include="Converters\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Processes\Client\" />
     <Folder Include="Resources\Icons\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
