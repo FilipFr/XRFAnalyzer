@@ -99,7 +99,7 @@
                         x:Name="MainMenuButton1"
                         Style="{StaticResource MainMenuButton}"
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}"
-                        Click="Load_Click">
+                        Command="{Binding SpectrumViewModel.LoadSpectrumCommand}">
                         <local:MenuButtonContent
                             PackIconKind="Applicationimport"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"

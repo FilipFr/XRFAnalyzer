@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using XRFAnalyzer.ViewModels;
 
 namespace XRFAnalyzer
 {
@@ -17,13 +18,37 @@ namespace XRFAnalyzer
     /// </summary>
     public partial class App : Application
     {
-        App() {
+        App() 
+        {
+        }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            foreach (Process process in Process.GetProcessesByName("XRFAnalyzerGrpcServer"))
+            {
+                process.Kill();
+            }
             ProcessStartInfo processInfo = new ProcessStartInfo("Processes/Server/XRFAnalyzerGrpcServer.exe");
             // Configure the process using the StartInfo properties.
             processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = false;
             Process.Start(processInfo);
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel()
+            };
+            MainWindow.Show();
+            base.OnStartup(e);
         }
-    }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            foreach (Process process in Process.GetProcessesByName("XRFAnalyzerGrpcServer"))
+            {
+                process.Kill();
+            }
+            base.OnExit(e);
+        }
+        
+}
         
 }
 

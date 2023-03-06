@@ -1,6 +1,8 @@
 ﻿using Grpc.Net.Client;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using XRFAnalyzer.Resources.Localization;
+using XRFAnalyzer.ViewModels;
 
 namespace XRFAnalyzer
 {
@@ -54,10 +57,13 @@ namespace XRFAnalyzer
 
         private void Load_Click(object sender, RoutedEventArgs e) 
         {
-            using var channel = GrpcChannel.ForAddress("http://localhost:50051");
-            var client = new msg.msgClient(channel);
-            var reply = client.TransferMessage(new SomethingRequest { Msg = "oplan" });
-            MessageBox.Show(reply.ToString());
+            //using var channel = GrpcChannel.ForAddress("http://localhost:50051");
+            //var client = new msg.msgClient(channel);
+            //var reply = client.TransferMessage(new SomethingRequest { Msg = "oplan" });
+            //MessageBox.Show(reply.ToString());
+
+            
         }
+        
     }
 }
