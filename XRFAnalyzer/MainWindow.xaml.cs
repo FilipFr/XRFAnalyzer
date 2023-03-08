@@ -36,7 +36,7 @@ namespace XRFAnalyzer
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            SpectrumWpfPlot.Plot.Style(figureBackground: System.Drawing.ColorTranslator.FromHtml("#F5F5F5"));
+            SpectrumWpfPlot.Plot.Style(figureBackground: System.Drawing.ColorTranslator.FromHtml("#DDDDDD"));
             SpectrumWpfPlot.Plot.Style(dataBackground: System.Drawing.ColorTranslator.FromHtml("#F5F5F5"));
             SpectrumWpfPlot.Plot.Style(grid: System.Drawing.ColorTranslator.FromHtml("#D8E1EB"));
             SpectrumWpfPlot.Plot.YLabel(LocalizationResourceManager["SpectrumWpfPlotYLabel"].ToString());
@@ -61,9 +61,27 @@ namespace XRFAnalyzer
             //var client = new msg.msgClient(channel);
             //var reply = client.TransferMessage(new SomethingRequest { Msg = "oplan" });
             //MessageBox.Show(reply.ToString());
-
+            
             
         }
-        
+
+        private void NavigationFrame_InheritDataContext(object sender, NavigationEventArgs e)
+        {
+            FrameworkElement ?content = NavigationFrame.Content as FrameworkElement;
+            if (content != null) 
+            {
+                content.DataContext = DataContext;
+            }
+            
+        }
+
+        private void NavigationFrame_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            FrameworkElement ?content = NavigationFrame.Content as FrameworkElement;
+            if (content != null)
+            {
+                content.DataContext = DataContext;
+            }
+        }
     }
 }

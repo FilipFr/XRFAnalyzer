@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--Light Theme-->
+    <SolidColorBrush x:Key="LightThemePrimaryColor" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="LightThemePrimaryColorHighlight" Color="#F5F5F5"/>
+    <SolidColorBrush x:Key="LightThemeSecondaryColor" Color="#292C47"/>
+    <SolidColorBrush x:Key="LightThemeSecondaryColorHighlight" Color="#3F4367"/>
+    <SolidColorBrush x:Key="LightThemeAccentColor" Color="#ff0"/>
+
+</ResourceDictionary>

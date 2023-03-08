@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Runtime.CompilerServices;
 
 namespace XRFAnalyzer.Models
 {
     internal class Spectrum
     {
-
+        
         public List<SpectrumPoint> Points { get; set; }
-        public Dictionary<int, Peak> Peaks { get; set; }
+        public List<Peak> Peaks { get; set; }
+        public string Tests { get; set; }
 
         public Spectrum() 
         {
             Points = new List<SpectrumPoint>();
-            Peaks = new Dictionary<int, Peak>();
+            Peaks = new List<Peak>();
+            Tests = "s";
         }
 
         /// <summary>
         /// Method TryParseMca attempts to parse a .mca file.
         /// </summary>
-        public static bool TryParseMca(string filePath, ref Spectrum spectrum, out string parsingResultMessage)
+        public bool TryParseMca(string filePath, out string parsingResultMessage)
         { 
             try 
             {
@@ -56,15 +58,14 @@ namespace XRFAnalyzer.Models
                     
                 }
 
-                Spectrum newSpectrum = new();
-                newSpectrum.Points = SpectrumPoint.GetPointsFromIntegers(data);
+                this.Points = SpectrumPoint.GetPointsFromIntegers(data);
                 foreach (Tuple<int,int> roi in rois) 
                 {
-                    newSpectrum.AddPeak(Peak.ConvertFromRoi(newSpectrum.Points, roi.Item1, roi.Item2));
+                    this.AddPeak(Peak.ConvertFromRoi(this.Points, roi.Item1, roi.Item2));
                 }
-                spectrum = newSpectrum;
 
                 parsingResultMessage = "Load successful";
+                this.Tests = "damn";
                 return true;
             } 
             catch (FileNotFoundException) 
@@ -81,12 +82,7 @@ namespace XRFAnalyzer.Models
 
         public void AddPeak(Peak peak) 
         {
-            int counter = 0;
-            while (Peaks.ContainsKey(counter)) 
-            { 
-                counter++; 
-            }
-            this.Peaks.Add(counter, peak);
+            this.Peaks.Add(peak);
         }
         
         //private McaMetadata ?metadata;

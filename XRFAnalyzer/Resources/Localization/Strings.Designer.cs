@@ -133,6 +133,69 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Peaks.
+        /// </summary>
+        internal static string OperationMenuOption1 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calibration.
+        /// </summary>
+        internal static string OperationMenuOption2 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background.
+        /// </summary>
+        internal static string OperationMenuOption3 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sum peaks.
+        /// </summary>
+        internal static string OperationMenuOption4 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qualitative Analysis.
+        /// </summary>
+        internal static string OperationMenuOption5 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantitative Analysis.
+        /// </summary>
+        internal static string OperationMenuOption6 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tables of XRF constants.
+        /// </summary>
+        internal static string OperationMenuOption7 {
+            get {
+                return ResourceManager.GetString("OperationMenuOption7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
         internal static string SpectrumWpfPlotXLabel {

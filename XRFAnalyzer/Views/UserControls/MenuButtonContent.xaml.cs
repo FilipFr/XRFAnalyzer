@@ -9,12 +9,17 @@ namespace XRFAnalyzer.Views.UserControls
     /// </summary>
     public partial class MenuButtonContent : UserControl
     {
+        public MenuButtonContent()
+        {
+            InitializeComponent();
+        }
+
         public static readonly DependencyProperty PackIconKindProperty = DependencyProperty.Register(
             "PackIconKind",
             typeof(string),
             typeof(MenuButtonContent),
             new PropertyMetadata(null));
-        
+
         public string PackIconKind
         {
             get { return (string)GetValue(PackIconKindProperty); }
@@ -33,21 +38,28 @@ namespace XRFAnalyzer.Views.UserControls
             set { SetValue(LabelContentProperty, value); }
         }
 
-        public static readonly DependencyProperty LabelFontSizeProperty = DependencyProperty.Register(
-            "LabelFontSize",
-            typeof(string),
+        public static readonly DependencyProperty LabelStyleProperty = DependencyProperty.Register(
+            "LabelStyle",
+            typeof(Style),
             typeof(MenuButtonContent),
             new PropertyMetadata(null));
 
-        public string LabelFontSize
+        public string LabelStyle
         {
-            get { return (string)GetValue(LabelFontSizeProperty); }
-            set { SetValue(LabelFontSizeProperty, value); }
+            get { return (string)GetValue(LabelStyleProperty); }
+            set { SetValue(LabelStyleProperty, value); }
         }
 
-        public MenuButtonContent()
+        public static readonly DependencyProperty PackIconStyleProperty = DependencyProperty.Register(
+            "PackIconStyle",
+            typeof(Style),
+            typeof(MenuButtonContent),
+            new PropertyMetadata(null));
+
+        public string PackIconStyle
         {
-            InitializeComponent();
+            get { return (string)GetValue(PackIconStyleProperty); }
+            set { SetValue(PackIconStyleProperty, value); }
         }
 
     }

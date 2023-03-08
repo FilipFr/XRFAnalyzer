@@ -150,4 +150,26 @@
   <data name="SpectrumWpfPlotXLabelAlt" xml:space="preserve">
     <value>Energy [kEv]</value>
   </data>
+  <data name="OperationMenuOption1" xml:space="preserve">
+    <value>Peaks</value>
+    
+  </data>
+  <data name="OperationMenuOption2" xml:space="preserve">
+    <value>Calibration</value>
+  </data>
+  <data name="OperationMenuOption3" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="OperationMenuOption4" xml:space="preserve">
+    <value>Sum peaks</value>
+  </data>
+  <data name="OperationMenuOption5" xml:space="preserve">
+    <value>Qualitative Analysis</value>
+  </data>
+  <data name="OperationMenuOption6" xml:space="preserve">
+    <value>Quantitative Analysis</value>
+  </data>
+  <data name="OperationMenuOption7" xml:space="preserve">
+    <value>Tables of XRF constants</value>
+  </data>
 </root>

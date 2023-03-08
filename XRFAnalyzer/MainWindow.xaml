@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XRFAnalyzer.Views.UserControls"
+        xmlns:pages="clr-namespace:XRFAnalyzer.Views.Pages"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
         mc:Ignorable="d"
         Title="XRFAnalyzer"
         TitleCharacterCasing="Normal"
@@ -16,13 +18,19 @@
         AllowsTransparency="False"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
-        WindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
+        WindowTitleBrush="{StaticResource LightThemeSecondaryColor}"
+        NonActiveWindowTitleBrush="{StaticResource LightThemeSecondaryColor}"
+                 
         >
- 
+    <Window.Resources>
+        
+    </Window.Resources>
+
     <!--Window Layout-->
-    <Grid Background="WhiteSmoke">
+    <Grid Background="{StaticResource LightThemePrimaryColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="3"/>
+            <RowDefinition Height="64"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -35,6 +43,7 @@
         <Grid
             Grid.ColumnSpan="3"
             Grid.Row="1"
+            Grid.RowSpan="2"
             Panel.ZIndex="3">
             
             <!--Menu Layout-->
@@ -42,7 +51,7 @@
                 x:Name="SideNavigationMenuStackPanel"
                 Width="64"
                 HorizontalAlignment="Left"
-                Background="{StaticResource MahApps.Brushes.AccentBase}"
+                Background="{StaticResource LightThemeSecondaryColor}"
                 >
                 
                 <!--Menu Toggle Button-->
@@ -83,10 +92,11 @@
                             </BeginStoryboard>
                         </EventTrigger>
                     </ToggleButton.Triggers>
-                    <local:MenuButtonContent 
+                    <local:MenuButtonContent
+                        PackIconStyle="{StaticResource MainMenuButtonIcon}"
                         PackIconKind="Menu" 
                         LabelContent="{Binding LocalizationResourceManager[AppTitle]}"
-                        LabelFontSize="24"/>
+                        LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                 </ToggleButton>
 
                 <!--Top Menu Items-->
@@ -99,31 +109,35 @@
                         x:Name="MainMenuButton1"
                         Style="{StaticResource MainMenuButton}"
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}"
-                        Command="{Binding SpectrumViewModel.LoadSpectrumCommand}">
+                        Command="{Binding SpectrumViewModel.LoadSpectrum}">
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Applicationimport"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"
-                            LabelFontSize="16"
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"
                             />
                     </Button>
-                    
+
                     <Button
                         x:Name="MainMenuButton2"
                         Style="{StaticResource MainMenuButton}"
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption2]}">
+                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption2]}"
+                        >
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Charthistogram"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption2]}"
-                            LabelFontSize="16"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
 
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption3]}">
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Flask"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption3]}"
-                            LabelFontSize="16"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
 
                     <Button 
@@ -131,9 +145,10 @@
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption4]}"
                         BorderThickness="0">
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Fileexportoutline"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption4]}"
-                            LabelFontSize="16"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
                     
                 </StackPanel>
@@ -151,53 +166,67 @@
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption5]}"
                         >
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Cog"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption5]}"
-                            LabelFontSize="16"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
 
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption6]}">
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Tablelarge"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption6]}"
-                            LabelFontSize="16"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"
+                            />
                     </Button>
 
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption7]}">
                         <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Information"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption7]}"
-                            LabelFontSize="16"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
 
                 </StackPanel>
             </DockPanel>
             
         </Grid>
-        
-        <!--Plot Container-->
+
         <Grid
             Grid.Row="1"
+            Grid.Column="1"
+            Background="{StaticResource LightThemePrimaryColor}">
+            <TextBlock Text="{Binding SpectrumViewModel.Spectrum.Tests}"/>
+        </Grid>
+
+        <!--Plot Container-->
+        <Grid
+            Grid.Row="2"
             Grid.Column="1" 
-            Background="WhiteSmoke">
+            Background="{StaticResource LightThemePrimaryColor}">
             <WpfPlot x:Name="SpectrumWpfPlot"></WpfPlot>
         </Grid>
+
         
         <!--Subview Container-->
-        <Grid 
-            Grid.Row="1"
+
+        <Frame
+            x:Name="NavigationFrame"
+            Grid.Row="1" 
+            Grid.RowSpan="2"
             Grid.Column="2"
-            Background="#B2C3D4">
-            <Grid
-                Margin="16"
-                Background="WhiteSmoke">
-                
-            </Grid>
-        </Grid>
+            Source="/Views/Pages/Home.xaml"
+            NavigationUIVisibility="Hidden"
+            BorderThickness="0"
+            BorderBrush="{DynamicResource LightThemePrimaryColor}"
+            LoadCompleted="NavigationFrame_InheritDataContext"
+            DataContextChanged="NavigationFrame_DataContextChanged"/>
 
     </Grid>
 

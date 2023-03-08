@@ -8,8 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="400">
 
-    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
-        <materialDesign:PackIcon Height="32" Width="32" Margin="16 0 16 0" Kind="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=PackIconKind}"  Foreground="WhiteSmoke" DockPanel.Dock="Left" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalAlignment="Left"/>
-        <Label Margin="0 0 16 0" FontSize="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=LabelFontSize}" HorizontalContentAlignment="Left" Foreground="Whitesmoke" Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=LabelContent}"></Label>
+    <DockPanel 
+        VerticalAlignment="Center" 
+        HorizontalAlignment="Left"
+        >
+        <materialDesign:PackIcon
+            Style="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=PackIconStyle}"
+            Kind="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=PackIconKind}"  />
+        <Label
+            Style="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=LabelStyle}"
+            Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MenuButtonContent}}, Path=LabelContent}"></Label>
     </DockPanel>
 </UserControl>
+
