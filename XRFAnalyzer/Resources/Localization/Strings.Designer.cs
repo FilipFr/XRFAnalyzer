@@ -70,6 +70,33 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Channel.
+        /// </summary>
+        internal static string ChannelToggleOption {
+            get {
+                return ResourceManager.GetString("ChannelToggleOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy.
+        /// </summary>
+        internal static string EnergyToggleOption {
+            get {
+                return ResourceManager.GetString("EnergyToggleOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logarithmic scale.
+        /// </summary>
+        internal static string LogarithmicScaleToggleLabel {
+            get {
+                return ResourceManager.GetString("LogarithmicScaleToggleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load file.
         /// </summary>
         internal static string MainMenuOption1 {
@@ -219,6 +246,15 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string SpectrumWpfPlotYLabel {
             get {
                 return ResourceManager.GetString("SpectrumWpfPlotYLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X Axis unit.
+        /// </summary>
+        internal static string XAxisUnitToggleLabel {
+            get {
+                return ResourceManager.GetString("XAxisUnitToggleLabel", resourceCulture);
             }
         }
     }

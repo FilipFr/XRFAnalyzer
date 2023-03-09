@@ -23,7 +23,7 @@
                  
         >
     <Window.Resources>
-        
+
     </Window.Resources>
 
     <!--Window Layout-->
@@ -45,7 +45,7 @@
             Grid.Row="1"
             Grid.RowSpan="2"
             Panel.ZIndex="3">
-            
+
             <!--Menu Layout-->
             <DockPanel 
                 x:Name="SideNavigationMenuStackPanel"
@@ -53,7 +53,7 @@
                 HorizontalAlignment="Left"
                 Background="{StaticResource LightThemeSecondaryColor}"
                 >
-                
+
                 <!--Menu Toggle Button-->
                 <ToggleButton
                     x:Name="MenuToggleButton"
@@ -104,7 +104,7 @@
                     Margin="0"
                     DockPanel.Dock="Top"
                     >
-                    
+
                     <Button 
                         x:Name="MainMenuButton1"
                         Style="{StaticResource MainMenuButton}"
@@ -150,9 +150,9 @@
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption4]}"
                             LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
-                    
+
                 </StackPanel>
-                
+
                 <!--Bottom Menu Items-->
                 <StackPanel
                     DockPanel.Dock="Bottom"
@@ -195,14 +195,68 @@
 
                 </StackPanel>
             </DockPanel>
-            
+
         </Grid>
 
         <Grid
             Grid.Row="1"
             Grid.Column="1"
             Background="{StaticResource LightThemePrimaryColor}">
-            <TextBlock Text="{Binding ViewM.Spectr.Tests, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel 
+                Grid.Row="0"
+                Orientation="Horizontal">
+                <Label
+                    Content="Current file:"
+                    VerticalAlignment="Center" 
+                    Margin="32 0 0 0"
+                   
+                    FontFamily="Open Sans"/>
+                <Label 
+                    Content="{Binding ViewM.CurrentFile}" 
+                    VerticalAlignment="Center" 
+                    Margin="16 0 0 0"
+                    FontFamily="Open Sans"/>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                >
+
+                <mah:ToggleSwitch
+                    
+                    Header="{Binding LocalizationResourceManager[LogarithmicScaleToggleLabel]}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Margin="0 0 0 0"
+                    Foreground="{StaticResource LightThemeSecondaryColor}"
+                    IsEnabled="{Binding ViewM.Spectr.State.IsLoaded}"
+                    Toggled="LogarithmicScaleToggle_Toggled"
+                    >
+                    <mah:ToggleSwitch.Resources>
+                        <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="#292c47"></SolidColorBrush>
+                    </mah:ToggleSwitch.Resources>
+                </mah:ToggleSwitch>
+                <mah:ToggleSwitch
+                    Header="{Binding LocalizationResourceManager[XAxisUnitToggleLabel]}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    OnContent="{Binding LocalizationResourceManager[EnergyToggleOption]}"
+                    OffContent="{Binding LocalizationResourceManager[ChannelToggleOption]}"
+                    IsOn="False"
+                    IsEnabled="{Binding ViewM.Spectr.State.IsCalibrated}"
+                    >
+                    <mah:ToggleSwitch.Resources>
+                        <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="#292c47"></SolidColorBrush>
+                    </mah:ToggleSwitch.Resources>
+                </mah:ToggleSwitch>
+
+            </StackPanel>
         </Grid>
 
         <!--Plot Container-->
@@ -210,10 +264,15 @@
             Grid.Row="2"
             Grid.Column="1" 
             Background="{StaticResource LightThemePrimaryColor}">
-            <WpfPlot x:Name="SpectrumWpfPlot"></WpfPlot>
+            <local:PlotControl 
+                x:Name="PlotControl" 
+                YLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
+                XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
+                Counts="{Binding ViewM.Counts}"
+                />
         </Grid>
 
-        
+
         <!--Subview Container-->
 
         <Frame

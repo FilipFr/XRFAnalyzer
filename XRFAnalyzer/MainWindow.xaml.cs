@@ -1,5 +1,6 @@
 ﻿using Grpc.Net.Client;
 using Microsoft.Win32;
+using ScottPlot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -36,12 +37,7 @@ namespace XRFAnalyzer
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            SpectrumWpfPlot.Plot.Style(figureBackground: System.Drawing.ColorTranslator.FromHtml("#DDDDDD"));
-            SpectrumWpfPlot.Plot.Style(dataBackground: System.Drawing.ColorTranslator.FromHtml("#F5F5F5"));
-            SpectrumWpfPlot.Plot.Style(grid: System.Drawing.ColorTranslator.FromHtml("#D8E1EB"));
-            SpectrumWpfPlot.Plot.YLabel(LocalizationResourceManager["SpectrumWpfPlotYLabel"].ToString());
-            SpectrumWpfPlot.Plot.XLabel(LocalizationResourceManager["SpectrumWpfPlotXLabel"].ToString());
-            SpectrumWpfPlot.Plot.SetAxisLimits(0, 2048, 0, 10000);
+
         }
 
         private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
@@ -50,9 +46,8 @@ namespace XRFAnalyzer
                 Strings.Culture.TwoLetterISOLanguageName.Equals("sk", StringComparison.InvariantCultureIgnoreCase) ?
                 new CultureInfo("en-US") : new CultureInfo("sk");
             LocalizationResourceManager.Instance.SetCulture(culture);
-            SpectrumWpfPlot.Plot.YLabel(LocalizationResourceManager["SpectrumWpfPlotYLabel"].ToString());
-            SpectrumWpfPlot.Plot.XLabel(LocalizationResourceManager["SpectrumWpfPlotXLabel"].ToString());
-            SpectrumWpfPlot.Render();
+
+            PlotControl.SpectrumWpfPlot.Render();
         }
 
         private void Load_Click(object sender, RoutedEventArgs e) 
@@ -81,6 +76,26 @@ namespace XRFAnalyzer
             if (content != null)
             {
                 content.DataContext = DataContext;
+            }
+        }
+
+        private void LogarithmicScaleToggle_Toggled(object sender, RoutedEventArgs e) 
+        {
+            if (sender == null) { return; }
+            if((sender as MahApps.Metro.Controls.ToggleSwitch).IsOn) 
+            {
+                PlotControl.SpectrumWpfPlot.Plot.Clear();
+                double[] logYs = PlotControl.Counts.Select(y => (Math.Log10(y) == double.NegativeInfinity ? 0 : Math.Log10(y))).ToArray();
+                PlotControl.UpdateSignalPlot(logYs, true);
+                PlotControl.SpectrumWpfPlot.Refresh();
+            }
+            else 
+            {
+                PlotControl.SpectrumWpfPlot.Plot.Clear();
+                double[] values = PlotControl.Counts.Select(x => (double)x).ToArray();
+                PlotControl.UpdateSignalPlot(values, false);
+                PlotControl.SpectrumWpfPlot.Refresh();
+                
             }
         }
     }

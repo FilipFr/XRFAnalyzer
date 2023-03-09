@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,11 @@ namespace XRFAnalyzer.ViewModels
     internal partial class SpectrumViewModel : ObservableObject
     {
         [ObservableProperty]
+        private string _currentFile = "No file loaded";
+        [ObservableProperty]
         private Spectrum _spectr;
+        [ObservableProperty]
+        private List<int> _counts;
 
         public SpectrumViewModel()
         {
@@ -39,8 +44,12 @@ namespace XRFAnalyzer.ViewModels
             if (Spectr != null && openFileDialog.ShowDialog() == true)
             {
                 Spectr.TryParseMca(openFileDialog.FileName, out message);
-                MessageBox.Show(message + " " + Spectr.Tests);
+                Counts = Spectr.Points.Select(x => x.Count).ToList();
+                CurrentFile = Path.GetFileName(Spectr.FilePath);
+
+                MessageBox.Show(message);
             }
+            
         }
     }
 }

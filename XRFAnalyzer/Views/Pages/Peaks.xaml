@@ -31,17 +31,11 @@
             Panel.ZIndex="2"
             >
 
-            <Slider
-                    
-                    Style="{DynamicResource MaterialDesignDiscreteSlider}"
-                    
-                  IsSelectionRangeEnabled="True"
-                  Maximum="50"
-                  Minimum="0"
-                  Orientation="Horizontal"
-                  TickFrequency="5"
-                  TickPlacement="BottomRight"
-                  Value="10" Cursor="ScrollWE" />
+            <DataGrid
+               ItemsSource="{Binding ViewM.Spectr.Peaks}" 
+               AutoGenerateColumns="True">
+                
+            </DataGrid>
         </Grid>
     </Grid>
 </Page>

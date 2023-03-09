@@ -172,4 +172,16 @@
   <data name="OperationMenuOption7" xml:space="preserve">
     <value>Tables of XRF constants</value>
   </data>
+  <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
+    <value>Logarithmic scale</value>
+  </data>
+  <data name="ChannelToggleOption" xml:space="preserve">
+    <value>Channel</value>
+  </data>
+  <data name="EnergyToggleOption" xml:space="preserve">
+    <value>Energy</value>
+  </data>
+  <data name="XAxisUnitToggleLabel" xml:space="preserve">
+    <value>X Axis unit</value>
+  </data>
 </root>

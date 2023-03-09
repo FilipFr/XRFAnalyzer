@@ -171,4 +171,16 @@
   <data name="OperationMenuOption7" xml:space="preserve">
     <value>Tabuľky konštánt</value>
   </data>
+  <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
+    <value>Logaritmická mierka</value>
+  </data>
+  <data name="ChannelToggleOption" xml:space="preserve">
+    <value>Kanál</value>
+  </data>
+  <data name="EnergyToggleOption" xml:space="preserve">
+    <value>Energia</value>
+  </data>
+  <data name="XAxisUnitToggleLabel" xml:space="preserve">
+    <value>Jednotka osi x</value>
+  </data>
 </root>

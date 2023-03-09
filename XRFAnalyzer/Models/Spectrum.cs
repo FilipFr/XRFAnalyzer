@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace XRFAnalyzer.Models
@@ -9,23 +10,19 @@ namespace XRFAnalyzer.Models
     internal partial class Spectrum : ObservableObject
     {
         [ObservableProperty]
+        private string _filePath;
+        [ObservableProperty]
         private List<SpectrumPoint> _points;
         [ObservableProperty]
         private List<Peak> _peaks;
         [ObservableProperty]
-        private string _tests;
-        [ObservableProperty]
-        private int _id;
-
-        public void AddOne() 
-        {
-            Id++;
-        }
+        private SpectrumState _state;
 
         public Spectrum() 
         {
             Points = new List<SpectrumPoint>();
             Peaks = new List<Peak>();
+            State = new SpectrumState();
         }
 
         /// <summary>
@@ -73,8 +70,9 @@ namespace XRFAnalyzer.Models
                     this.AddPeak(Peak.ConvertFromRoi(this.Points, roi.Item1, roi.Item2));
                 }
 
+                this.FilePath = filePath;
+                State.IsLoaded = true;
                 parsingResultMessage = "Load successful";
-                this.Tests = "damn";
                 return true;
             } 
             catch (FileNotFoundException) 
@@ -93,7 +91,12 @@ namespace XRFAnalyzer.Models
         {
             this.Peaks.Add(peak);
         }
-        
+
+        public List<int> PeakHeights()
+        {
+            return this.Peaks.Select(x =>  x.HighestPoint.Count ).ToList();
+        }
+
         //private McaMetadata ?metadata;
 
         //private class McaMetadata
@@ -103,6 +106,6 @@ namespace XRFAnalyzer.Models
         //    Dictionary<string, string> ?status;
         //    Dictionary<string, string> ?bootFlags;
         //}
-        
+
     }
 }

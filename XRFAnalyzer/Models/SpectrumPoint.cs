@@ -15,7 +15,7 @@ namespace XRFAnalyzer.Models
         [ObservableProperty]
         private int _count;
         [ObservableProperty]
-        private double _energy; // Photon energy of characteristic radiation in kEv
+        private double _energy; // Photon energy of characteristic rays in kEv
         [ObservableProperty]
         private double _logCount;
 
