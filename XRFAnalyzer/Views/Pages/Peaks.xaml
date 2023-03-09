@@ -30,8 +30,8 @@
             Background="{DynamicResource LightThemeSecondaryColorHighlight}"
             Panel.ZIndex="2"
             >
-          
-                <Slider
+
+            <Slider
                     
                     Style="{DynamicResource MaterialDesignDiscreteSlider}"
                     
@@ -42,11 +42,6 @@
                   TickFrequency="5"
                   TickPlacement="BottomRight"
                   Value="10" Cursor="ScrollWE" />
-
-
-
-
-
         </Grid>
     </Grid>
 </Page>

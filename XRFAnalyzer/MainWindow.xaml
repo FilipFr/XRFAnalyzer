@@ -109,7 +109,7 @@
                         x:Name="MainMenuButton1"
                         Style="{StaticResource MainMenuButton}"
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}"
-                        Command="{Binding SpectrumViewModel.LoadSpectrum}">
+                        Command="{Binding ViewM.Load}">
                         <local:MenuButtonContent
                             PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Applicationimport"
@@ -202,7 +202,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Background="{StaticResource LightThemePrimaryColor}">
-            <TextBlock Text="{Binding SpectrumViewModel.Spectrum.Tests}"/>
+            <TextBlock Text="{Binding ViewM.Spectr.Tests, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!--Plot Container-->

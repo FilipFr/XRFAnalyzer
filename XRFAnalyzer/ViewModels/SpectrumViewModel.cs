@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,54 +14,32 @@ using XRFAnalyzer.ViewModels.Commands;
 
 namespace XRFAnalyzer.ViewModels
 {
-    internal class SpectrumViewModel : BaseViewModel
+    internal partial class SpectrumViewModel : ObservableObject
     {
-        public Load LoadSpectrum { get; set; }
+        [ObservableProperty]
+        private Spectrum _spectr;
+
         public SpectrumViewModel()
         {
-            _spectrum = new Spectrum();
-            LoadSpectrum = new Load(this);
-        }
-        private Spectrum _spectrum;
-
-        public Spectrum Spectrum
-        {
-            get { return _spectrum; }
-            set
-            {
-                _spectrum = value;
-                OnPropertyChanged(nameof(Spectrum));
-            }
+            _spectr = new Spectrum();
+            Load = new Command(() => LoadSpectrum());
         }
 
-        public class Load : Command 
+
+
+        public ICommand Load { get; set; }
+            
+        private void LoadSpectrum() 
         {
-            private SpectrumViewModel Vm;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "mca files (*.mca)|*.mca|All files (*.*)|*.*";
 
-            public Load (SpectrumViewModel vm) 
+            string message = "";
+            if (Spectr != null && openFileDialog.ShowDialog() == true)
             {
-                Vm = vm;
-            }
-
-            public override bool CanExecute(object? parameter)
-            {
-                return true;
-            }
-                
-            public override void Execute(object? parameter)
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Multiselect = false;
-                openFileDialog.Filter = "mca files (*.mca)|*.mca|All files (*.*)|*.*";
-
-                string message = "";
-                Spectrum lol = new Spectrum();
-                if (lol != null && openFileDialog.ShowDialog() == true)
-                {
-                    lol.TryParseMca(openFileDialog.FileName, out message);
-                    MessageBox.Show(message + " " + lol.Tests);
-                    Vm.Spectrum = lol;
-                }
+                Spectr.TryParseMca(openFileDialog.FileName, out message);
+                MessageBox.Show(message + " " + Spectr.Tests);
             }
         }
     }

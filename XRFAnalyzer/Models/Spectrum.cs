@@ -1,22 +1,31 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace XRFAnalyzer.Models
 {
-    internal class Spectrum
+    internal partial class Spectrum : ObservableObject
     {
-        
-        public List<SpectrumPoint> Points { get; set; }
-        public List<Peak> Peaks { get; set; }
-        public string Tests { get; set; }
+        [ObservableProperty]
+        private List<SpectrumPoint> _points;
+        [ObservableProperty]
+        private List<Peak> _peaks;
+        [ObservableProperty]
+        private string _tests;
+        [ObservableProperty]
+        private int _id;
+
+        public void AddOne() 
+        {
+            Id++;
+        }
 
         public Spectrum() 
         {
             Points = new List<SpectrumPoint>();
             Peaks = new List<Peak>();
-            Tests = "s";
         }
 
         /// <summary>

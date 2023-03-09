@@ -7,18 +7,25 @@ using System.Windows.Input;
 
 namespace XRFAnalyzer.ViewModels.Commands
 {
-    internal class Command : ICommand
+    class Command : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        private readonly Action _execute;
 
-        public virtual bool CanExecute(object? parameter)
+        public Command(Action execute)
         {
-            throw new NotImplementedException();
+            _execute = execute;
         }
 
-        public virtual void Execute(object? parameter)
+        public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return true;
         }
+
+        public void Execute(object parameter)
+        {
+            _execute?.Invoke();
+        }
+
+        public event EventHandler CanExecuteChanged;
     }
 }

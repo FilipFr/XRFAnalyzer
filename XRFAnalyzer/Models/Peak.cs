@@ -5,20 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace XRFAnalyzer.Models
 {
-    internal class Peak
+    internal partial class Peak : ObservableObject
     {
-        public SpectrumPoint HighestPoint { get; set; }
-
-        public SpectrumPoint LeftBasePoint { get; set; }
-
-        public SpectrumPoint RightBasePoint { get; set; }
-
-        public double? GrossArea { get; set; }
-
-        public double? NetArea { get; set; }
+        [ObservableProperty]
+        private SpectrumPoint _highestPoint;
+        [ObservableProperty]
+        private SpectrumPoint _leftBasePoint;
+        [ObservableProperty]
+        private SpectrumPoint _rightBasePoint;
+        [ObservableProperty]
+        private double? _grossArea;
+        [ObservableProperty]
+        private double? _netArea;
 
         public Peak(SpectrumPoint highestPoint, SpectrumPoint leftBasePoint, SpectrumPoint rightBasePoint)
         {

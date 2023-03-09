@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace XRFAnalyzer.Models
 {
-    internal class SpectrumPoint
+    internal partial class SpectrumPoint : ObservableObject
     {
-        public int Channel { get; set; }
-        public int Count { get; set; }
-        public double Energy { get; set; }     // Photon energy of characteristic radiation in kEv
-        public double LogCount { get { return double.IsInfinity(Math.Log10(this.Count)) ? 0 : Math.Log10(this.Count); } }
+        [ObservableProperty]
+        private int _channel;
+        [ObservableProperty]
+        private int _count;
+        [ObservableProperty]
+        private double _energy; // Photon energy of characteristic radiation in kEv
+        [ObservableProperty]
+        private double _logCount;
 
         public SpectrumPoint(int channel, int count)
         {

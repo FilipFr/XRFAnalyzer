@@ -4,16 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace XRFAnalyzer.ViewModels
 {
-    internal class BaseViewModel : INotifyPropertyChanged
+    internal partial class BaseViewModel : ObservableObject
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void OnPropertyChanged(string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
     }
 }
