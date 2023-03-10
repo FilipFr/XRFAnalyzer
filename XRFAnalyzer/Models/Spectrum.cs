@@ -7,23 +7,19 @@ using System.Runtime.CompilerServices;
 
 namespace XRFAnalyzer.Models
 {
-    internal partial class Spectrum : ObservableObject
+    internal class Spectrum
     {
-        [ObservableProperty]
-        private string _filePath;
-        [ObservableProperty]
-        private List<SpectrumPoint> _points;
-        [ObservableProperty]
-        private List<Peak> _peaks;
-        [ObservableProperty]
-        private SpectrumState _state;
+        public List<int> Counts { get; set; }
+        public List<Tuple<int, int>> Peaks { get; set; }
+        public Dictionary<double, double> CalibrationPoints { get; set; }
 
         public Spectrum() 
         {
-            Points = new List<SpectrumPoint>();
-            Peaks = new List<Peak>();
-            State = new SpectrumState();
+            Counts = new List<int>();
+            Peaks = new List<Tuple<int, int>>();
+            CalibrationPoints = new Dictionary<double, double>();
         }
+
 
         /// <summary>
         /// Method TryParseMca attempts to parse a .mca file.
@@ -34,8 +30,6 @@ namespace XRFAnalyzer.Models
             {
                 IEnumerable<string> lines = File.ReadLines(filePath);
 
-                List<Tuple<int, int>> rois = new();
-                List<int> data = new();
                 string currentSection = "";
 
                 foreach (string line in lines)
@@ -52,26 +46,34 @@ namespace XRFAnalyzer.Models
                     {
                         switch (currentSection)
                         {
+                            case "<<CALIBRATION>>":
+                                {
+                                    if (line.StartsWith("LABEL"))
+                                    {
+                                        break;
+                                    }
+                                    string[] line_parts = line.Split(' ');
+                                    if (!this.CalibrationPoints.ContainsKey(Double.Parse(line_parts[0]))) 
+                                    { 
+                                        this.CalibrationPoints[Double.Parse(line_parts[0])] = Double.Parse(line_parts[1]);
+                                        break;
+                                    }
+                                    break;
+                                }
                             case "<<ROI>>":
-                                string[] line_parts = line.Split(' ');
-                                rois.Add(new Tuple<int, int>(Int32.Parse(line_parts[0]), Int32.Parse(line_parts[1])));
-                                break;
+                                {
+                                    string[] line_parts = line.Split(' ');
+                                    this.Peaks.Add(new Tuple<int, int>(Int32.Parse(line_parts[0]), Int32.Parse(line_parts[1])));
+                                    break;
+                                }
                             case "<<DATA>>":
-                                data.Add(Int32.Parse(line));
-                                break;
+                                {
+                                    this.Counts.Add(Int32.Parse(line));
+                                    break;
+                                }
                         } 
                     }
-                    
                 }
-
-                this.Points = SpectrumPoint.GetPointsFromIntegers(data);
-                foreach (Tuple<int,int> roi in rois) 
-                {
-                    this.AddPeak(Peak.ConvertFromRoi(this.Points, roi.Item1, roi.Item2));
-                }
-
-                this.FilePath = filePath;
-                State.IsLoaded = true;
                 parsingResultMessage = "Load successful";
                 return true;
             } 
@@ -85,16 +87,6 @@ namespace XRFAnalyzer.Models
                 parsingResultMessage = "Unable to open file " + filePath;
                 return false;
             }
-        }
-
-        public void AddPeak(Peak peak) 
-        {
-            this.Peaks.Add(peak);
-        }
-
-        public List<int> PeakHeights()
-        {
-            return this.Peaks.Select(x =>  x.HighestPoint.Count ).ToList();
         }
 
         //private McaMetadata ?metadata;
