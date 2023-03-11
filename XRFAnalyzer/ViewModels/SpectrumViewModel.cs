@@ -31,6 +31,8 @@ namespace XRFAnalyzer.ViewModels
         private bool _isLoaded;
         [ObservableProperty]
         private bool _isCalibrated;
+        [ObservableProperty]
+        private bool _isLogarithmicToggled;
 
 
         public SpectrumViewModel()
@@ -42,6 +44,7 @@ namespace XRFAnalyzer.ViewModels
             CalibrationPoints = Spectrum.CalibrationPoints;
             IsLoaded = false;
             IsCalibrated = false;
+            IsLogarithmicToggled = false;
             Load = new Command(() => LoadSpectrum());
         }
 

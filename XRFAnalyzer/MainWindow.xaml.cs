@@ -85,18 +85,11 @@ namespace XRFAnalyzer
             if (sender == null) { return; }
             if((sender as MahApps.Metro.Controls.ToggleSwitch).IsOn) 
             {
-                PlotControl.SpectrumWpfPlot.Plot.Clear();
-                double[] logYs = PlotControl.Counts.Select(y => (Math.Log10(y) == double.NegativeInfinity ? 0 : Math.Log10(y))).ToArray();
-                PlotControl.UpdateSignalPlot(logYs, true);
-                PlotControl.SpectrumWpfPlot.Refresh();
+                PlotControl.IsLogarithmicToggled = true;
             }
             else 
             {
-                PlotControl.SpectrumWpfPlot.Plot.Clear();
-                double[] values = PlotControl.Counts.Select(x => (double)x).ToArray();
-                PlotControl.UpdateSignalPlot(values, false);
-                PlotControl.SpectrumWpfPlot.Refresh();
-                
+                PlotControl.IsLogarithmicToggled = false;
             }
         }
     }

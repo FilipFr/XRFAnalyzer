@@ -1,0 +1,76 @@
+﻿<mah:MetroWindow x:Class="XRFAnalyzer.Views.PeakWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XRFAnalyzer.Views"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title=""
+        ResizeMode="NoResize"
+        WindowTitleBrush="{StaticResource LightThemeSecondaryColor}"
+        NonActiveWindowTitleBrush="{StaticResource LightThemeSecondaryColor}"
+        Background="{DynamicResource LightThemeSecondaryColor}"
+        Height="400" Width="200">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="16 0 16 0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource LightThemePrimaryColor}"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="16 8 16 16"/>
+            <Setter Property="Foreground" Value="{DynamicResource LightThemePrimaryColor}"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <ScrollViewer
+        MouseDown="Window_MouseDown">
+        <StackPanel
+            Orientation="Vertical">
+            <Label
+                x:Name="PeakHeightLabel"
+                Content="{Binding LocalizationResourceManager[PeakHeightLabel]}"/>
+            <TextBlock
+                x:Name="PeakHeightValue"
+                Text="32102"/>
+            <Label
+                x:Name="PeakApexChannelLabel"
+                Content="{Binding LocalizationResourceManager[PeakApexChannelLabel]}"/>
+            <TextBlock
+                x:Name="PeakApexChannelValue"/>
+            <Label
+                x:Name="PeakApexEnergyLabel"
+                Content="{Binding LocalizationResourceManager[PeakApexEnergyLabel]}"/>
+            <TextBlock
+                x:Name="PeakApexEnergyValue"/>
+            <Label
+                x:Name="PeakChannelRangeLabel"
+                Content="{Binding LocalizationResourceManager[PeakChannelRangeLabel]}"/>
+            <TextBlock
+                x:Name="PeakChannelRangeValue"/>
+            <Label
+                x:Name="PeakEnergyRangeLabel"
+                Content="{Binding LocalizationResourceManager[PeakEnergyRangeLabel]}"/>
+            <TextBlock
+                x:Name="PeakEnergyRangeValue"/>
+            <Label
+                x:Name="PeakGrossAreaLabel"
+                Content="{Binding LocalizationResourceManager[PeakGrossAreaLabel]}"/>
+            <TextBlock
+                x:Name="PeakGrossAreaValue"/>
+            <Label
+                x:Name="PeakNetAreaLabel"
+                Content="{Binding LocalizationResourceManager[PeakNetAreaLabel]}"/>
+            <TextBlock
+                x:Name="PeakNetAreaValue"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</mah:MetroWindow>

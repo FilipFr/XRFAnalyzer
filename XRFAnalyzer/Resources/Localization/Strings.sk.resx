@@ -183,4 +183,25 @@
   <data name="XAxisUnitToggleLabel" xml:space="preserve">
     <value>Jednotka osi x</value>
   </data>
+  <data name="PeakApexChannelLabel" xml:space="preserve">
+    <value>Kanál vrchola</value>
+  </data>
+  <data name="PeakApexEnergyLabel" xml:space="preserve">
+    <value>Energia vrchola</value>
+  </data>
+  <data name="PeakChannelRangeLabel" xml:space="preserve">
+    <value>Rozsah kanálov</value>
+  </data>
+  <data name="PeakEnergyRangeLabel" xml:space="preserve">
+    <value>Rozsah energii</value>
+  </data>
+  <data name="PeakGrossAreaLabel" xml:space="preserve">
+    <value>Hrubá plocha</value>
+  </data>
+  <data name="PeakHeightLabel" xml:space="preserve">
+    <value>Výška píku</value>
+  </data>
+  <data name="PeakNetAreaLabel" xml:space="preserve">
+    <value>Čistá plocha</value>
+  </data>
 </root>

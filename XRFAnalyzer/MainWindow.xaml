@@ -270,6 +270,7 @@
                 XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
                 Counts="{Binding ViewM.Counts}"
                 Peaks="{Binding ViewM.Peaks}"
+                IsLogarithmicToggled="{Binding ViewM.IsLogarithmicToggled}"
                
                 />
         </Grid>

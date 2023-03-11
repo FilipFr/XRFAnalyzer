@@ -10,9 +10,6 @@
     
     <StackPanel 
         ButtonBase.Click="Button_Click"
-        Grid.Row="1" 
-        Grid.Column="2" 
-        Grid.RowSpan="2" 
         Background="{StaticResource LightThemeSecondaryColor}"
         VerticalAlignment="Stretch"
         Panel.ZIndex="2">

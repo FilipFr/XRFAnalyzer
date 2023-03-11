@@ -223,6 +223,69 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apex channel.
+        /// </summary>
+        internal static string PeakApexChannelLabel {
+            get {
+                return ResourceManager.GetString("PeakApexChannelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apex energy.
+        /// </summary>
+        internal static string PeakApexEnergyLabel {
+            get {
+                return ResourceManager.GetString("PeakApexEnergyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel range.
+        /// </summary>
+        internal static string PeakChannelRangeLabel {
+            get {
+                return ResourceManager.GetString("PeakChannelRangeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy range.
+        /// </summary>
+        internal static string PeakEnergyRangeLabel {
+            get {
+                return ResourceManager.GetString("PeakEnergyRangeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gross area.
+        /// </summary>
+        internal static string PeakGrossAreaLabel {
+            get {
+                return ResourceManager.GetString("PeakGrossAreaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak Height.
+        /// </summary>
+        internal static string PeakHeightLabel {
+            get {
+                return ResourceManager.GetString("PeakHeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net area.
+        /// </summary>
+        internal static string PeakNetAreaLabel {
+            get {
+                return ResourceManager.GetString("PeakNetAreaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
         internal static string SpectrumWpfPlotXLabel {

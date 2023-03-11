@@ -1,12 +1,16 @@
-﻿using ScottPlot.Plottable;
+﻿using ScottPlot;
+using ScottPlot.Plottable;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Printing;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XRFAnalyzer.Views.Pages;
 
 namespace XRFAnalyzer.Views.UserControls
 {
@@ -25,7 +30,6 @@ namespace XRFAnalyzer.Views.UserControls
         public PlotControl()
         {
             InitializeComponent();
-            peakPlots = new();
             SpectrumWpfPlot.Plot.Style(figureBackground: System.Drawing.ColorTranslator.FromHtml("#DDDDDD"));
             SpectrumWpfPlot.Plot.Style(dataBackground: System.Drawing.ColorTranslator.FromHtml("#F5F5F5"));
             SpectrumWpfPlot.Plot.Style(grid: System.Drawing.ColorTranslator.FromHtml("#D8E1EB"));
@@ -35,8 +39,6 @@ namespace XRFAnalyzer.Views.UserControls
             SpectrumWpfPlot.Render();
             SpectrumWpfPlot.Plot.XAxis2.Layout(padding: 0, minimumSize: 8, maximumSize: 8);
         }
-
-        private List<SignalPlotXY> peakPlots;
 
         public static readonly DependencyProperty YLabelProperty = DependencyProperty.Register(
             "YLabel",
@@ -86,14 +88,14 @@ namespace XRFAnalyzer.Views.UserControls
         {
             PlotControl b = (PlotControl)a;
             double[] values = b.Counts.Select(x => (double)x).ToArray(); 
-            b.UpdateSignalPlot(values, false);
+            b.UpdateSignalPlot();
         }
 
         public static readonly DependencyProperty PeaksProperty = DependencyProperty.Register(
             "Peaks",
             typeof(List<Tuple<int, int>>),
             typeof(PlotControl),
-            new PropertyMetadata(null, new PropertyChangedCallback(PeaksChanged)));
+            new PropertyMetadata(new List<Tuple<int, int>>(), new PropertyChangedCallback(PeaksChanged)));
         public List<Tuple<int, int>> Peaks
         {
             get { return (List<Tuple<int, int>>)GetValue(PeaksProperty); }
@@ -102,34 +104,46 @@ namespace XRFAnalyzer.Views.UserControls
         private static void PeaksChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
             PlotControl b = (PlotControl)a;
-            
-            double[] values = b.Counts.Select(x => (double)x).ToArray();
-            foreach (Tuple<int, int> peak in b.Peaks)
-            {
-                double[] peakValues = values.Skip(peak.Item1).Take(peak.Item2 -  peak.Item1).ToArray();
-                
-                SignalPlotXY peakPlot = new SignalPlotXY();
-                
-                peakPlot.Xs = Enumerable.Range(peak.Item1, peak.Item2 - peak.Item1).Select(Convert.ToDouble).ToArray();
-                peakPlot.Ys = peakValues;
-                b.peakPlots.Add(peakPlot);
-            }
-            b.UpdateSignalPlot(values, false);
+            b.UpdateSignalPlot();
         }
-        
-        public void UpdateSignalPlot(double[] values, bool isLogarithmicScale) 
+
+        public static readonly DependencyProperty IsLogarithmicToggledProperty = DependencyProperty.Register(
+            "IsLogarithmicToggled",
+            typeof(bool),
+            typeof(PlotControl),
+            new PropertyMetadata(false, new PropertyChangedCallback(IsLogarithmicToggledChanged)));
+        public bool IsLogarithmicToggled
         {
+            get { return (bool)GetValue(IsLogarithmicToggledProperty); }
+            set { SetValue(IsLogarithmicToggledProperty, value); }
+        }
+        private static void IsLogarithmicToggledChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.UpdateSignalPlot();
+        }
+
+        public void UpdateSignalPlot() 
+        {
+
+            SpectrumWpfPlot.Plot.Clear();
+            double[] values = (IsLogarithmicToggled) ?
+                Counts.Select(y => (Math.Log10(y) == double.NegativeInfinity ? 0 : Math.Log10(y))).ToArray() :
+                Counts.Select(x => (double)x).ToArray();
+
             var signalPlot = SpectrumWpfPlot.Plot.AddSignal(values);
             signalPlot.FillAboveAndBelow(System.Drawing.Color.FromArgb(255, 90, 180, 90), System.Drawing.Color.Red, 0.5);
             signalPlot.LineColor = System.Drawing.Color.FromArgb(255, 90, 180, 90);
-            foreach (SignalPlotXY plot in peakPlots)
+            foreach (Tuple<int, int> peak in Peaks)
             {
-                var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(plot.Xs, plot.Ys);
+                double[] Xs = Enumerable.Range(peak.Item1, peak.Item2 - peak.Item1).Select(x => (double)x).ToArray();
+                double[] Ys = values.Skip(peak.Item1).Take(peak.Item2 - peak.Item1).ToArray();
+                var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.Color = System.Drawing.Color.RebeccaPurple;
                 newSignalXY.FillAboveAndBelow(System.Drawing.Color.Red, System.Drawing.Color.Purple, 0.5);
 
             }
-            if (isLogarithmicScale) 
+            if (IsLogarithmicToggled) 
             {
                 string logTickLabels(double y) => Math.Pow(10, y).ToString();
                 SpectrumWpfPlot.Plot.YAxis.TickLabelFormat(logTickLabels);
@@ -144,6 +158,30 @@ namespace XRFAnalyzer.Views.UserControls
             SpectrumWpfPlot.Plot.AxisAuto();
             SpectrumWpfPlot.Plot.Render();
             SpectrumWpfPlot.Refresh();
+        }
+
+
+        private void SpectrumWpfPlot_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            (double x, double y) = this.SpectrumWpfPlot.GetMouseCoordinates();
+            double roundedX = Math.Round(x);
+            double roundedY = Math.Round(y);
+            foreach(Tuple<int,int> peak in Peaks) 
+            {
+                if (roundedX <= peak.Item2  && roundedX >= peak.Item1) 
+                {
+                    if(roundedY <= Counts[(int)roundedX]) 
+                    {
+                        Window peakWindow = new PeakWindow();
+                        peakWindow.DataContext = this.DataContext;
+                        System.Windows.Point a = Mouse.GetPosition(Application.Current.MainWindow); ;
+                        peakWindow.Left = a.X + 100;
+                        peakWindow.Top = (a.Y - 300 < 0) ? 0 : a.Y - 300; 
+                        peakWindow.ShowDialog();
+                        
+                    }
+                }
+            }
         }
     }
 }

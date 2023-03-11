@@ -184,4 +184,25 @@
   <data name="XAxisUnitToggleLabel" xml:space="preserve">
     <value>X Axis unit</value>
   </data>
+  <data name="PeakHeightLabel" xml:space="preserve">
+    <value>Peak Height</value>
+  </data>
+  <data name="PeakChannelRangeLabel" xml:space="preserve">
+    <value>Channel range</value>
+  </data>
+  <data name="PeakApexChannelLabel" xml:space="preserve">
+    <value>Apex channel</value>
+  </data>
+  <data name="PeakApexEnergyLabel" xml:space="preserve">
+    <value>Apex energy</value>
+  </data>
+  <data name="PeakEnergyRangeLabel" xml:space="preserve">
+    <value>Energy range</value>
+  </data>
+  <data name="PeakGrossAreaLabel" xml:space="preserve">
+    <value>Gross area</value>
+  </data>
+  <data name="PeakNetAreaLabel" xml:space="preserve">
+    <value>Net area</value>
+  </data>
 </root>
