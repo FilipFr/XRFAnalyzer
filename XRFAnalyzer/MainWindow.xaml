@@ -235,7 +235,7 @@
                     VerticalContentAlignment="Center"
                     Margin="0 0 0 0"
                     Foreground="{StaticResource LightThemeSecondaryColor}"
-                    IsEnabled="{Binding ViewM.Spectr.State.IsLoaded}"
+                    IsEnabled="{Binding ViewM.IsLoaded}"
                     Toggled="LogarithmicScaleToggle_Toggled"
                     >
                     <mah:ToggleSwitch.Resources>
@@ -249,7 +249,7 @@
                     OnContent="{Binding LocalizationResourceManager[EnergyToggleOption]}"
                     OffContent="{Binding LocalizationResourceManager[ChannelToggleOption]}"
                     IsOn="False"
-                    IsEnabled="{Binding ViewM.Spectr.State.IsCalibrated}"
+                    IsEnabled="{Binding ViewM.IsCalibrated}"
                     >
                     <mah:ToggleSwitch.Resources>
                         <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="#292c47"></SolidColorBrush>
@@ -269,6 +269,8 @@
                 YLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
                 XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
                 Counts="{Binding ViewM.Counts}"
+                Peaks="{Binding ViewM.Peaks}"
+               
                 />
         </Grid>
 

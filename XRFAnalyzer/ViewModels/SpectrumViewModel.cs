@@ -18,15 +18,30 @@ namespace XRFAnalyzer.ViewModels
     internal partial class SpectrumViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _currentFile = "No file loaded";
+        private Spectrum _spectrum;
         [ObservableProperty]
-        private Spectrum _spectr;
+        private string _currentFile;
         [ObservableProperty]
         private List<int> _counts;
+        [ObservableProperty]
+        private List<Tuple<int,int>> _peaks;
+        [ObservableProperty]
+        private Dictionary<double, double> _calibrationPoints;
+        [ObservableProperty]
+        private bool _isLoaded;
+        [ObservableProperty]
+        private bool _isCalibrated;
+
 
         public SpectrumViewModel()
         {
-            _spectr = new Spectrum();
+            Spectrum = new Spectrum();
+            CurrentFile = "";
+            Counts = Spectrum.Counts;
+            Peaks = Spectrum.Peaks;
+            CalibrationPoints = Spectrum.CalibrationPoints;
+            IsLoaded = false;
+            IsCalibrated = false;
             Load = new Command(() => LoadSpectrum());
         }
 
@@ -41,15 +56,21 @@ namespace XRFAnalyzer.ViewModels
             openFileDialog.Filter = "mca files (*.mca)|*.mca|All files (*.*)|*.*";
 
             string message = "";
-            if (Spectr != null && openFileDialog.ShowDialog() == true)
+            if (Spectrum != null && openFileDialog.ShowDialog() == true)
             {
-                Spectr.TryParseMca(openFileDialog.FileName, out message);
-                Counts = Spectr.Points.Select(x => x.Count).ToList();
-                CurrentFile = Path.GetFileName(Spectr.FilePath);
-
-                MessageBox.Show(message);
+                bool result = Spectrum.TryParseMca(openFileDialog.FileName, out message);
+                if(result) 
+                {
+                    this.Counts = new (Spectrum.Counts);
+                    this.CalibrationPoints = new (Spectrum.CalibrationPoints);
+                    this.Peaks = new (Spectrum.Peaks);
+                    IsLoaded = true;
+                } 
+                else 
+                {
+                    MessageBox.Show(message);
+                }
             }
-            
         }
     }
 }

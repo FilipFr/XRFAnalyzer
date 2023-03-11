@@ -8,8 +8,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace XRFAnalyzer.ViewModels
 {
-    internal partial class BaseViewModel : ObservableObject
+    internal partial class BaseViewModel : INotifyPropertyChanged
     {
-        
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void OnPropertyChanged(string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

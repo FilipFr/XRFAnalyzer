@@ -31,11 +31,7 @@
             Panel.ZIndex="2"
             >
 
-            <DataGrid
-               ItemsSource="{Binding ViewM.Spectr.Peaks}" 
-               AutoGenerateColumns="True">
-                
-            </DataGrid>
+            
         </Grid>
     </Grid>
 </Page>
