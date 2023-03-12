@@ -11,13 +11,13 @@ namespace XRFAnalyzer.Models
     {
         public List<int> Counts { get; set; }
         public List<Tuple<int, int>> Peaks { get; set; }
-        public Dictionary<double, double> CalibrationPoints { get; set; }
+        public Dictionary<int, double> CalibrationPoints { get; set; }
 
         public Spectrum() 
         {
             Counts = new List<int>();
             Peaks = new List<Tuple<int, int>>();
-            CalibrationPoints = new Dictionary<double, double>();
+            CalibrationPoints = new Dictionary<int, double>();
         }
 
 
@@ -53,9 +53,9 @@ namespace XRFAnalyzer.Models
                                         break;
                                     }
                                     string[] line_parts = line.Split(' ');
-                                    if (!this.CalibrationPoints.ContainsKey(Double.Parse(line_parts[0]))) 
+                                    if (!this.CalibrationPoints.ContainsKey(Int32.Parse(line_parts[0]))) 
                                     { 
-                                        this.CalibrationPoints[Double.Parse(line_parts[0])] = Double.Parse(line_parts[1]);
+                                        this.CalibrationPoints[Int32.Parse(line_parts[0])] = Double.Parse(line_parts[1]);
                                         break;
                                     }
                                     break;

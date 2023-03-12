@@ -11,10 +11,18 @@
   <ItemGroup>
     <None Remove="Processes\Protos\spectrum.proto" />
     <None Remove="Processes\Server\XRFAnalyzerGrpcServer.exe" />
+    <None Remove="Resources\Data\elements_info.json" />
+    <None Remove="Resources\Data\elements_lines.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Processes\Server\XRFAnalyzerGrpcServer.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\elements_info.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\elements_lines.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -36,6 +44,7 @@
     </PackageReference>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="ScottPlot.WPF" Version="4.1.61" />
     <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
   </ItemGroup>

@@ -2,14 +2,16 @@ syntax = "proto3";
 
 option csharp_namespace="XRFAnalyzer";
 
-service msg {
-  rpc TransferMessage (SomethingRequest) returns (SomethingReply);
+service XRFAnalyzerService {
+  rpc FindPeaksMessage (FindPeaksRequest) returns (FindPeaksReply);
 }
 
-message SomethingRequest {
-  string msg = 1;
+message FindPeaksRequest {
+  repeated int32 counts = 1;
+  int32 prominence = 2;
+
 }
 
-message SomethingReply {
+message FindPeaksReply {
   string msg = 1;
 }

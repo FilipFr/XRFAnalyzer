@@ -36,7 +36,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="64"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="360"/>
         </Grid.ColumnDefinitions>
 
         <!--Side Navigation Menu Container-->
@@ -121,6 +121,7 @@
                     <Button
                         x:Name="MainMenuButton2"
                         Style="{StaticResource MainMenuButton}"
+                        Click="Load_Click"
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption2]}"
                         >
                         <local:MenuButtonContent

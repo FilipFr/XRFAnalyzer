@@ -178,7 +178,7 @@
     <value>Kanál</value>
   </data>
   <data name="EnergyToggleOption" xml:space="preserve">
-    <value>Energia</value>
+    <value>Energia [kEv]</value>
   </data>
   <data name="XAxisUnitToggleLabel" xml:space="preserve">
     <value>Jednotka osi x</value>
@@ -203,5 +203,47 @@
   </data>
   <data name="PeakNetAreaLabel" xml:space="preserve">
     <value>Čistá plocha</value>
+  </data>
+  <data name="CalibrationTableColumn1" xml:space="preserve">
+    <value>Kanál</value>
+  </data>
+  <data name="CalibrationTableColumn2" xml:space="preserve">
+    <value>Energia [kEv]</value>
+  </data>
+  <data name="CalibrationTableColumn3" xml:space="preserve">
+    <value>Prvok</value>
+  </data>
+  <data name="CalibrationTableColumn4" xml:space="preserve">
+    <value>Emisná čiara</value>
+  </data>
+  <data name="FindPeaksHeightLabel" xml:space="preserve">
+    <value>Výška</value>
+  </data>
+  <data name="FindPeaksThresholdLabel" xml:space="preserve">
+    <value>Prah</value>
+  </data>
+  <data name="FindPeaksDistanceLabel" xml:space="preserve">
+    <value>Vzdialenosť</value>
+  </data>
+  <data name="FindPeaksPlateauSizeLabel" xml:space="preserve">
+    <value>Veľkosť plošiny</value>
+  </data>
+  <data name="FindPeaksProminenceLabel" xml:space="preserve">
+    <value>Význačnosť</value>
+  </data>
+  <data name="FindPeaksWLenLabel" xml:space="preserve">
+    <value>WLen</value>
+  </data>
+  <data name="FindPeaksRelHeightLabel" xml:space="preserve">
+    <value>RelHeight</value>
+  </data>
+  <data name="FindPeaksWidthLabel" xml:space="preserve">
+    <value>Šírka</value>
+  </data>
+  <data name="FindPeaksButtonLabel" xml:space="preserve">
+    <value>Vyhľadať píky</value>
+  </data>
+  <data name="FindPeaksParametersLabel" xml:space="preserve">
+    <value>Parametre algoritmu pre nájdenie píkov</value>
   </data>
 </root>

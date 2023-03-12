@@ -72,6 +72,42 @@ namespace XRFAnalyzer.Resources.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
+        internal static string CalibrationTableColumn1 {
+            get {
+                return ResourceManager.GetString("CalibrationTableColumn1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy [kEv].
+        /// </summary>
+        internal static string CalibrationTableColumn2 {
+            get {
+                return ResourceManager.GetString("CalibrationTableColumn2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Element.
+        /// </summary>
+        internal static string CalibrationTableColumn3 {
+            get {
+                return ResourceManager.GetString("CalibrationTableColumn3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emission line.
+        /// </summary>
+        internal static string CalibrationTableColumn4 {
+            get {
+                return ResourceManager.GetString("CalibrationTableColumn4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel.
+        /// </summary>
         internal static string ChannelToggleOption {
             get {
                 return ResourceManager.GetString("ChannelToggleOption", resourceCulture);
@@ -79,11 +115,101 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Energy.
+        ///   Looks up a localized string similar to Energy [kEv].
         /// </summary>
         internal static string EnergyToggleOption {
             get {
                 return ResourceManager.GetString("EnergyToggleOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find peaks.
+        /// </summary>
+        internal static string FindPeaksButtonLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance.
+        /// </summary>
+        internal static string FindPeaksDistanceLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksDistanceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        internal static string FindPeaksHeightLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksHeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak detection algorithm parameters.
+        /// </summary>
+        internal static string FindPeaksParametersLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksParametersLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plateau size.
+        /// </summary>
+        internal static string FindPeaksPlateauSizeLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksPlateauSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prominence.
+        /// </summary>
+        internal static string FindPeaksProminenceLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksProminenceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RelHeight.
+        /// </summary>
+        internal static string FindPeaksRelHeightLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksRelHeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Threshold.
+        /// </summary>
+        internal static string FindPeaksThresholdLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksThresholdLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        internal static string FindPeaksWidthLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksWidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WLen.
+        /// </summary>
+        internal static string FindPeaksWLenLabel {
+            get {
+                return ResourceManager.GetString("FindPeaksWLenLabel", resourceCulture);
             }
         }
         
