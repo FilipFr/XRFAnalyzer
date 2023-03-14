@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Processes\Protos\spectrum.proto" />
+    <None Remove="Processes\Protos\XRFAnalyzer.proto" />
     <None Remove="Processes\Server\XRFAnalyzerGrpcServer.exe" />
     <None Remove="Resources\Data\elements_info.json" />
     <None Remove="Resources\Data\elements_lines.json" />
@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Helpers\" />
     <Folder Include="Resources\Icons\" />
   </ItemGroup>
@@ -51,7 +50,7 @@
 
 	<ItemGroup>
 
-		<Protobuf Include="Processes\Protos\spectrum.proto" GrpcServices="Client" />
+		<Protobuf Include="Processes\Protos\XRFAnalyzer.proto" GrpcServices="Client" />
 	</ItemGroup>
 
   <ItemGroup>

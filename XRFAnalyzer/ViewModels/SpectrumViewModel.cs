@@ -9,17 +9,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using XRFAnalyzer.Models;
 using XRFAnalyzer.Models.DTOs;
 using XRFAnalyzer.ViewModels.Commands;
+using Grpc.Net.Client;
+using Grpc.Core;
 
 namespace XRFAnalyzer.ViewModels
 {
     internal partial class SpectrumViewModel : ObservableObject
     {
+        GrpcChannel channel;
+        XRFAnalyzerService.XRFAnalyzerServiceClient client;
+
         [ObservableProperty]
         private Spectrum _spectrum;
         [ObservableProperty]
@@ -27,7 +33,9 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private List<int> _counts;
         [ObservableProperty]
-        private List<Tuple<int, int>> _peaks;
+        private List<Tuple<int, int>> _rois;
+        [ObservableProperty]
+        private List<Peak> _peaks;
         [ObservableProperty]
         private ObservableCollection<CalibrationRow> _calibrationRows;
         [ObservableProperty]
@@ -37,20 +45,51 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private bool _isLogarithmicToggled;
         [ObservableProperty]
+        private bool _isPeakSelected;
+        [ObservableProperty]
         private List<Element> _elements;
         [ObservableProperty]
         private CalibrationRow _currentCalibrationRow;
         [ObservableProperty]
         private int _maxChannel;
         [ObservableProperty]
+        private Peak _selectedPeak;
+        [ObservableProperty]
+        private int _roiLeftBoundary = 0;
+        [ObservableProperty]
+        private int _roiRightBoundary = 0;
+
+        
+        private int _selectedPeakIndex;
+        public int SelectedPeakIndex
+        { 
+            get { return _selectedPeakIndex; }
+            set 
+            { 
+                _selectedPeakIndex = value;
+                OnPropertyChanged();
+                if (SelectedPeakIndex >= 0 && SelectedPeakIndex < Peaks.Count) 
+                {
+                    SelectedPeak = Peaks[SelectedPeakIndex];
+                }
+                if (SelectedPeakIndex == -1) 
+                {
+                    SelectedPeak = new Peak();
+                    IsPeakSelected = false;
+                }
+            } }
+        [ObservableProperty]
         private FindPeaksDTO _findPeaksDTO;
+
 
         public SpectrumViewModel()
         {
+            channel = GrpcChannel.ForAddress("http://localhost:50051");
+            client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
             Spectrum = new Spectrum();
             CurrentFile = "";
             Counts = Spectrum.Counts;
-            Peaks = Spectrum.Peaks;
+            Rois = Spectrum.Peaks;
             CalibrationRows = new();
             CurrentCalibrationRow = new();
             IsLoaded = false;
@@ -58,17 +97,47 @@ namespace XRFAnalyzer.ViewModels
             IsLogarithmicToggled = false;
             Load = new Command(() => LoadSpectrum());
             AddCalibrationPointCommand = new Command(() => AddCalibrationPoint());
+            RemoveSelectedPeakCommand = new Command(() => RemoveSelectedPeak());
+            AddPeakCommand = new Command(() => AddPeak());
+            GetFindPeaksMessageCommand = new Command(() => GetFindPeaksMessage());
+            SelectedPeakIndex = -1;
             Elements = GetElementsData();
             MaxChannel = GetMaxChannel();
             FindPeaksDTO = new();
         }
 
-
+        private void RemoveSelectedPeak()
+        {
+            if(SelectedPeakIndex > -1 && Peaks != null && SelectedPeakIndex < Peaks.Count) 
+            {
+                Peaks.RemoveAt(SelectedPeakIndex);
+                Rois.RemoveAt(SelectedPeakIndex);
+                SelectedPeakIndex = -1;
+            }
+            
+        }
+        private void AddPeak()
+        {
+            if (RoiRightBoundary > RoiLeftBoundary)
+            {
+                Tuple<int,int> roiToAdd = new Tuple<int,int>(RoiLeftBoundary,RoiRightBoundary);
+                Peaks.Add(Peak.GetPeakFromRoi(Spectrum, roiToAdd));
+                Rois.Add(roiToAdd);
+                SelectedPeakIndex = Peaks.Count - 1;
+            }
+            else 
+            {
+                MessageBox.Show("Error: Peak should be wider than one channel.");
+            }
+        }
 
         public ICommand Load { get; set; }
         public ICommand AddCalibrationPointCommand { get; set; }
+        public ICommand RemoveSelectedPeakCommand { get; set; }
+        public ICommand AddPeakCommand { get; set; }
+        public ICommand GetFindPeaksMessageCommand { get; set; }
 
-        
+
         private void LoadSpectrum()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -83,11 +152,13 @@ namespace XRFAnalyzer.ViewModels
                 {
                     this.Counts = new(Spectrum.Counts);
                     MaxChannel = GetMaxChannel();
+                    FindPeaksDTO.Counts = new(Spectrum.Counts);
                     foreach(int channel in Spectrum.CalibrationPoints.Keys) 
                     {
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
                     }
-                    this.Peaks = new(Spectrum.Peaks);
+                    this.Rois = new(Spectrum.Peaks);
+                    this.Peaks = Peak.GetPeaksFromSpectrum(Spectrum, Rois);
                     IsLoaded = true;
                 }
                 else
@@ -162,6 +233,23 @@ namespace XRFAnalyzer.ViewModels
                 return Counts.Count - 1;
             }
             return 0;
+        }
+
+        private void GetFindPeaksMessage() 
+        {
+            var reply = client.FindPeaksMessage(new FindPeaksRequest 
+            { 
+                Counts = { 1, 2, 3, 2, 1 }, 
+                Height = 0, 
+                Threshold = 0,
+                Distance = 0,
+                Prominence = 0,
+                Width = 0,
+                Wlen = 0,
+                RelHeight = 0,
+                PlateauSize = 0 
+            });
+            MessageBox.Show(reply.ToString());
         }
     }
 }

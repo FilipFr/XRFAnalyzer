@@ -25,9 +25,10 @@ namespace XRFAnalyzer.Models
         /// Method TryParseMca attempts to parse a .mca file.
         /// </summary>
         public bool TryParseMca(string filePath, out string parsingResultMessage)
-        { 
+        {
             try 
             {
+                Spectrum newSpectrum = new Spectrum();
                 IEnumerable<string> lines = File.ReadLines(filePath);
 
                 string currentSection = "";
@@ -53,9 +54,9 @@ namespace XRFAnalyzer.Models
                                         break;
                                     }
                                     string[] line_parts = line.Split(' ');
-                                    if (!this.CalibrationPoints.ContainsKey(Int32.Parse(line_parts[0]))) 
+                                    if (!newSpectrum.CalibrationPoints.ContainsKey(Int32.Parse(line_parts[0]))) 
                                     { 
-                                        this.CalibrationPoints[Int32.Parse(line_parts[0])] = Double.Parse(line_parts[1]);
+                                        newSpectrum.CalibrationPoints[Int32.Parse(line_parts[0])] = Double.Parse(line_parts[1]);
                                         break;
                                     }
                                     break;
@@ -63,17 +64,20 @@ namespace XRFAnalyzer.Models
                             case "<<ROI>>":
                                 {
                                     string[] line_parts = line.Split(' ');
-                                    this.Peaks.Add(new Tuple<int, int>(Int32.Parse(line_parts[0]), Int32.Parse(line_parts[1])));
+                                    newSpectrum.Peaks.Add(new Tuple<int, int>(Int32.Parse(line_parts[0]), Int32.Parse(line_parts[1])));
                                     break;
                                 }
                             case "<<DATA>>":
                                 {
-                                    this.Counts.Add(Int32.Parse(line));
+                                    newSpectrum.Counts.Add(Int32.Parse(line));
                                     break;
                                 }
                         } 
                     }
                 }
+                this.Counts = newSpectrum.Counts;
+                this.Peaks = newSpectrum.Peaks;
+                this.CalibrationPoints = newSpectrum.CalibrationPoints;
                 parsingResultMessage = "Load successful";
                 return true;
             } 

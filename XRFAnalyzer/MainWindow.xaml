@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XRFAnalyzer.Views.UserControls"
         xmlns:pages="clr-namespace:XRFAnalyzer.Views.Pages"
+        xmlns:converters="clr-namespace:XRFAnalyzer.Converters"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
@@ -23,7 +24,7 @@
                  
         >
     <Window.Resources>
-
+        <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
     </Window.Resources>
 
     <!--Window Layout-->
@@ -270,10 +271,81 @@
                 YLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
                 XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
                 Counts="{Binding ViewM.Counts}"
-                Peaks="{Binding ViewM.Peaks}"
+                Peaks="{Binding ViewM.Rois}"
                 IsLogarithmicToggled="{Binding ViewM.IsLogarithmicToggled}"
-               
+                SelectedPeakIndex="{Binding ViewM.SelectedPeakIndex, Mode=TwoWay}"
                 />
+
+            <StackPanel
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Visibility="{Binding ViewM.SelectedPeakIndex, Converter={StaticResource IntToVisibilityConverter}}"
+                Width="108"
+                Margin="32 16"
+                Background="Transparent"
+                Orientation="Vertical">
+                <Label
+                    x:Name="PeakHeightLabel"
+                    FontFamily="Futura"
+                    Content="{Binding LocalizationResourceManager[PeakHeightLabel]}"/>
+                <TextBlock
+                    x:Name="PeakHeightValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.Height}"/>
+                <Label
+                    x:Name="PeakApexChannelLabel"
+                    FontFamily="Futura"
+                    Content="{Binding LocalizationResourceManager[PeakApexChannelLabel]}"/>
+                <TextBlock
+                    x:Name="PeakApexChannelValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.ApexChannel}"/>
+                <Label
+                    x:Name="PeakApexEnergyLabel"
+                    Content="{Binding LocalizationResourceManager[PeakApexEnergyLabel]}"/>
+                <TextBlock
+                    x:Name="PeakApexEnergyValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.ApexEnergy}"/>
+                <Label
+                    x:Name="PeakChannelRangeLabel"
+                    Content="{Binding LocalizationResourceManager[PeakChannelRangeLabel]}"/>
+                <TextBlock
+                    x:Name="PeakChannelRangeValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.ChannelRange}"/>
+                <Label
+                    x:Name="PeakEnergyRangeLabel"
+                    Content="{Binding LocalizationResourceManager[PeakEnergyRangeLabel]}"/>
+                <TextBlock
+                    x:Name="PeakEnergyRangeValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.EnergyRange}"/>
+                <Label
+                    x:Name="PeakGrossAreaLabel"
+                    Content="{Binding LocalizationResourceManager[PeakGrossAreaLabel]}"/>
+                <TextBlock
+                    x:Name="PeakGrossAreaValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.GrossArea}"/>
+                <Label
+                    x:Name="PeakNetAreaLabel"
+                    Content="{Binding LocalizationResourceManager[PeakNetAreaLabel]}"/>
+                <TextBlock
+                    x:Name="PeakNetAreaValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.NetArea}"/>
+                
+
+            </StackPanel>
+
         </Grid>
 
 

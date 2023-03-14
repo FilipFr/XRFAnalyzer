@@ -33,6 +33,7 @@ namespace XRFAnalyzer
         {
             InitializeComponent();
             DataContext = this;
+
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -53,10 +54,12 @@ namespace XRFAnalyzer
 
         private void Load_Click(object sender, RoutedEventArgs e) 
         {
-            using var channel = GrpcChannel.ForAddress("http://localhost:50051");
-            var client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
-            var reply = client.FindPeaksMessage(new FindPeaksRequest { Counts = { 1, 2, 3 }, Prominence = 1 });
-            MessageBox.Show(reply.ToString());
+            //using var channel = GrpcChannel.ForAddress("http://localhost:50051");
+            //var client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
+            //var reply = client.FindPeaksMessage(new FindPeaksRequest { Counts = { 1, 2, 3 }, Prominence = 1 });
+            //MessageBox.Show(reply.ToString());
+
+            MessageBox.Show(PlotControl.Counts.Count.ToString());
 
 
         }

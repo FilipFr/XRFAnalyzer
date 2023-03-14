@@ -1,4 +1,5 @@
-﻿using ScottPlot;
+﻿using Google.Protobuf.Collections;
+using ScottPlot;
 using ScottPlot.Plottable;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,23 @@ namespace XRFAnalyzer.Views.UserControls
             b.SpectrumWpfPlot.Plot.Render();
         }
 
+        public static readonly DependencyProperty SelectedPeakIndexProperty = DependencyProperty.Register(
+            "SelectedPeakIndex",
+            typeof(int),
+            typeof(PlotControl),
+            new PropertyMetadata(-1, new PropertyChangedCallback(SelectedPeakIndexChanged)));
+        public int SelectedPeakIndex
+        {
+            get { return (int)GetValue(SelectedPeakIndexProperty); }
+            set { SetValue(SelectedPeakIndexProperty, value); }
+        }
+        private static void SelectedPeakIndexChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.SelectedPeakIndex = b.SelectedPeakIndex;
+            b.UpdateSignalPlot();
+        }
+
         public static readonly DependencyProperty CountsProperty = DependencyProperty.Register(
             "Counts",
             typeof(List<int>),
@@ -87,8 +105,8 @@ namespace XRFAnalyzer.Views.UserControls
         private static void CountsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
             PlotControl b = (PlotControl)a;
-            double[] values = b.Counts.Select(x => (double)x).ToArray(); 
-            b.UpdateSignalPlot();
+            double[] values = b.Counts.Select(x => (double)x).ToArray();
+            b.UpdateSignalPlot(false);
         }
 
         public static readonly DependencyProperty PeaksProperty = DependencyProperty.Register(
@@ -120,13 +138,19 @@ namespace XRFAnalyzer.Views.UserControls
         private static void IsLogarithmicToggledChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
             PlotControl b = (PlotControl)a;
-            b.UpdateSignalPlot();
+            b.UpdateSignalPlot(false);
         }
 
-        public void UpdateSignalPlot() 
+        public void UpdateSignalPlot(bool preserveAxisLimits = true)
         {
-
+            var limits = SpectrumWpfPlot.Plot.GetAxisLimits();
             SpectrumWpfPlot.Plot.Clear();
+            if (preserveAxisLimits) 
+            {
+                SpectrumWpfPlot.Plot.SetAxisLimits(limits);
+            }
+            
+
             double[] values = (IsLogarithmicToggled) ?
                 Counts.Select(y => (Math.Log10(y) == double.NegativeInfinity ? 0 : Math.Log10(y))).ToArray() :
                 Counts.Select(x => (double)x).ToArray();
@@ -141,6 +165,10 @@ namespace XRFAnalyzer.Views.UserControls
                 var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.Color = System.Drawing.Color.RebeccaPurple;
                 newSignalXY.FillAboveAndBelow(System.Drawing.Color.Red, System.Drawing.Color.Purple, 0.5);
+                if(SelectedPeakIndex >= 0 && SelectedPeakIndex < Peaks.Count && peak == Peaks[SelectedPeakIndex]) 
+                {
+                    newSignalXY.FillAboveAndBelow(System.Drawing.Color.Blue, System.Drawing.Color.Purple, 0.5);
+                }
 
             }
             if (IsLogarithmicToggled) 
@@ -155,7 +183,6 @@ namespace XRFAnalyzer.Views.UserControls
                 SpectrumWpfPlot.Plot.YAxis.TickLabelFormat(logTickLabels);
                 SpectrumWpfPlot.Plot.YAxis.MinorLogScale(false);
             }
-            SpectrumWpfPlot.Plot.AxisAuto();
             SpectrumWpfPlot.Plot.Render();
             SpectrumWpfPlot.Refresh();
         }
@@ -166,22 +193,27 @@ namespace XRFAnalyzer.Views.UserControls
             (double x, double y) = this.SpectrumWpfPlot.GetMouseCoordinates();
             double roundedX = Math.Round(x);
             double roundedY = Math.Round(y);
+            int counter = 0;
             foreach(Tuple<int,int> peak in Peaks) 
             {
                 if (roundedX <= peak.Item2  && roundedX >= peak.Item1) 
                 {
                     if(roundedY <= Counts[(int)roundedX]) 
                     {
-                        Window peakWindow = new PeakWindow();
-                        peakWindow.DataContext = this.DataContext;
-                        System.Windows.Point a = Mouse.GetPosition(Application.Current.MainWindow); ;
-                        peakWindow.Left = a.X + 100;
-                        peakWindow.Top = (a.Y - 300 < 0) ? 0 : a.Y - 300; 
-                        peakWindow.ShowDialog();
+                        SelectedPeakIndex = counter;
                         
+                        break;
                     }
                 }
+                else 
+                {
+                    SelectedPeakIndex = -1;
+                }
+                counter++;
             }
+            
+            UpdateSignalPlot();
+            
         }
     }
 }

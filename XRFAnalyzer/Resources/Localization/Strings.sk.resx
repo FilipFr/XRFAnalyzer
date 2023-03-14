@@ -150,25 +150,25 @@
   <data name="SpectrumWpfPlotXLabelAlt" xml:space="preserve">
     <value>Energia [kEv]</value>
   </data>
-  <data name="OperationMenuOption1" xml:space="preserve">
+  <data name="OperationMenuPeaksLabel" xml:space="preserve">
     <value>Píky</value>
   </data>
-  <data name="OperationMenuOption2" xml:space="preserve">
+  <data name="OperationMenuCalibrationLabel" xml:space="preserve">
     <value>Kalibrácia</value>
   </data>
-  <data name="OperationMenuOption3" xml:space="preserve">
+  <data name="OperationMenuBackgroundLabel" xml:space="preserve">
     <value>Pozadie</value>
   </data>
-  <data name="OperationMenuOption4" xml:space="preserve">
+  <data name="OperationMenuSumPeaksLabel" xml:space="preserve">
     <value>Sumačné píky</value>
   </data>
-  <data name="OperationMenuOption5" xml:space="preserve">
+  <data name="OperationMenuQualitativeAnalysisLabel" xml:space="preserve">
     <value>Kvalitatívna analýza</value>
   </data>
-  <data name="OperationMenuOption6" xml:space="preserve">
+  <data name="OperationMenuQuantitativeAnalysisLabel" xml:space="preserve">
     <value>Kvantitatívna analýza</value>
   </data>
-  <data name="OperationMenuOption7" xml:space="preserve">
+  <data name="OperationMenuDataTablesLabel" xml:space="preserve">
     <value>Tabuľky konštánt</value>
   </data>
   <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
@@ -245,5 +245,11 @@
   </data>
   <data name="FindPeaksParametersLabel" xml:space="preserve">
     <value>Parametre algoritmu pre nájdenie píkov</value>
+  </data>
+  <data name="OperationMenuFindPeaksLabel" xml:space="preserve">
+    <value>Vyhľadávanie píkov</value>
+  </data>
+  <data name="PeakInfoLabel" xml:space="preserve">
+    <value>Vlastnosti píku</value>
   </data>
 </root>

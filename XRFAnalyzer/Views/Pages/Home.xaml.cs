@@ -32,23 +32,26 @@ namespace XRFAnalyzer.Views.Pages
             {
                 switch (a.Name)
                 {
-                    case "NavigationButton1":
-                        NavigationService.GetNavigationService(this).Navigate(new Peaks());
+                    case "NavigationButtonPeaks":
+                        NavigationService.GetNavigationService(this).Navigate(new PeaksPage());
                         break;
-                    case "NavigationButton2":
-                        NavigationService.GetNavigationService(this).Navigate(new Calibration());
+                    case "NavigationButtonFindPeaks":
+                        NavigationService.GetNavigationService(this).Navigate(new FindPeaksPage());
                         break;
-                    case "NavigationButton3":
-                        NavigationService.GetNavigationService(this).Navigate(new Background());
+                    case "NavigationButtonCalibration":
+                        NavigationService.GetNavigationService(this).Navigate(new CalibrationPage());
                         break;
-                    case "NavigationButton4":
-                        NavigationService.GetNavigationService(this).Navigate(new SumPeaks());
+                    case "NavigationButtonBackground":
+                        NavigationService.GetNavigationService(this).Navigate(new BackgroundPage());
                         break;
-                    case "NavigationButton5":
-                        NavigationService.GetNavigationService(this).Navigate(new QualitativeAnalysis());
+                    case "NavigationButtonSumPeaks":
+                        NavigationService.GetNavigationService(this).Navigate(new SumPeaksPage());
                         break;
-                    case "NavigationButton6":
-                        NavigationService.GetNavigationService(this).Navigate(new QuantitativeAnalysis());
+                    case "NavigationButtonQualitativeAnalysis":
+                        NavigationService.GetNavigationService(this).Navigate(new QualitativeAnalysisPage());
+                        break;
+                    case "NavigationButtonQuantitativeAnalysis":
+                        NavigationService.GetNavigationService(this).Navigate(new QuantitativeAnalysisPage());
                         break;
 
                 }

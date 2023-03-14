@@ -6,7 +6,46 @@
              xmlns:local="clr-namespace:XRFAnalyzer.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <ScrollViewer Background="White">
+        <StackPanel
+            Orientation="Vertical">
+            <Label
+                x:Name="PeakHeightLabel"
+                Content="{Binding LocalizationResourceManager[PeakHeightLabel]}"/>
+            <TextBlock
+                x:Name="PeakHeightValue"
+                Text="32102"/>
+            <Label
+                x:Name="PeakApexChannelLabel"
+                Content="{Binding LocalizationResourceManager[PeakApexChannelLabel]}"/>
+            <TextBlock
+                x:Name="PeakApexChannelValue"/>
+            <Label
+                x:Name="PeakApexEnergyLabel"
+                Content="{Binding LocalizationResourceManager[PeakApexEnergyLabel]}"/>
+            <TextBlock
+                x:Name="PeakApexEnergyValue"/>
+            <Label
+                x:Name="PeakChannelRangeLabel"
+                Content="{Binding LocalizationResourceManager[PeakChannelRangeLabel]}"/>
+            <TextBlock
+                x:Name="PeakChannelRangeValue"/>
+            <Label
+                x:Name="PeakEnergyRangeLabel"
+                Content="{Binding LocalizationResourceManager[PeakEnergyRangeLabel]}"/>
+            <TextBlock
+                x:Name="PeakEnergyRangeValue"/>
+            <Label
+                x:Name="PeakGrossAreaLabel"
+                Content="{Binding LocalizationResourceManager[PeakGrossAreaLabel]}"/>
+            <TextBlock
+                x:Name="PeakGrossAreaValue"/>
+            <Label
+                x:Name="PeakNetAreaLabel"
+                Content="{Binding LocalizationResourceManager[PeakNetAreaLabel]}"/>
+            <TextBlock
+                x:Name="PeakNetAreaValue"/>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using XRFAnalyzer.Processes.Client;
 using XRFAnalyzer.ViewModels;
 
 namespace XRFAnalyzer
@@ -20,6 +21,7 @@ namespace XRFAnalyzer
     {
         App() 
         {
+            XRFAnalyzerGrpcClient xRFAnalyzerGrpcClient = new XRFAnalyzerGrpcClient();
         }
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -32,6 +34,7 @@ namespace XRFAnalyzer
             processInfo.CreateNoWindow = true;
             processInfo.UseShellExecute = false;
             Process.Start(processInfo);
+
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel()

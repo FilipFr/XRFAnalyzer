@@ -15,66 +15,76 @@
         Panel.ZIndex="2">
 
         <Button
-            x:Name="NavigationButton1"
+            x:Name="NavigationButtonPeaks"
             Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption1]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuPeaksLabel]}"/>
         </Button>
-        
+
         <Button
-            x:Name="NavigationButton2"
+            x:Name="NavigationButtonFindPeaks"
             Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption2]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuFindPeaksLabel]}"/>
+        </Button>
+
+        <Button
+            x:Name="NavigationButtonCalibration"
+            Style="{StaticResource OperationMenuButton}">
+            <controls:MenuButtonContent 
+                    PackIconStyle="{StaticResource OperationPackIconStyle}"
+                    PackIconKind="Menuright"
+                    LabelStyle="{StaticResource OperationMenuButtonLabel}"
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuCalibrationLabel]}"/>
         </Button>
         <Button
-            x:Name="NavigationButton3"
+            x:Name="NavigationButtonBackground"
             Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"                
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption3]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuBackgroundLabel]}"/>
         </Button>
         <Button 
-            x:Name="NavigationButton4"
+            x:Name="NavigationButtonSumPeaks"
             Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"                
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption4]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuSumPeaksLabel]}"/>
         </Button>
         <Button 
-            x:Name="NavigationButton5"
+            x:Name="NavigationButtonQualitativeAnalysis"
             Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"                
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption5]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuQualitativeAnalysisLabel]}"/>
         </Button>
         <Button 
-            x:Name="NavigationButton6"
+            x:Name="NavigationButtonQuantitativeAnalysis"
             Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"                
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption6]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuQuantitativeAnalysisLabel]}"/>
         </Button>
         <Button Style="{StaticResource OperationMenuButton}">
             <controls:MenuButtonContent 
                     PackIconStyle="{StaticResource OperationPackIconStyle}"                
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuOption7]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuDataTablesLabel]}"/>
         </Button>
 
     </StackPanel>
