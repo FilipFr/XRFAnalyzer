@@ -8,7 +8,6 @@
         xmlns:converters="clr-namespace:XRFAnalyzer.Converters"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
         mc:Ignorable="d"
         Title="XRFAnalyzer"
         TitleCharacterCasing="Normal"
@@ -37,7 +36,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="64"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="360"/>
+            <ColumnDefinition Width="352"/>
         </Grid.ColumnDefinitions>
 
         <!--Side Navigation Menu Container-->
@@ -272,6 +271,7 @@
                 XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
                 Counts="{Binding ViewM.Counts}"
                 Peaks="{Binding ViewM.Rois}"
+                FoundRois="{Binding ViewM.FoundRois}"
                 IsLogarithmicToggled="{Binding ViewM.IsLogarithmicToggled}"
                 SelectedPeakIndex="{Binding ViewM.SelectedPeakIndex, Mode=TwoWay}"
                 />
@@ -282,7 +282,7 @@
                 Visibility="{Binding ViewM.SelectedPeakIndex, Converter={StaticResource IntToVisibilityConverter}}"
                 Width="108"
                 Margin="32 16"
-                Background="Transparent"
+                Background="#55F5F5AA"
                 Orientation="Vertical">
                 <Label
                     x:Name="PeakHeightLabel"

@@ -125,6 +125,22 @@ namespace XRFAnalyzer.Views.UserControls
             b.UpdateSignalPlot();
         }
 
+        public static readonly DependencyProperty FoundRoisProperty = DependencyProperty.Register(
+            "FoundRois",
+            typeof(List<Tuple<int, int>>),
+            typeof(PlotControl),
+            new PropertyMetadata(new List<Tuple<int, int>>(), new PropertyChangedCallback(FoundRoisChanged)));
+        public List<Tuple<int, int>> FoundRois
+        {
+            get { return (List<Tuple<int, int>>)GetValue(FoundRoisProperty); }
+            set { SetValue(FoundRoisProperty, value); }
+        }
+        private static void FoundRoisChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.UpdateSignalPlot();
+        }
+
         public static readonly DependencyProperty IsLogarithmicToggledProperty = DependencyProperty.Register(
             "IsLogarithmicToggled",
             typeof(bool),
@@ -169,7 +185,13 @@ namespace XRFAnalyzer.Views.UserControls
                 {
                     newSignalXY.FillAboveAndBelow(System.Drawing.Color.Blue, System.Drawing.Color.Purple, 0.5);
                 }
-
+                foreach(Tuple<int, int> foundRoi in FoundRois) 
+                {
+                    Xs = Enumerable.Range(foundRoi.Item1, foundRoi.Item2 - foundRoi.Item1).Select(x => (double)x).ToArray();
+                    Ys = values.Skip(foundRoi.Item1).Take(foundRoi.Item2 - foundRoi.Item1).ToArray();
+                    newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
+                    newSignalXY.FillAboveAndBelow(System.Drawing.Color.RebeccaPurple, System.Drawing.Color.Purple, 0.5);
+                }
             }
             if (IsLogarithmicToggled) 
             {

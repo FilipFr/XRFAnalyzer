@@ -6,16 +6,26 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:XRFAnalyzer.Views.Pages"
       xmlns:controls="clr-namespace:XRFAnalyzer.Views.UserControls"
+      xmlns:converters="clr-namespace:XRFAnalyzer.Converters"
       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      
       mc:Ignorable="d" 
-      d:DesignHeight="704" d:DesignWidth="280"
+      d:DesignHeight="704" d:DesignWidth="352"
       Title="Peaks">
+    <Page.Resources>
+        <converters:DecrementIntConverter x:Key="DecrementIntConverter"/>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource LightThemePrimaryColor}"/>
+        </Style>
+    </Page.Resources>
 
     <Grid Background="{StaticResource LightThemeSecondaryColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
+            <RowDefinition Height="144"/>
             <RowDefinition Height="64"/>
-            <RowDefinition Height="288"/>
+            <RowDefinition Height="192"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -37,110 +47,57 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0">Left base channel</Label>
+            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="24,0,0,0">Right base channel</Label>
             <mah:NumericUpDown
                 Value="{Binding ViewM.RoiLeftBoundary}"
-                Grid.Column="0"></mah:NumericUpDown>
+                Minimum="0"
+                Maximum="{Binding ViewM.MaxChannel}"
+                Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="32"></mah:NumericUpDown>
             <mah:NumericUpDown
+                x:Name="RightPeakBase"
+                Minimum="0"
+                Maximum="{Binding ViewM.MaxChannel}"
                 Value="{Binding ViewM.RoiRightBoundary}"
-                Grid.Column="1"></mah:NumericUpDown>
-            <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding ViewM.AddPeakCommand}">
-                
+                Grid.Row="1" Grid.Column= "2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="80"></mah:NumericUpDown>
+            <Button 
+                Grid.Row="2" 
+                Grid.ColumnSpan="2" 
+                Command="{Binding ViewM.AddPeakCommand}" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Width="112" Height="32"
+                Padding="0">
+                <controls:MenuButtonContent
+                    PackIconKind="Plusbold"
+                    LabelContent="Add Peak"
+                    />
             </Button>
 
         </Grid>
         <Grid
-            Grid.Row="2"
-            Background="{DynamicResource LightThemeSecondaryColorHighlight}"
+            Grid.Row="3"
             Panel.ZIndex="2"
             >
             <Grid.RowDefinitions>
-                <RowDefinition Height="72"/>
-                <RowDefinition Height="72"/>
-                <RowDefinition Height="72"/>
-                <RowDefinition Height="72"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel 
+            <DockPanel 
                 Grid.Row="0" Grid.Column="0"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksHeightLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksHeight}"
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksHeight"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.Height}"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="0" Grid.Column="1"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksThresholdLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksThreshold}"
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksThreshold"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.Threshold}"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="1" Grid.Column="0"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksDistanceLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksDistance}"
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksDistance"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.Distance}"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="1" Grid.Column="1"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksPlateauSizeLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksPlateauSize}"
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksPlateauSize"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.PlateauSize}"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="2" Grid.Column="0"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
+                Grid.ColumnSpan="4"
+                Margin="16 0">
+                <DockPanel
+                    DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label
                         DockPanel.Dock="Left"
                         Content="{Binding LocalizationResourceManager[FindPeaksProminenceLabel]}"/>
@@ -150,75 +107,115 @@
                         HideUpDownButtons="True"
                         HorizontalAlignment="Right"/>
                 </DockPanel>
-                <Slider 
+                <Slider
+                    DockPanel.Dock="Bottom"
+                    Margin="0"
+                    Padding="0"
+                    Minimum="30"
+                    Maximum="500"
+                    VerticalAlignment="Center"
                     x:Name="FindPeaksProminence"
                     Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.Prominence}"/>
+                    Value="{Binding ViewM.FindPeaksDTO.Prominence}">
+
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=FindPeaksProminence}">
+                            <behaviors:InvokeCommandAction Command="{Binding ViewM.GetFindPeaksMessageCommand}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </Slider>
+                
+            </DockPanel>
+            <StackPanel 
+                Grid.Row="1" Grid.Column="0"
+                
+                >
+                <Label
+                    Content="{Binding LocalizationResourceManager[FindPeaksHeightLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    Value="{Binding ViewM.FindPeaksDTO.Height}"
+                    HideUpDownButtons="True"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel 
+                Grid.Row="1" Grid.Column="1"
+                >
+                <Label
+                    DockPanel.Dock="Left"
+                    Content="{Binding LocalizationResourceManager[FindPeaksThresholdLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    DockPanel.Dock="Right"
+                    Value="{Binding ViewM.FindPeaksDTO.Threshold}"
+                    HideUpDownButtons="True"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1" Grid.Column="2">
+                <Label
+                    DockPanel.Dock="Left"
+                    Content="{Binding LocalizationResourceManager[FindPeaksDistanceLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    DockPanel.Dock="Right"
+                    Value="{Binding ViewM.FindPeaksDTO.Distance}"
+                    HideUpDownButtons="True"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1" Grid.Column="3"
+                >
+                <Label
+                    DockPanel.Dock="Left"
+                    Content="{Binding LocalizationResourceManager[FindPeaksWidthLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    DockPanel.Dock="Right"
+                    Value="{Binding ViewM.FindPeaksDTO.Width}"
+                        
+                    HideUpDownButtons="True"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel 
+                Grid.Row="2" Grid.Column="0"
+                >
+                <Label
+                    DockPanel.Dock="Left"
+                    Content="{Binding LocalizationResourceManager[FindPeaksWLenLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    DockPanel.Dock="Right"
+                    Value="{Binding ViewM.FindPeaksDTO.WLen}"
+                    HideUpDownButtons="True"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel 
                 Grid.Row="2" Grid.Column="1"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8" >
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksWLenLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksWLen}"
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksWLen"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.WLen}"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="3" Grid.Column="0"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksWidthLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksWidth}"
-                        
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksWidth"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.Width}"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="3" Grid.Column="1"
-                Margin="8">
-                <DockPanel Margin="0 0 0 8">
-                    <Label
-                        DockPanel.Dock="Left"
-                        Content="{Binding LocalizationResourceManager[FindPeaksRelHeightLabel]}"/>
-                    <mah:NumericUpDown
-                        DockPanel.Dock="Right"
-                        Value="{Binding Value, ElementName=FindPeaksRelHeight}"
-                        StringFormat="N1"
-                        HideUpDownButtons="True"
-                        HorizontalAlignment="Right"/>
-                </DockPanel>
-                <Slider 
-                    x:Name="FindPeaksRelHeight"
-                    Style="{DynamicResource MahApps.Metro.Slider}"
-                    Minimum="0"
+                >
+                <Label
+                    DockPanel.Dock="Left"
+                    Content="{Binding LocalizationResourceManager[FindPeaksRelHeightLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    DockPanel.Dock="Right"
+                    Minimum="0.1"
                     Maximum="1"
-                    IsSnapToTickEnabled="True"
-                    TickFrequency="0.1"
-                    Value="{Binding ViewM.FindPeaksDTO.RelHeight}"/>
+                    Value="{Binding ViewM.FindPeaksDTO.RelHeight}"
+                    StringFormat="N1"
+                    HideUpDownButtons="True"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
-        </Grid>
-       
+            <StackPanel 
+                Grid.Row="2" Grid.Column="2"
+                >
+                <Label
+                    DockPanel.Dock="Left"
+                    Content="{Binding LocalizationResourceManager[FindPeaksPlateauSizeLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <mah:NumericUpDown
+                    DockPanel.Dock="Right"
+                    Value="{Binding ViewM.FindPeaksDTO.PlateauSize}"
+                    HideUpDownButtons="True"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
             <Button 
-                Grid.Row="3"
+                Grid.Row="3" Grid.Column="0"
+                Grid.ColumnSpan="4"
                 x:Name="AddCalibrationPointButton"
                 Margin="8"
                 Height="32"
@@ -226,16 +223,18 @@
                 Command="{Binding ViewM.GetFindPeaksMessageCommand}">
                 <controls:MenuButtonContent LabelContent="Add found peaks" PackIconKind="Plus"/>
             </Button>
-            <Button
+        </Grid>
+
+        <Button
                 Grid.Row="4"
                 Margin="8"
                 Height="32"
                 Background="{StaticResource LightThemeAccentColor}"
                 Command="{Binding ViewM.RemoveSelectedPeakCommand}">
-                <controls:MenuButtonContent
+            <controls:MenuButtonContent
                     PackIconKind="Removebold"
                     LabelContent="Remove peak"/>
-            </Button>
+        </Button>
 
     </Grid>
 </Page>

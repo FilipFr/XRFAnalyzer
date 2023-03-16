@@ -22,9 +22,9 @@ namespace XRFAnalyzer.Models.DTOs
         [ObservableProperty]
         private int _width;
         [ObservableProperty]
-        private int _wLen;
+        private int _wLen = 10;
         [ObservableProperty]
-        private double _relHeight;
+        private double _relHeight = 1;
         [ObservableProperty]
         private int _plateauSize;
 

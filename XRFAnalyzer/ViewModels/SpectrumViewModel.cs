@@ -58,6 +58,8 @@ namespace XRFAnalyzer.ViewModels
         private int _roiLeftBoundary = 0;
         [ObservableProperty]
         private int _roiRightBoundary = 0;
+        [ObservableProperty]
+        private List<Tuple<int, int>> _foundRois;
 
         
         private int _selectedPeakIndex;
@@ -104,6 +106,8 @@ namespace XRFAnalyzer.ViewModels
             Elements = GetElementsData();
             MaxChannel = GetMaxChannel();
             FindPeaksDTO = new();
+            FoundRois = new();
+
         }
 
         private void RemoveSelectedPeak()
@@ -127,7 +131,7 @@ namespace XRFAnalyzer.ViewModels
             }
             else 
             {
-                MessageBox.Show("Error: Peak should be wider than one channel.");
+                MessageBox.Show("Error: Left base channel cannot be greater or equal to right base channel");
             }
         }
 
@@ -152,7 +156,7 @@ namespace XRFAnalyzer.ViewModels
                 {
                     this.Counts = new(Spectrum.Counts);
                     MaxChannel = GetMaxChannel();
-                    FindPeaksDTO.Counts = new(Spectrum.Counts);
+                    FindPeaksDTO.Counts = Spectrum.Counts;
                     foreach(int channel in Spectrum.CalibrationPoints.Keys) 
                     {
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
@@ -237,19 +241,35 @@ namespace XRFAnalyzer.ViewModels
 
         private void GetFindPeaksMessage() 
         {
-            var reply = client.FindPeaksMessage(new FindPeaksRequest 
-            { 
-                Counts = { 1, 2, 3, 2, 1 }, 
-                Height = 0, 
-                Threshold = 0,
-                Distance = 0,
-                Prominence = 0,
-                Width = 0,
-                Wlen = 0,
-                RelHeight = 0,
-                PlateauSize = 0 
+            var reply = client.FindPeaksMessage(new FindPeaksRequest
+            {
+                Counts = { FindPeaksDTO.Counts },
+                Height = FindPeaksDTO.Height,
+                Threshold = FindPeaksDTO.Threshold,
+                Distance = FindPeaksDTO.Distance,
+                Prominence = FindPeaksDTO.Prominence,
+                Width = FindPeaksDTO.Width,
+                Wlen = FindPeaksDTO.WLen,
+                RelHeight = FindPeaksDTO.RelHeight,
+                PlateauSize = FindPeaksDTO.PlateauSize
             });
-            MessageBox.Show(reply.ToString());
+            if (reply != null
+                && reply.Peaks != null
+                && reply.LeftBases != null
+                && reply.RightBases != null
+                && reply.Peaks.Count > 0
+                && reply.RightBases.Count == reply.LeftBases.Count
+                && reply.Peaks.Count == reply.LeftBases.Count) 
+            {
+                FoundRois = new();
+                List<Tuple<int,int>> roisToAdd = new();
+                for (int i = 0; i < reply.Peaks.Count; i++) 
+                {
+                    roisToAdd.Add(new(reply.LeftBases[i], reply.RightBases[i]));
+                    SelectedPeakIndex = Peaks.Count;
+                }
+                FoundRois = roisToAdd;
+            }
         }
     }
 }
