@@ -286,6 +286,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add or remove peaks.
+        /// </summary>
+        internal static string OperationMenuAddOrRemovePeaksLabel {
+            get {
+                return ResourceManager.GetString("OperationMenuAddOrRemovePeaksLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Background.
         /// </summary>
         internal static string OperationMenuBackgroundLabel {
@@ -309,15 +318,6 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string OperationMenuDataTablesLabel {
             get {
                 return ResourceManager.GetString("OperationMenuDataTablesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Find peaks.
-        /// </summary>
-        internal static string OperationMenuFindPeaksLabel {
-            get {
-                return ResourceManager.GetString("OperationMenuFindPeaksLabel", resourceCulture);
             }
         }
         

@@ -31,7 +31,7 @@
                     PackIconStyle="{StaticResource OperationPackIconStyle}"
                     PackIconKind="Menuright"
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuFindPeaksLabel]}"/>
+                    LabelContent="{Binding LocalizationResourceManager[OperationMenuAddOrRemovePeaksLabel]}"/>
         </Button>
 
         <Button

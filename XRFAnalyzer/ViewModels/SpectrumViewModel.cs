@@ -102,6 +102,7 @@ namespace XRFAnalyzer.ViewModels
             RemoveSelectedPeakCommand = new Command(() => RemoveSelectedPeak());
             AddPeakCommand = new Command(() => AddPeak());
             GetFindPeaksMessageCommand = new Command(() => GetFindPeaksMessage());
+            AddFoundPeaksCommand = new Command(() => AddFoundPeaks());
             SelectedPeakIndex = -1;
             Elements = GetElementsData();
             MaxChannel = GetMaxChannel();
@@ -140,6 +141,7 @@ namespace XRFAnalyzer.ViewModels
         public ICommand RemoveSelectedPeakCommand { get; set; }
         public ICommand AddPeakCommand { get; set; }
         public ICommand GetFindPeaksMessageCommand { get; set; }
+        public ICommand AddFoundPeaksCommand { get; set; }
 
 
         private void LoadSpectrum()
@@ -268,8 +270,27 @@ namespace XRFAnalyzer.ViewModels
                     roisToAdd.Add(new(reply.LeftBases[i], reply.RightBases[i]));
                     SelectedPeakIndex = Peaks.Count;
                 }
+                SelectedPeakIndex = -1;
                 FoundRois = roisToAdd;
             }
+        }
+        public void AddFoundPeaks() 
+        {
+            if (FoundRois == null || FoundRois.Count == 0) 
+            {
+                return;
+            }
+            foreach (Tuple<int,int> roi in FoundRois) 
+            {
+                if (!Rois.Contains(roi)) 
+                { 
+                    Rois.Add(roi);
+                    Peaks.Add(Peak.GetPeakFromRoi(Spectrum, roi));
+                }
+            }
+            FoundRois.Clear();
+            SelectedPeakIndex = -999;
+            SelectedPeakIndex = -1;
         }
     }
 }

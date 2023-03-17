@@ -36,7 +36,7 @@
                 PackIconStyle="{StaticResource OperationPackIconStyle}"
                 PackIconKind="Arrowleftthick"
                 LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                LabelContent="{Binding LocalizationResourceManager[OperationMenuFindPeaksLabel]}"/>
+                LabelContent="{Binding LocalizationResourceManager[OperationMenuAddOrRemovePeaksLabel]}"/>
         </Button>
         <Grid
             Grid.Row="1">
@@ -202,7 +202,7 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel 
-                Grid.Row="2" Grid.Column="2"
+                Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                 >
                 <Label
                     DockPanel.Dock="Left"
@@ -220,7 +220,7 @@
                 Margin="8"
                 Height="32"
                 Padding="0"
-                Command="{Binding ViewM.GetFindPeaksMessageCommand}">
+                Command="{Binding ViewM.AddFoundPeaksCommand}">
                 <controls:MenuButtonContent LabelContent="Add found peaks" PackIconKind="Plus"/>
             </Button>
         </Grid>
@@ -229,6 +229,7 @@
                 Grid.Row="4"
                 Margin="8"
                 Height="32"
+                Padding="0"
                 Background="{StaticResource LightThemeAccentColor}"
                 Command="{Binding ViewM.RemoveSelectedPeakCommand}">
             <controls:MenuButtonContent

@@ -247,8 +247,8 @@
   <data name="FindPeaksParametersLabel" xml:space="preserve">
     <value>Peak detection algorithm parameters</value>
   </data>
-  <data name="OperationMenuFindPeaksLabel" xml:space="preserve">
-    <value>Find peaks</value>
+  <data name="OperationMenuAddOrRemovePeaksLabel" xml:space="preserve">
+    <value>Add or remove peaks</value>
   </data>
   <data name="PeakInfoLabel" xml:space="preserve">
     <value>Peak properties</value>

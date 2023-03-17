@@ -246,8 +246,8 @@
   <data name="FindPeaksParametersLabel" xml:space="preserve">
     <value>Parametre algoritmu pre nájdenie píkov</value>
   </data>
-  <data name="OperationMenuFindPeaksLabel" xml:space="preserve">
-    <value>Vyhľadávanie píkov</value>
+  <data name="OperationMenuAddOrRemovePeaksLabel" xml:space="preserve">
+    <value>Pridať alebo odstrániť píky</value>
   </data>
   <data name="PeakInfoLabel" xml:space="preserve">
     <value>Vlastnosti píku</value>
