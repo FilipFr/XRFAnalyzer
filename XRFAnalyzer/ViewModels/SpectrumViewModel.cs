@@ -18,6 +18,8 @@ using XRFAnalyzer.Models.DTOs;
 using XRFAnalyzer.ViewModels.Commands;
 using Grpc.Net.Client;
 using Grpc.Core;
+using MahApps.Metro.Converters;
+using System.Collections.Specialized;
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -37,8 +39,6 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private List<Peak> _peaks;
         [ObservableProperty]
-        private ObservableCollection<CalibrationRow> _calibrationRows;
-        [ObservableProperty]
         private bool _isLoaded;
         [ObservableProperty]
         private bool _isCalibrated;
@@ -48,6 +48,8 @@ namespace XRFAnalyzer.ViewModels
         private bool _isPeakSelected;
         [ObservableProperty]
         private List<Element> _elements;
+        [ObservableProperty]
+        private ObservableCollection<CalibrationRow> _calibrationRows;
         [ObservableProperty]
         private CalibrationRow _currentCalibrationRow;
         [ObservableProperty]
@@ -60,7 +62,27 @@ namespace XRFAnalyzer.ViewModels
         private int _roiRightBoundary = 0;
         [ObservableProperty]
         private List<Tuple<int, int>> _foundRois;
+        [ObservableProperty]
+        private ObservableCollection<Tuple<int, double>> _calibrationPoints;
 
+        private int _calibrationSwitch;
+        public int CalibrationSwitch 
+        {
+            get { return _calibrationSwitch; }
+            set 
+            { 
+                _calibrationSwitch = value;
+                OnPropertyChanged();
+                if (CalibrationRows != null && CalibrationRows.Count > 1)
+                {
+                    CalibrationPoints = new();
+                    foreach (var row in CalibrationRows) 
+                    {
+                        _calibrationPoints.Add(new(row.Channel, row.Energy));
+                    }
+                }
+            }
+        }
         
         private int _selectedPeakIndex;
         public int SelectedPeakIndex
@@ -93,6 +115,7 @@ namespace XRFAnalyzer.ViewModels
             Counts = Spectrum.Counts;
             Rois = Spectrum.Peaks;
             CalibrationRows = new();
+            CalibrationRows.CollectionChanged += OnCollectionChanged;
             CurrentCalibrationRow = new();
             IsLoaded = false;
             IsCalibrated = false;
@@ -108,7 +131,17 @@ namespace XRFAnalyzer.ViewModels
             MaxChannel = GetMaxChannel();
             FindPeaksDTO = new();
             FoundRois = new();
+            CalibrationPoints = new();
+        }
 
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            _calibrationPoints = new();
+            foreach(var row in CalibrationRows) 
+            {
+                CalibrationPoints.Add(new(row.Channel, row.Energy));
+            }
+            
         }
 
         private void RemoveSelectedPeak()

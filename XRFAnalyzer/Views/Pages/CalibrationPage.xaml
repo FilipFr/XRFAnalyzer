@@ -16,6 +16,7 @@
     <Grid Background="{StaticResource LightThemeSecondaryColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button 
@@ -148,5 +149,11 @@
                 <controls:MenuButtonContent LabelContent="Add new" PackIconKind="Plus"/>
             </Button>
         </StackPanel>
+        <Grid Grid.Row="2">
+            <controls:LinearRegressionPlotControl
+                YLabels="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
+                XLabels="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
+                CalibrationPoints="{Binding ViewM.CalibrationPoints}"></controls:LinearRegressionPlotControl>
+        </Grid>
     </Grid>
 </Page>
