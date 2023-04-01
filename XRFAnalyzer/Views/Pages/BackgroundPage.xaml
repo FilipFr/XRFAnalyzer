@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:XRFAnalyzer.Views.Pages"
       xmlns:controls="clr-namespace:XRFAnalyzer.Views.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="768" d:DesignWidth="320"
       Title="BackgroundPage">
 
     <Grid Background="{StaticResource LightThemeSecondaryColor}">
@@ -28,6 +28,23 @@
             Background="{DynamicResource LightThemeSecondaryColorHighlight}"
             Panel.ZIndex="2"
             >
+            <Slider
+                    DockPanel.Dock="Bottom"
+                    Margin="0"
+                    Padding="0"
+                    Minimum="30"
+                    Maximum="500"
+                    VerticalAlignment="Center"
+                    x:Name="FindPeaksProminence"
+                    Style="{DynamicResource MahApps.Metro.Slider}" 
+                    Value="{Binding ViewM.FindPeaksDTO.Prominence}">
+
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=FindPeaksProminence}">
+                        <behaviors:InvokeCommandAction Command="{Binding ViewM.GetFindPeaksMessageCommand}"/>
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </Slider>
         </Grid>
     </Grid>
 </Page>

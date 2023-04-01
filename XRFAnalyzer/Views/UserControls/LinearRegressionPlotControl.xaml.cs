@@ -68,7 +68,7 @@ namespace XRFAnalyzer.Views.UserControls
             "CalibrationPoints",
             typeof(ObservableCollection<Tuple<int, double>>),
             typeof(LinearRegressionPlotControl),
-            new PropertyMetadata("Channel", new PropertyChangedCallback(CalibrationPointsChanged)));
+            new PropertyMetadata(new ObservableCollection<Tuple<int, double>>(), new PropertyChangedCallback(CalibrationPointsChanged)));
         public ObservableCollection<Tuple<int, double>> CalibrationPoints
         {
             get { return (ObservableCollection<Tuple<int, double>>)GetValue(CalibrationPointsProperty); }
@@ -85,8 +85,8 @@ namespace XRFAnalyzer.Views.UserControls
             {
                 foreach (Tuple<int, double> kvp in b.CalibrationPoints)
                 {
-                    Xs.Append(kvp.Item1);
-                    Ys.Append(kvp.Item2);
+                    Xs=Xs.Append(kvp.Item1).ToArray();
+                    Ys=Ys.Append(kvp.Item2).ToArray();
                     X1 = Xs[0];
                     X2 = Xs[Xs.Length - 1];
                 }
@@ -97,6 +97,7 @@ namespace XRFAnalyzer.Views.UserControls
                     $"(R² = {model.rSquared:0.0000})");
                 b.LinearRegressionWpfPlot.Plot.AddScatter(Xs, Ys, lineWidth: 0);
                 b.LinearRegressionWpfPlot.Plot.AddLine(model.slope, model.offset, (X1, X2), lineWidth: 2);
+                b.LinearRegressionWpfPlot.Refresh();
                 b.LinearRegressionWpfPlot.Plot.Render();
             }
             else { b.LinearRegressionWpfPlot.Plot.Clear(); }

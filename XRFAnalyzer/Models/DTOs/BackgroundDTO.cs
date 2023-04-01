@@ -18,7 +18,7 @@ namespace XRFAnalyzer.Models.DTOs
 
         public BackgroundDTO() 
         {
-            _counts = new List<int>();
+            Counts = new();
         }
     }
 }

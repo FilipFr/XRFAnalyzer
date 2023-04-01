@@ -153,7 +153,7 @@
             <controls:LinearRegressionPlotControl
                 YLabels="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
                 XLabels="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
-                CalibrationPoints="{Binding ViewM.CalibrationPoints}"></controls:LinearRegressionPlotControl>
+                CalibrationPoints="{Binding ViewM.CalibrationPoints, Mode=TwoWay}"></controls:LinearRegressionPlotControl>
         </Grid>
     </Grid>
 </Page>

@@ -4,6 +4,7 @@ option csharp_namespace="XRFAnalyzer";
 
 service XRFAnalyzerService {
   rpc FindPeaksMessage (FindPeaksRequest) returns (FindPeaksReply);
+  rpc BackgroundMessage (BackgroundRequest) returns (BackgroundReply);
 }
 
 message FindPeaksRequest {
@@ -22,4 +23,14 @@ message FindPeaksReply {
   repeated int32 peaks = 1;
   repeated int32 left_bases = 2;
   repeated int32 right_bases = 3;
+}
+
+message BackgroundRequest {
+	repeated int32 counts = 1;
+	int32 lambda = 2;
+	int32 iterations = 3;
+}
+
+message BackgroundReply {
+	repeated int32 background = 1;
 }

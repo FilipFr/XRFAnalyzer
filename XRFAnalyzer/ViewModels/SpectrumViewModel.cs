@@ -64,6 +64,8 @@ namespace XRFAnalyzer.ViewModels
         private List<Tuple<int, int>> _foundRois;
         [ObservableProperty]
         private ObservableCollection<Tuple<int, double>> _calibrationPoints;
+        [ObservableProperty]
+        private List<int> _background;
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -136,12 +138,12 @@ namespace XRFAnalyzer.ViewModels
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            _calibrationPoints = new();
+
             foreach(var row in CalibrationRows) 
             {
                 CalibrationPoints.Add(new(row.Channel, row.Energy));
             }
-            
+            OnPropertyChanged(nameof(CalibrationPoints));
         }
 
         private void RemoveSelectedPeak()
