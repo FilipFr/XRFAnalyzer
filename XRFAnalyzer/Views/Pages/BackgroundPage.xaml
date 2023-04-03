@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XRFAnalyzer.Views.Pages"
       xmlns:controls="clr-namespace:XRFAnalyzer.Views.UserControls"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="320"
       Title="BackgroundPage">
@@ -28,23 +30,40 @@
             Background="{DynamicResource LightThemeSecondaryColorHighlight}"
             Panel.ZIndex="2"
             >
-            <Slider
-                    DockPanel.Dock="Bottom"
-                    Margin="0"
-                    Padding="0"
-                    Minimum="30"
-                    Maximum="500"
+            <StackPanel>
+                <DockPanel
+                Width="280"
+                Height="64"
+                VerticalAlignment="Top">
+                    <Label 
+                        DockPanel.Dock="Left"
+                        Foreground="WhiteSmoke"
+                        VerticalAlignment="Center"
+                        Content="{Binding LocalizationResourceManager[ZhangFitSmoothnessLabel]}"/>
+                    <mah:NumericUpDown 
+                    DockPanel.Dock="Right" 
+                    HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    x:Name="FindPeaksProminence"
-                    Style="{DynamicResource MahApps.Metro.Slider}" 
-                    Value="{Binding ViewM.FindPeaksDTO.Prominence}">
-
-                <behaviors:Interaction.Triggers>
-                    <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=FindPeaksProminence}">
-                        <behaviors:InvokeCommandAction Command="{Binding ViewM.GetFindPeaksMessageCommand}"/>
-                    </behaviors:EventTrigger>
-                </behaviors:Interaction.Triggers>
-            </Slider>
+                    Margin="20" 
+                    Width="96" Height="48"/>
+                </DockPanel>
+                <DockPanel
+                Width="280"
+                Height="64"
+                VerticalAlignment="Top">
+                    <Label 
+                    DockPanel.Dock="Left"
+                    Foreground="WhiteSmoke"
+                    VerticalAlignment="Center"
+                    Content="{Binding LocalizationResourceManager[ZhangFitIterationsLabel]}"/>
+                    <mah:NumericUpDown 
+                    DockPanel.Dock="Right" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="20" 
+                    Width="96" Height="48"/>
+                </DockPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

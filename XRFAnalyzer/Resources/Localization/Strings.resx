@@ -253,4 +253,10 @@
   <data name="PeakInfoLabel" xml:space="preserve">
     <value>Peak properties</value>
   </data>
+  <data name="ZhangFitSmoothnessLabel" xml:space="preserve">
+    <value>Smoothness (Lambda)</value>
+  </data>
+  <data name="ZhangFitIterationsLabel" xml:space="preserve">
+    <value>Iterations</value>
+  </data>
 </root>

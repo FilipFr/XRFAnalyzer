@@ -464,5 +464,23 @@ namespace XRFAnalyzer.Resources.Localization {
                 return ResourceManager.GetString("XAxisUnitToggleLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iterations.
+        /// </summary>
+        internal static string ZhangFitIterationsLabel {
+            get {
+                return ResourceManager.GetString("ZhangFitIterationsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smoothness (Lambda).
+        /// </summary>
+        internal static string ZhangFitSmoothnessLabel {
+            get {
+                return ResourceManager.GetString("ZhangFitSmoothnessLabel", resourceCulture);
+            }
+        }
     }
 }

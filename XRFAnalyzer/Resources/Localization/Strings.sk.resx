@@ -252,4 +252,10 @@
   <data name="PeakInfoLabel" xml:space="preserve">
     <value>Vlastnosti píku</value>
   </data>
+  <data name="ZhangFitSmoothnessLabel" xml:space="preserve">
+    <value>Hladkosť (Lambda)</value>
+  </data>
+  <data name="ZhangFitIterationsLabel" xml:space="preserve">
+    <value>Počet iterácii</value>
+  </data>
 </root>
