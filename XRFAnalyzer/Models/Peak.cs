@@ -11,7 +11,7 @@ namespace XRFAnalyzer.Models
     internal partial class Peak : ObservableObject
     {
         [ObservableProperty]
-        private int _height;
+        private double _height;
         [ObservableProperty]
         private int _apexChannel;
         [ObservableProperty]

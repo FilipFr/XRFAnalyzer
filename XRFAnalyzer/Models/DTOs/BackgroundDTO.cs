@@ -10,11 +10,11 @@ namespace XRFAnalyzer.Models.DTOs
     internal partial class BackgroundDTO : ObservableObject
     {
         [ObservableProperty]
-        private List<int>? _counts;
+        private List<double>? _counts;
         [ObservableProperty]
-        private int _lambda;
+        private int _lambda = 100;
         [ObservableProperty]
-        private int _iterationCount;
+        private int _iterationCount = 15;
 
         public BackgroundDTO() 
         {

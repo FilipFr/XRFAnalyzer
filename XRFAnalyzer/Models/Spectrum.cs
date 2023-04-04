@@ -9,13 +9,13 @@ namespace XRFAnalyzer.Models
 {
     internal class Spectrum
     {
-        public List<int> Counts { get; set; }
+        public List<double> Counts { get; set; }
         public List<Tuple<int, int>> Peaks { get; set; }
         public Dictionary<int, double> CalibrationPoints { get; set; }
 
         public Spectrum() 
         {
-            Counts = new List<int>();
+            Counts = new List<double>();
             Peaks = new List<Tuple<int, int>>();
             CalibrationPoints = new Dictionary<int, double>();
         }
@@ -69,7 +69,7 @@ namespace XRFAnalyzer.Models
                                 }
                             case "<<DATA>>":
                                 {
-                                    newSpectrum.Counts.Add(Int32.Parse(line));
+                                    newSpectrum.Counts.Add(Double.Parse(line));
                                     break;
                                 }
                         } 

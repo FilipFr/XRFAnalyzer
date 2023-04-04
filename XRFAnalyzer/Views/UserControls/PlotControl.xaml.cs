@@ -94,12 +94,12 @@ namespace XRFAnalyzer.Views.UserControls
 
         public static readonly DependencyProperty CountsProperty = DependencyProperty.Register(
             "Counts",
-            typeof(List<int>),
+            typeof(List<double>),
             typeof(PlotControl),
             new PropertyMetadata(null, new PropertyChangedCallback(CountsChanged)));
-        public List<int> Counts
+        public List<double> Counts
         {
-            get { return (List<int>)GetValue(CountsProperty); }
+            get { return (List<double>)GetValue(CountsProperty); }
             set { SetValue(CountsProperty, value); }
         }
         private static void CountsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
@@ -141,6 +141,22 @@ namespace XRFAnalyzer.Views.UserControls
             b.UpdateSignalPlot();
         }
 
+        public static readonly DependencyProperty CorrectedCountsProperty = DependencyProperty.Register(
+            "CorrectedCounts",
+            typeof(List<double>),
+            typeof(PlotControl),
+            new PropertyMetadata(new List<double>(), new PropertyChangedCallback(CorrectedCountsChanged)));
+        public List<double> CorrectedCounts
+        {
+            get { return (List<double>)GetValue(CorrectedCountsProperty); }
+            set { SetValue(CorrectedCountsProperty, value); }
+        }
+        private static void CorrectedCountsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+           b.UpdateSignalPlot();
+        }
+
         public static readonly DependencyProperty IsLogarithmicToggledProperty = DependencyProperty.Register(
             "IsLogarithmicToggled",
             typeof(bool),
@@ -165,15 +181,31 @@ namespace XRFAnalyzer.Views.UserControls
             {
                 SpectrumWpfPlot.Plot.SetAxisLimits(limits);
             }
-            
+
+            List<double> background = new();
+            if (CorrectedCounts != null && Counts.Count == CorrectedCounts.Count) 
+            {
+                for (int i  = 0; i < CorrectedCounts.Count; i++) 
+                {
+                    background.Add(Counts[i] - CorrectedCounts[i]);
+                }
+            }
 
             double[] values = (IsLogarithmicToggled) ?
                 Counts.Select(y => (Math.Log10(y) == double.NegativeInfinity ? 0 : Math.Log10(y))).ToArray() :
                 Counts.Select(x => (double)x).ToArray();
+            double[] backgroundValues = (IsLogarithmicToggled) ?
+                background.Select(y => (Math.Log10(y) == double.NegativeInfinity ? 0 : Math.Log10(y))).ToArray() :
+                background.Select(x => (double)x).ToArray();
 
             var signalPlot = SpectrumWpfPlot.Plot.AddSignal(values);
             signalPlot.FillAboveAndBelow(System.Drawing.Color.FromArgb(255, 90, 180, 90), System.Drawing.Color.Red, 0.5);
             signalPlot.LineColor = System.Drawing.Color.FromArgb(255, 90, 180, 90);
+
+            var backgroundPlot = SpectrumWpfPlot.Plot.AddSignal(backgroundValues);
+            backgroundPlot.FillAboveAndBelow(System.Drawing.Color.Wheat, System.Drawing.Color.Red, 0.5);
+            backgroundPlot.LineColor = System.Drawing.Color.FromArgb(255, 90, 180, 90);
+
             foreach (Tuple<int, int> peak in Peaks)
             {
                 double[] Xs = Enumerable.Range(peak.Item1, peak.Item2 - peak.Item1).Select(x => (double)x).ToArray();

@@ -10,7 +10,7 @@ namespace XRFAnalyzer.Models.DTOs
     internal partial class FindPeaksDTO : ObservableObject
     {
         [ObservableProperty]
-        private List<int>? _counts;
+        private List<double>? _counts;
         [ObservableProperty]
         private int _height;
         [ObservableProperty]

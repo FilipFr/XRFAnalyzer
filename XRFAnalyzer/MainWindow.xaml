@@ -270,6 +270,7 @@
                 YLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
                 XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
                 Counts="{Binding ViewM.Counts}"
+                CorrectedCounts="{Binding ViewM.CorrectedCounts}"
                 Peaks="{Binding ViewM.Rois}"
                 FoundRois="{Binding ViewM.FoundRois}"
                 IsLogarithmicToggled="{Binding ViewM.IsLogarithmicToggled}"

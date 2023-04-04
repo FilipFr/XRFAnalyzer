@@ -33,7 +33,7 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private string _currentFile;
         [ObservableProperty]
-        private List<int> _counts;
+        private List<double> _counts;
         [ObservableProperty]
         private List<Tuple<int, int>> _rois;
         [ObservableProperty]
@@ -65,7 +65,7 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private ObservableCollection<Tuple<int, double>> _calibrationPoints;
         [ObservableProperty]
-        private List<int> _background;
+        private List<double> _correctedCounts;
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -106,6 +106,8 @@ namespace XRFAnalyzer.ViewModels
             } }
         [ObservableProperty]
         private FindPeaksDTO _findPeaksDTO;
+        [ObservableProperty]
+        private BackgroundDTO _backgroundDTO;
 
 
         public SpectrumViewModel()
@@ -128,18 +130,21 @@ namespace XRFAnalyzer.ViewModels
             AddPeakCommand = new Command(() => AddPeak());
             GetFindPeaksMessageCommand = new Command(() => GetFindPeaksMessage());
             AddFoundPeaksCommand = new Command(() => AddFoundPeaks());
+            GetCorrectedCountsCommand = new Command(() => GetBackgroundMessage());
             SelectedPeakIndex = -1;
             Elements = GetElementsData();
             MaxChannel = GetMaxChannel();
             FindPeaksDTO = new();
+            BackgroundDTO = new();
             FoundRois = new();
             CalibrationPoints = new();
+            CorrectedCounts = new();
         }
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
-            foreach(var row in CalibrationRows) 
+            CalibrationPoints.Clear();
+            foreach (var row in CalibrationRows)
             {
                 CalibrationPoints.Add(new(row.Channel, row.Energy));
             }
@@ -177,6 +182,7 @@ namespace XRFAnalyzer.ViewModels
         public ICommand AddPeakCommand { get; set; }
         public ICommand GetFindPeaksMessageCommand { get; set; }
         public ICommand AddFoundPeaksCommand { get; set; }
+        public ICommand GetCorrectedCountsCommand { get; set; }
 
 
         private void LoadSpectrum()
@@ -194,6 +200,7 @@ namespace XRFAnalyzer.ViewModels
                     this.Counts = new(Spectrum.Counts);
                     MaxChannel = GetMaxChannel();
                     FindPeaksDTO.Counts = Spectrum.Counts;
+                    BackgroundDTO.Counts = Spectrum.Counts;
                     foreach(int channel in Spectrum.CalibrationPoints.Keys) 
                     {
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
@@ -309,6 +316,28 @@ namespace XRFAnalyzer.ViewModels
                 FoundRois = roisToAdd;
             }
         }
+
+        private void GetBackgroundMessage() 
+        {
+            var reply = client.BackgroundMessage(new BackgroundRequest
+            {
+                Counts = { BackgroundDTO.Counts },
+                Lambda = BackgroundDTO.Lambda,
+                Iterations = BackgroundDTO.IterationCount
+            });
+            if (reply != null) 
+            {
+                List<double> CorrCounts = new();
+                for (int i = 0; i < reply.CorrectedCounts.Count; i++) 
+                {
+                    double toAdd = (reply.CorrectedCounts[i] < 0) ? 0 : reply.CorrectedCounts[i];
+                    CorrCounts.Add(toAdd);
+                }
+                CorrectedCounts = new(CorrCounts.Select(x => x).ToList());
+                MessageBox.Show(CorrectedCounts.Count.ToString());
+            }
+        }
+
         public void AddFoundPeaks() 
         {
             if (FoundRois == null || FoundRois.Count == 0) 
@@ -327,5 +356,7 @@ namespace XRFAnalyzer.ViewModels
             SelectedPeakIndex = -999;
             SelectedPeakIndex = -1;
         }
+
+        
     }
 }

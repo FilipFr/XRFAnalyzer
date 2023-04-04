@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -29,6 +30,7 @@ namespace XRFAnalyzer.Views.UserControls
         {
             InitializeComponent();
         }
+
         public static readonly DependencyProperty YLabelsProperty = DependencyProperty.Register(
             "YLabels",
             typeof(string),
@@ -40,6 +42,7 @@ namespace XRFAnalyzer.Views.UserControls
             get { return (string)GetValue(YLabelsProperty); }
             set { SetValue(YLabelsProperty, value); }
         }
+
         private static void YLabelsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
             LinearRegressionPlotControl b = (LinearRegressionPlotControl)a;
@@ -76,31 +79,53 @@ namespace XRFAnalyzer.Views.UserControls
         }
         private static void CalibrationPointsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
-            LinearRegressionPlotControl b = (LinearRegressionPlotControl)a;
-            double[] Xs = { };
-            double[] Ys = { };
-            double X1 = 0;
-            double X2 = 0;
-            if (b.CalibrationPoints.Count > 1)
+            var action = new NotifyCollectionChangedEventHandler(
+            (o, args) =>
             {
-                foreach (Tuple<int, double> kvp in b.CalibrationPoints)
+                LinearRegressionPlotControl b = (LinearRegressionPlotControl)a;
+                double[] Xs = Array.Empty<double>();
+                double[] Ys = Array.Empty<double>();
+                double X1 = 0;
+                double X2 = 0;
+                if (b.CalibrationPoints.Count > 1)
                 {
-                    Xs=Xs.Append(kvp.Item1).ToArray();
-                    Ys=Ys.Append(kvp.Item2).ToArray();
-                    X1 = Xs[0];
-                    X2 = Xs[Xs.Length - 1];
+                    foreach (Tuple<int, double> kvp in b.CalibrationPoints)
+                    {
+                        Xs = Xs.Append(kvp.Item1).ToArray();
+                        Ys = Ys.Append(kvp.Item2).ToArray();
+                        X1 = Xs[0];
+                        X2 = Xs[Xs.Length - 1];
+                    }
+                    var model = new ScottPlot.Statistics.LinearRegressionLine(Xs, Ys);
+                    b.LinearRegressionWpfPlot.Plot.Clear();
+                    b.LinearRegressionWpfPlot.Plot.Title("Linear Regression\n" +
+                        $"Y = {model.slope:0.0000}x + {model.offset:0.0} " +
+                        $"(R² = {model.rSquared:0.0000})");
+                    b.LinearRegressionWpfPlot.Plot.AddScatter(Xs, Ys, lineWidth: 0);
+                    b.LinearRegressionWpfPlot.Plot.AddLine(model.slope, model.offset, (X1, X2), lineWidth: 2);
+                    if(!Double.IsNaN(model.slope) && !Double.IsNaN(model.offset) && !Double.IsNaN(model.rSquared)) 
+                    {
+                        b.LinearRegressionWpfPlot.Refresh();
+                        b.LinearRegressionWpfPlot.Plot.Render();
+                    }
+                    else 
+                    {
+                        b.LinearRegressionWpfPlot.Plot.Clear();
+                    }
                 }
-                var model = new ScottPlot.Statistics.LinearRegressionLine(Xs, Ys);
-                b.LinearRegressionWpfPlot.Plot.Clear();
-                b.LinearRegressionWpfPlot.Plot.Title("Linear Regression\n" +
-                    $"Y = {model.slope:0.0000}x + {model.offset:0.0} " +
-                    $"(R² = {model.rSquared:0.0000})");
-                b.LinearRegressionWpfPlot.Plot.AddScatter(Xs, Ys, lineWidth: 0);
-                b.LinearRegressionWpfPlot.Plot.AddLine(model.slope, model.offset, (X1, X2), lineWidth: 2);
-                b.LinearRegressionWpfPlot.Refresh();
-                b.LinearRegressionWpfPlot.Plot.Render();
+                else { b.LinearRegressionWpfPlot.Plot.Clear(); }
+            });
+            if (e.OldValue != null)
+            {
+                var coll = (INotifyCollectionChanged)e.OldValue;
+                coll.CollectionChanged -= action;
             }
-            else { b.LinearRegressionWpfPlot.Plot.Clear(); }
+
+            if (e.NewValue != null)
+            {
+                var coll = (ObservableCollection<Tuple<int, double>>)e.NewValue;
+                coll.CollectionChanged += action;
+            }
         }
     }
 }

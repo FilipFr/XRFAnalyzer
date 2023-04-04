@@ -41,11 +41,19 @@
                         VerticalAlignment="Center"
                         Content="{Binding LocalizationResourceManager[ZhangFitSmoothnessLabel]}"/>
                     <mah:NumericUpDown 
-                    DockPanel.Dock="Right" 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="20" 
-                    Width="96" Height="48"/>
+                        x:Name="ZhangFitSmoothness"
+                        DockPanel.Dock="Right" 
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="20" 
+                        Width="96" Height="48"
+                        Value="{Binding ViewM.BackgroundDTO.Lambda}">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=ZhangFitSmoothness}">
+                                <behaviors:InvokeCommandAction Command="{Binding ViewM.GetCorrectedCountsCommand}"/>
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </mah:NumericUpDown>
                 </DockPanel>
                 <DockPanel
                 Width="280"
@@ -61,7 +69,8 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Margin="20" 
-                    Width="96" Height="48"/>
+                    Width="96" Height="48"
+                        Value="{Binding ViewM.BackgroundDTO.IterationCount}"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
