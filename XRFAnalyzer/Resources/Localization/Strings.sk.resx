@@ -258,4 +258,10 @@
   <data name="ZhangFitIterationsLabel" xml:space="preserve">
     <value>Počet iterácii</value>
   </data>
+  <data name="RemoveBackgroundLabel" xml:space="preserve">
+    <value>Odstrániť pozadie</value>
+  </data>
+  <data name="UndoBackgroundRemovalLabel" xml:space="preserve">
+    <value>Vrátiť späť pozadie</value>
+  </data>
 </root>

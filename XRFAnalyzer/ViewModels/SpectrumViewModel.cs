@@ -168,6 +168,7 @@ namespace XRFAnalyzer.ViewModels
                 Tuple<int,int> roiToAdd = new Tuple<int,int>(RoiLeftBoundary,RoiRightBoundary);
                 Peaks.Add(Peak.GetPeakFromRoi(Spectrum, roiToAdd));
                 Rois.Add(roiToAdd);
+                CalculatePeakAreas();
                 SelectedPeakIndex = Peaks.Count - 1;
             }
             else 
@@ -201,12 +202,14 @@ namespace XRFAnalyzer.ViewModels
                     MaxChannel = GetMaxChannel();
                     FindPeaksDTO.Counts = Spectrum.Counts;
                     BackgroundDTO.Counts = Spectrum.Counts;
+                    GetBackgroundMessage();
                     foreach(int channel in Spectrum.CalibrationPoints.Keys) 
                     {
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
                     }
                     this.Rois = new(Spectrum.Peaks);
                     this.Peaks = Peak.GetPeaksFromSpectrum(Spectrum, Rois);
+                    CalculatePeakAreas();
                     IsLoaded = true;
                 }
                 else
@@ -334,7 +337,6 @@ namespace XRFAnalyzer.ViewModels
                     CorrCounts.Add(toAdd);
                 }
                 CorrectedCounts = new(CorrCounts.Select(x => x).ToList());
-                MessageBox.Show(CorrectedCounts.Count.ToString());
             }
         }
 
@@ -350,6 +352,7 @@ namespace XRFAnalyzer.ViewModels
                 { 
                     Rois.Add(roi);
                     Peaks.Add(Peak.GetPeakFromRoi(Spectrum, roi));
+                    CalculatePeakAreas();
                 }
             }
             FoundRois.Clear();
@@ -357,6 +360,13 @@ namespace XRFAnalyzer.ViewModels
             SelectedPeakIndex = -1;
         }
 
+        private void CalculatePeakAreas() 
+        {
+            foreach(Peak peak in Peaks) 
+            {
+                peak.CalculateAreas(Counts, CorrectedCounts);
+            }
+        }
         
     }
 }

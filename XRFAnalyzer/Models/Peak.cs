@@ -50,5 +50,17 @@ namespace XRFAnalyzer.Models
             }
             return peak;
         }
+
+        public void CalculateAreas(List<double> counts, List<double> correctedCounts) 
+        {
+            GrossArea = 0;
+            NetArea = 0;
+            for (int i = ChannelRange.Item1; i <= ChannelRange.Item2; i++) 
+            {
+                GrossArea += counts[i];
+                NetArea += correctedCounts[i];
+            }
+     
+        }
     }
 }

@@ -259,4 +259,10 @@
   <data name="ZhangFitIterationsLabel" xml:space="preserve">
     <value>Iterations</value>
   </data>
+  <data name="RemoveBackgroundLabel" xml:space="preserve">
+    <value>Remove background</value>
+  </data>
+  <data name="UndoBackgroundRemovalLabel" xml:space="preserve">
+    <value>Undo background removal</value>
+  </data>
 </root>

@@ -430,6 +430,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove background.
+        /// </summary>
+        internal static string RemoveBackgroundLabel {
+            get {
+                return ResourceManager.GetString("RemoveBackgroundLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
         internal static string SpectrumWpfPlotXLabel {
@@ -453,6 +462,15 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string SpectrumWpfPlotYLabel {
             get {
                 return ResourceManager.GetString("SpectrumWpfPlotYLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo background removal.
+        /// </summary>
+        internal static string UndoBackgroundRemovalLabel {
+            get {
+                return ResourceManager.GetString("UndoBackgroundRemovalLabel", resourceCulture);
             }
         }
         

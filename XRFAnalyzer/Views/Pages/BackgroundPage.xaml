@@ -32,21 +32,24 @@
             >
             <StackPanel>
                 <DockPanel
-                Width="280"
-                Height="64"
-                VerticalAlignment="Top">
+                    Width="Auto"
+                    Height="64"
+                    VerticalAlignment="Top"
+                    Margin="48 16"
+                    >
                     <Label 
                         DockPanel.Dock="Left"
                         Foreground="WhiteSmoke"
                         VerticalAlignment="Center"
+                        Padding="0"
                         Content="{Binding LocalizationResourceManager[ZhangFitSmoothnessLabel]}"/>
                     <mah:NumericUpDown 
                         x:Name="ZhangFitSmoothness"
                         DockPanel.Dock="Right" 
+                        Padding="0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Margin="20" 
-                        Width="96" Height="48"
+                        Width="96" Height="32"
                         Value="{Binding ViewM.BackgroundDTO.Lambda}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=ZhangFitSmoothness}">
@@ -56,22 +59,39 @@
                     </mah:NumericUpDown>
                 </DockPanel>
                 <DockPanel
-                Width="280"
-                Height="64"
-                VerticalAlignment="Top">
+                    Width="Auto"
+                    Height="64"
+                    VerticalAlignment="Top"
+                    Margin="48 16">
                     <Label 
-                    DockPanel.Dock="Left"
-                    Foreground="WhiteSmoke"
-                    VerticalAlignment="Center"
-                    Content="{Binding LocalizationResourceManager[ZhangFitIterationsLabel]}"/>
+                        DockPanel.Dock="Left"
+                        Foreground="WhiteSmoke"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        Content="{Binding LocalizationResourceManager[ZhangFitIterationsLabel]}"/>
                     <mah:NumericUpDown 
-                    DockPanel.Dock="Right" 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="20" 
-                    Width="96" Height="48"
+                        DockPanel.Dock="Right" 
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="96" Height="32"
                         Value="{Binding ViewM.BackgroundDTO.IterationCount}"/>
                 </DockPanel>
+                <Button
+                    Margin="48 16">
+                    <controls:MenuButtonContent
+                        HorizontalAlignment="Center"
+                        LabelContent="{Binding LocalizationResourceManager[RemoveBackgroundLabel]}"
+                        PackIconKind="Close"
+                       />
+                </Button>
+                <Button
+                    Margin="48 16">
+                    <controls:MenuButtonContent
+                        HorizontalAlignment="Center"
+                        LabelContent="{Binding LocalizationResourceManager[UndoBackgroundRemovalLabel]}"
+                        PackIconKind="Undo"/>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>
