@@ -70,7 +70,7 @@ namespace XRFAnalyzer.Models
             {
                 if (peak.ChannelRange.Item1 < 2 * this.ApexChannel && peak.ChannelRange.Item2 > 2* this.ApexChannel) 
                 {
-                    CanBeSumPeak = true;
+                    peak.CanBeSumPeak = true;
                 }
             }
         }

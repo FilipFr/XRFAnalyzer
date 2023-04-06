@@ -169,7 +169,10 @@ namespace XRFAnalyzer.ViewModels
                     if (!SumPeaks.Any(peak => Peaks[i] == peak)) 
                     {
                         Peaks.RemoveAt(i);
-                        OnPropertyChanged(nameof(Peaks));
+                        Rois.RemoveAt(i);
+                        int temp = SelectedPeakIndex;
+                        SelectedPeakIndex = Int32.MaxValue;
+                        SelectedPeakIndex = temp;
                         return;
                     }
                 }
