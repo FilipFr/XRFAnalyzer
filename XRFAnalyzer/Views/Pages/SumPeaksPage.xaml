@@ -28,6 +28,17 @@
             Background="{DynamicResource LightThemeSecondaryColorHighlight}"
             Panel.ZIndex="2"
             >
+            <StackPanel
+                Margin="16"
+                VerticalAlignment="Top"
+                Height="320">
+                <DataGrid
+                    Height="320"
+                    ItemsSource="{Binding ViewM.SumPeaks}"
+                    CanUserAddRows="False">
+                    
+                </DataGrid>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

@@ -32,9 +32,6 @@ namespace XRFAnalyzer.Views.Pages
             {
                 switch (a.Name)
                 {
-                    case "NavigationButtonPeaks":
-                        NavigationService.GetNavigationService(this).Navigate(new PeaksPage());
-                        break;
                     case "NavigationButtonFindPeaks":
                         NavigationService.GetNavigationService(this).Navigate(new FindPeaksPage());
                         break;

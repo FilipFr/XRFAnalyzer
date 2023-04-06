@@ -20,6 +20,7 @@ using Grpc.Net.Client;
 using Grpc.Core;
 using MahApps.Metro.Converters;
 using System.Collections.Specialized;
+using CommunityToolkit.Mvvm.Input;
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -66,6 +67,10 @@ namespace XRFAnalyzer.ViewModels
         private ObservableCollection<Tuple<int, double>> _calibrationPoints;
         [ObservableProperty]
         private List<double> _correctedCounts;
+        [ObservableProperty]
+        private bool _isBackgroundRemoved = false;
+        [ObservableProperty]
+        private ObservableCollection<Peak> _sumPeaks;
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -119,7 +124,9 @@ namespace XRFAnalyzer.ViewModels
             Counts = Spectrum.Counts;
             Rois = Spectrum.Peaks;
             CalibrationRows = new();
+            SumPeaks = new();
             CalibrationRows.CollectionChanged += OnCollectionChanged;
+            SumPeaks.CollectionChanged += OnSumPeaksDeleted;
             CurrentCalibrationRow = new();
             IsLoaded = false;
             IsCalibrated = false;
@@ -131,6 +138,8 @@ namespace XRFAnalyzer.ViewModels
             GetFindPeaksMessageCommand = new Command(() => GetFindPeaksMessage());
             AddFoundPeaksCommand = new Command(() => AddFoundPeaks());
             GetCorrectedCountsCommand = new Command(() => GetBackgroundMessage());
+            RemoveBackgroundCommand = new RelayCommand(RemoveBackground, CanRemoveBackground);
+            UndoBackgroundRemovalCommand = new RelayCommand(UndoBackgroundRemoval, CanUndoBackgroundRemoval);
             SelectedPeakIndex = -1;
             Elements = GetElementsData();
             MaxChannel = GetMaxChannel();
@@ -151,12 +160,29 @@ namespace XRFAnalyzer.ViewModels
             OnPropertyChanged(nameof(CalibrationPoints));
         }
 
+        private void OnSumPeaksDeleted(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            for (int i = 0; i < Peaks.Count; i++) 
+            {
+                if (Peaks[i].CanBeSumPeak) 
+                {
+                    if (!SumPeaks.Any(peak => Peaks[i] == peak)) 
+                    {
+                        Peaks.RemoveAt(i);
+                        OnPropertyChanged(nameof(Peaks));
+                        return;
+                    }
+                }
+            }
+        }
+
         private void RemoveSelectedPeak()
         {
             if(SelectedPeakIndex > -1 && Peaks != null && SelectedPeakIndex < Peaks.Count) 
             {
                 Peaks.RemoveAt(SelectedPeakIndex);
                 Rois.RemoveAt(SelectedPeakIndex);
+                GetSumPeaks();
                 SelectedPeakIndex = -1;
             }
             
@@ -166,8 +192,9 @@ namespace XRFAnalyzer.ViewModels
             if (RoiRightBoundary > RoiLeftBoundary)
             {
                 Tuple<int,int> roiToAdd = new Tuple<int,int>(RoiLeftBoundary,RoiRightBoundary);
-                Peaks.Add(Peak.GetPeakFromRoi(Spectrum, roiToAdd));
+                Peaks.Add(Peak.GetPeakFromRoi(Counts, roiToAdd));
                 Rois.Add(roiToAdd);
+                GetSumPeaks();
                 CalculatePeakAreas();
                 SelectedPeakIndex = Peaks.Count - 1;
             }
@@ -184,8 +211,10 @@ namespace XRFAnalyzer.ViewModels
         public ICommand GetFindPeaksMessageCommand { get; set; }
         public ICommand AddFoundPeaksCommand { get; set; }
         public ICommand GetCorrectedCountsCommand { get; set; }
+        public RelayCommand RemoveBackgroundCommand { get; set; }
+        public RelayCommand UndoBackgroundRemovalCommand { get; set; }
 
-
+        
         private void LoadSpectrum()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -208,9 +237,13 @@ namespace XRFAnalyzer.ViewModels
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
                     }
                     this.Rois = new(Spectrum.Peaks);
-                    this.Peaks = Peak.GetPeaksFromSpectrum(Spectrum, Rois);
+                    this.Peaks = Peak.GetPeaksFromSpectrum(Counts, Rois);
+                    GetSumPeaks();
                     CalculatePeakAreas();
                     IsLoaded = true;
+                    IsBackgroundRemoved = false;
+                    RemoveBackgroundCommand.NotifyCanExecuteChanged();
+                    UndoBackgroundRemovalCommand.NotifyCanExecuteChanged();
                 }
                 else
                 {
@@ -337,6 +370,8 @@ namespace XRFAnalyzer.ViewModels
                     CorrCounts.Add(toAdd);
                 }
                 CorrectedCounts = new(CorrCounts.Select(x => x).ToList());
+                RemoveBackgroundCommand.NotifyCanExecuteChanged();
+                UndoBackgroundRemovalCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -351,7 +386,7 @@ namespace XRFAnalyzer.ViewModels
                 if (!Rois.Contains(roi)) 
                 { 
                     Rois.Add(roi);
-                    Peaks.Add(Peak.GetPeakFromRoi(Spectrum, roi));
+                    Peaks.Add(Peak.GetPeakFromRoi(Counts, roi));
                     CalculatePeakAreas();
                 }
             }
@@ -367,6 +402,75 @@ namespace XRFAnalyzer.ViewModels
                 peak.CalculateAreas(Counts, CorrectedCounts);
             }
         }
-        
+
+        private void RemoveBackground() 
+        {
+            Counts = new(CorrectedCounts);
+            IsBackgroundRemoved = true;
+            Peaks = Peak.GetPeaksFromSpectrum(Counts, Rois);
+            CalculatePeakAreas();
+            RemoveBackgroundCommand.NotifyCanExecuteChanged();
+            UndoBackgroundRemovalCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanRemoveBackground() 
+        {
+            if(Counts == null || Counts.Count == 0) 
+            {
+                return false;
+            }
+            if (CorrectedCounts == null || CorrectedCounts.Count == 0)
+            {
+                return false;
+            }
+            if (Counts.Count != CorrectedCounts.Count) 
+            {
+                return false;
+            }
+            return !IsBackgroundRemoved;
+        }
+
+        private void UndoBackgroundRemoval() 
+        {
+            Counts = new(Spectrum.Counts);
+            GetBackgroundMessage();
+            IsBackgroundRemoved = false;
+            Peaks = Peak.GetPeaksFromSpectrum(Counts, Rois);
+            CalculatePeakAreas();
+            RemoveBackgroundCommand.NotifyCanExecuteChanged();
+            UndoBackgroundRemovalCommand.NotifyCanExecuteChanged();
+
+        }
+
+        private bool CanUndoBackgroundRemoval()
+        {
+            if (Counts == null || Counts.Count == 0)
+            {
+                return false;
+            }
+            if (CorrectedCounts == null || CorrectedCounts.Count == 0)
+            {
+                return false;
+            }
+            if (Counts.Count != CorrectedCounts.Count)
+            {
+                return false;
+            }
+            return IsBackgroundRemoved;
+        }
+
+        private void GetSumPeaks()
+        {
+            SumPeaks = new();
+            SumPeaks.CollectionChanged += OnSumPeaksDeleted;
+            foreach (Peak peak in Peaks)
+            {
+                peak.DetermineIfSumPeak(Peaks);
+                if (peak.CanBeSumPeak)
+                {
+                    SumPeaks.Add(peak);
+                }
+            }
+        }
     }
 }

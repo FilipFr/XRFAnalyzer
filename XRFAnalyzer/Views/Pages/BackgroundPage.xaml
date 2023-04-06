@@ -35,7 +35,7 @@
                     Width="Auto"
                     Height="64"
                     VerticalAlignment="Top"
-                    Margin="48 16"
+                    Margin="48 0"
                     >
                     <Label 
                         DockPanel.Dock="Left"
@@ -62,23 +62,32 @@
                     Width="Auto"
                     Height="64"
                     VerticalAlignment="Top"
-                    Margin="48 16">
+                    Margin="48 0">
                     <Label 
                         DockPanel.Dock="Left"
                         Foreground="WhiteSmoke"
                         Padding="0"
                         VerticalAlignment="Center"
                         Content="{Binding LocalizationResourceManager[ZhangFitIterationsLabel]}"/>
-                    <mah:NumericUpDown 
+                    <mah:NumericUpDown
+                        x:Name="ZhangFitIterations"
                         DockPanel.Dock="Right" 
                         Padding="0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Width="96" Height="32"
-                        Value="{Binding ViewM.BackgroundDTO.IterationCount}"/>
+                        Value="{Binding ViewM.BackgroundDTO.IterationCount}"
+                        >
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=ZhangFitIterations}">
+                                <behaviors:InvokeCommandAction Command="{Binding ViewM.GetCorrectedCountsCommand}"/>
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </mah:NumericUpDown>
                 </DockPanel>
                 <Button
-                    Margin="48 16">
+                    Margin="48 16"
+                    Command="{Binding ViewM.RemoveBackgroundCommand}">
                     <controls:MenuButtonContent
                         HorizontalAlignment="Center"
                         LabelContent="{Binding LocalizationResourceManager[RemoveBackgroundLabel]}"
@@ -86,7 +95,8 @@
                        />
                 </Button>
                 <Button
-                    Margin="48 16">
+                    Margin="48 16"
+                    Command="{Binding ViewM.UndoBackgroundRemovalCommand}">
                     <controls:MenuButtonContent
                         HorizontalAlignment="Center"
                         LabelContent="{Binding LocalizationResourceManager[UndoBackgroundRemovalLabel]}"

@@ -293,7 +293,7 @@
                     x:Name="PeakHeightValue"
                     HorizontalAlignment="Right"
                     Margin="0 0 0 8"
-                    Text="{Binding ViewM.SelectedPeak.Height}"/>
+                    Text="{Binding ViewM.SelectedPeak.Height, StringFormat=N2}"/>
                 <Label
                     x:Name="PeakApexChannelLabel"
                     FontFamily="Futura"
@@ -334,7 +334,7 @@
                     x:Name="PeakGrossAreaValue"
                     HorizontalAlignment="Right"
                     Margin="0 0 0 8"
-                    Text="{Binding ViewM.SelectedPeak.GrossArea}"/>
+                    Text="{Binding ViewM.SelectedPeak.GrossArea, StringFormat=N2}"/>
                 <Label
                     x:Name="PeakNetAreaLabel"
                     Content="{Binding LocalizationResourceManager[PeakNetAreaLabel]}"/>
@@ -342,7 +342,7 @@
                     x:Name="PeakNetAreaValue"
                     HorizontalAlignment="Right"
                     Margin="0 0 0 8"
-                    Text="{Binding ViewM.SelectedPeak.NetArea}"/>
+                    Text="{Binding ViewM.SelectedPeak.NetArea, StringFormat=N2}"/>
                 
 
             </StackPanel>

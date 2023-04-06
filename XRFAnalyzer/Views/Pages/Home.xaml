@@ -7,22 +7,12 @@
              xmlns:controls="clr-namespace:XRFAnalyzer.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="704" d:DesignWidth="280">
-    
+
     <StackPanel 
         ButtonBase.Click="Button_Click"
         Background="{StaticResource LightThemeSecondaryColor}"
         VerticalAlignment="Stretch"
         Panel.ZIndex="2">
-
-        <Button
-            x:Name="NavigationButtonPeaks"
-            Style="{StaticResource OperationMenuButton}">
-            <controls:MenuButtonContent 
-                    PackIconStyle="{StaticResource OperationPackIconStyle}"
-                    PackIconKind="Menuright"
-                    LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuPeaksLabel]}"/>
-        </Button>
 
         <Button
             x:Name="NavigationButtonFindPeaks"
@@ -86,6 +76,5 @@
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
                     LabelContent="{Binding LocalizationResourceManager[OperationMenuDataTablesLabel]}"/>
         </Button>
-
     </StackPanel>
 </UserControl>
