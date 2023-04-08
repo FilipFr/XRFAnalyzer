@@ -17,10 +17,10 @@ using XRFAnalyzer.Models;
 using XRFAnalyzer.Models.DTOs;
 using XRFAnalyzer.ViewModels.Commands;
 using Grpc.Net.Client;
-using Grpc.Core;
-using MahApps.Metro.Converters;
 using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.Input;
+using MathNet.Numerics;
+
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -71,6 +71,10 @@ namespace XRFAnalyzer.ViewModels
         private bool _isBackgroundRemoved = false;
         [ObservableProperty]
         private ObservableCollection<Peak> _sumPeaks;
+        [ObservableProperty]
+        private double _calibrationCurveSlope;
+        [ObservableProperty]
+        private double _calibrationCurveIntercept;
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -80,6 +84,7 @@ namespace XRFAnalyzer.ViewModels
             { 
                 _calibrationSwitch = value;
                 OnPropertyChanged();
+                GetCalibrationCurveParameters();
                 if (CalibrationRows != null && CalibrationRows.Count > 1)
                 {
                     CalibrationPoints = new();
@@ -157,6 +162,7 @@ namespace XRFAnalyzer.ViewModels
             {
                 CalibrationPoints.Add(new(row.Channel, row.Energy));
             }
+            GetCalibrationCurveParameters();
             OnPropertyChanged(nameof(CalibrationPoints));
         }
 
@@ -231,6 +237,8 @@ namespace XRFAnalyzer.ViewModels
                 if (result)
                 {
                     this.Counts = new(Spectrum.Counts);
+                    CalibrationPoints.Clear();
+                    CalibrationRows.Clear();
                     MaxChannel = GetMaxChannel();
                     FindPeaksDTO.Counts = Spectrum.Counts;
                     BackgroundDTO.Counts = Spectrum.Counts;
@@ -239,6 +247,7 @@ namespace XRFAnalyzer.ViewModels
                     {
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
                     }
+                    GetCalibrationCurveParameters();
                     this.Rois = new(Spectrum.Peaks);
                     this.Peaks = Peak.GetPeaksFromSpectrum(Counts, Rois);
                     GetSumPeaks();
@@ -263,6 +272,17 @@ namespace XRFAnalyzer.ViewModels
             {
                 CalibrationRows.Add(CurrentCalibrationRow);
                 CurrentCalibrationRow = new();
+            }
+        }
+
+        private void GetCalibrationCurveParameters() 
+        {
+            if (CalibrationRows.Count > 1) 
+            {
+                double[] xData = CalibrationRows.Select(x => (double)x.Channel).ToArray();
+                double[] yData = CalibrationRows.Select(x => x.Energy).ToArray();
+                (CalibrationCurveIntercept, CalibrationCurveSlope) = Fit.Line(xData, yData);
+                IsCalibrated = true;
             }
         }
 

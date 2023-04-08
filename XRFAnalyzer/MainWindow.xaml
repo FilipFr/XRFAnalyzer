@@ -251,6 +251,7 @@
                     OffContent="{Binding LocalizationResourceManager[ChannelToggleOption]}"
                     IsOn="False"
                     IsEnabled="{Binding ViewM.IsCalibrated}"
+                    Toggled="XAxisUnitToggle_Toggled"
                     >
                     <mah:ToggleSwitch.Resources>
                         <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="#292c47"></SolidColorBrush>

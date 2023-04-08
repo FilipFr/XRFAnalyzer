@@ -466,6 +466,24 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No sum peak detected.
+        /// </summary>
+        internal static string SumPeaksEmptyMessage {
+            get {
+                return ResourceManager.GetString("SumPeaksEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To delete a sum peak, select a row and press delete..
+        /// </summary>
+        internal static string SumPeaksHintMessage {
+            get {
+                return ResourceManager.GetString("SumPeaksHintMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Undo background removal.
         /// </summary>
         internal static string UndoBackgroundRemovalLabel {

@@ -31,13 +31,26 @@
             <StackPanel
                 Margin="16"
                 VerticalAlignment="Top"
-                Height="320">
+                Height="Auto">
                 <DataGrid
+                    x:Name="SumPeaksTable"
                     Height="320"
                     ItemsSource="{Binding ViewM.SumPeaks}"
-                    CanUserAddRows="False">
-                    
+                    CanUserAddRows="False"
+                    IsReadOnly="True"
+                    >
                 </DataGrid>
+                <TextBlock 
+                    Text="{Binding LocalizationResourceManager[SumPeaksEmptyMessage]}" 
+                    HorizontalAlignment="Center"
+                    Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=SumPeaksTable}" />
+                <TextBlock 
+                    Text="{Binding LocalizationResourceManager[SumPeaksHintMessage]}"
+                    TextWrapping="Wrap"
+                    HorizontalAlignment="Center"
+                    Width="Auto"
+                    Height="Auto"
+                    Visibility="{Binding Items.IsEmpty, Converter={StaticResource InverseBooleanToVisibilityConverter}, ElementName=SumPeaksTable}" />
             </StackPanel>
         </Grid>
     </Grid>

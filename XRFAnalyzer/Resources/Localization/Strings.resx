@@ -265,4 +265,10 @@
   <data name="UndoBackgroundRemovalLabel" xml:space="preserve">
     <value>Undo background removal</value>
   </data>
+  <data name="SumPeaksEmptyMessage" xml:space="preserve">
+    <value>No sum peak detected</value>
+  </data>
+  <data name="SumPeaksHintMessage" xml:space="preserve">
+    <value>To delete a sum peak, select a row and press delete.</value>
+  </data>
 </root>

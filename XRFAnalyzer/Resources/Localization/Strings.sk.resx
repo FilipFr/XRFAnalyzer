@@ -264,4 +264,10 @@
   <data name="UndoBackgroundRemovalLabel" xml:space="preserve">
     <value>Vrátiť späť pozadie</value>
   </data>
+  <data name="SumPeaksEmptyMessage" xml:space="preserve">
+    <value>Nenašiel sa žiaden sumačný pík</value>
+  </data>
+  <data name="SumPeaksHintMessage" xml:space="preserve">
+    <value>Pre odstránenie píku vyberte riadok v tabuľke a stlačte klávesu delete.</value>
+  </data>
 </root>
