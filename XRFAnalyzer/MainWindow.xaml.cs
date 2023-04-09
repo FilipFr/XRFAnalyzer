@@ -54,10 +54,6 @@ namespace XRFAnalyzer
 
         private void Load_Click(object sender, RoutedEventArgs e) 
         {
-            //using var channel = GrpcChannel.ForAddress("http://localhost:50051");
-            //var client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
-            //var reply = client.FindPeaksMessage(new FindPeaksRequest { Counts = { 1, 2, 3 }, Prominence = 1 });
-            //MessageBox.Show(reply.ToString());
 
             MessageBox.Show(PlotControl.Counts.Count.ToString());
 
@@ -80,19 +76,6 @@ namespace XRFAnalyzer
             if (content != null)
             {
                 content.DataContext = DataContext;
-            }
-        }
-
-        private void LogarithmicScaleToggle_Toggled(object sender, RoutedEventArgs e) 
-        {
-            if (sender == null) { return; }
-            if((sender as MahApps.Metro.Controls.ToggleSwitch).IsOn) 
-            {
-                PlotControl.IsLogarithmicToggled = true;
-            }
-            else 
-            {
-                PlotControl.IsLogarithmicToggled = false;
             }
         }
     }

@@ -32,13 +32,25 @@
                 Margin="16"
                 VerticalAlignment="Top"
                 Height="Auto">
+                <FrameworkElement x:Name="Proxy" DataContext="{Binding}"/>
                 <DataGrid
                     x:Name="SumPeaksTable"
-                    Height="320"
+                    Height="256"
                     ItemsSource="{Binding ViewM.SumPeaks}"
                     CanUserAddRows="False"
-                    IsReadOnly="True"
+                    CanUserDeleteRows="True"
+                    AutoGenerateColumns="False"
                     >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                            Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[PeakChannelRangeLabel]}"
+                            Binding="{Binding ChannelRange}"
+                            IsReadOnly="True"/>
+                        <DataGridTextColumn 
+                            Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[PeakEnergyRangeLabel]}"
+                            Binding="{Binding EnergyRange}"
+                            IsReadOnly="True"/>
+                    </DataGrid.Columns>
                 </DataGrid>
                 <TextBlock 
                     Text="{Binding LocalizationResourceManager[SumPeaksEmptyMessage]}" 

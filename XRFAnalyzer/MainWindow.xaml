@@ -230,20 +230,21 @@
                 >
 
                 <mah:ToggleSwitch
-                    
+                    x:Name="LogarithmicScaleToggle"
                     Header="{Binding LocalizationResourceManager[LogarithmicScaleToggleLabel]}"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
                     Margin="0 0 0 0"
                     Foreground="{StaticResource LightThemeSecondaryColor}"
                     IsEnabled="{Binding ViewM.IsLoaded}"
-                    Toggled="LogarithmicScaleToggle_Toggled"
+
                     >
                     <mah:ToggleSwitch.Resources>
                         <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="#292c47"></SolidColorBrush>
                     </mah:ToggleSwitch.Resources>
                 </mah:ToggleSwitch>
                 <mah:ToggleSwitch
+                    x:Name="XAxisUnitToggle"
                     Header="{Binding LocalizationResourceManager[XAxisUnitToggleLabel]}"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -251,7 +252,7 @@
                     OffContent="{Binding LocalizationResourceManager[ChannelToggleOption]}"
                     IsOn="False"
                     IsEnabled="{Binding ViewM.IsCalibrated}"
-                    Toggled="XAxisUnitToggle_Toggled"
+
                     >
                     <mah:ToggleSwitch.Resources>
                         <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="#292c47"></SolidColorBrush>
@@ -270,11 +271,15 @@
                 x:Name="PlotControl" 
                 YLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
                 XLabel="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
+                XLabelAlt="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabelAlt]}"
                 Counts="{Binding ViewM.Counts}"
                 CorrectedCounts="{Binding ViewM.CorrectedCounts}"
                 Peaks="{Binding ViewM.Rois}"
                 FoundRois="{Binding ViewM.FoundRois}"
-                IsLogarithmicToggled="{Binding ViewM.IsLogarithmicToggled}"
+                IsLogarithmicToggled="{Binding IsOn, ElementName=LogarithmicScaleToggle}"
+                IsXAxisUnitToggled="{Binding IsOn, ElementName=XAxisUnitToggle}"
+                CalibrationCurveSlope="{Binding ViewM.CalibrationCurveSlope}"
+                CalibrationCurveIntercept="{Binding ViewM.CalibrationCurveIntercept}"
                 SelectedPeakIndex="{Binding ViewM.SelectedPeakIndex, Mode=TwoWay}"
                 />
 
@@ -311,7 +316,7 @@
                     x:Name="PeakApexEnergyValue"
                     HorizontalAlignment="Right"
                     Margin="0 0 0 8"
-                    Text="{Binding ViewM.SelectedPeak.ApexEnergy}"/>
+                    Text="{Binding ViewM.SelectedPeak.ApexEnergy, StringFormat=N2}"/>
                 <Label
                     x:Name="PeakChannelRangeLabel"
                     Content="{Binding LocalizationResourceManager[PeakChannelRangeLabel]}"/>
@@ -323,11 +328,14 @@
                 <Label
                     x:Name="PeakEnergyRangeLabel"
                     Content="{Binding LocalizationResourceManager[PeakEnergyRangeLabel]}"/>
-                <TextBlock
-                    x:Name="PeakEnergyRangeValue"
-                    HorizontalAlignment="Right"
-                    Margin="0 0 0 8"
-                    Text="{Binding ViewM.SelectedPeak.EnergyRange}"/>
+                <DockPanel
+                    Margin="0 0 0 8">
+                    <TextBlock
+                        DockPanel.Dock="Right"
+                        x:Name="PeakEnergyRangeValue2"
+                        HorizontalAlignment="Right"
+                        Text="{Binding ViewM.SelectedPeak.EnergyRange}"/>
+                </DockPanel>
                 <Label
                     x:Name="PeakGrossAreaLabel"
                     Content="{Binding LocalizationResourceManager[PeakGrossAreaLabel]}"/>

@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.Collections;
 using ScottPlot;
 using ScottPlot.Plottable;
+using ScottPlot.SnapLogic;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XRFAnalyzer.Models;
 using XRFAnalyzer.Views.Pages;
 
 namespace XRFAnalyzer.Views.UserControls
@@ -73,6 +75,20 @@ namespace XRFAnalyzer.Views.UserControls
             PlotControl b = (PlotControl)a;
             b.SpectrumWpfPlot.Plot.XLabel(b.XLabel);
             b.SpectrumWpfPlot.Plot.Render();
+        }
+
+        public static readonly DependencyProperty XLabelAltProperty = DependencyProperty.Register(
+            "XLabelAlt",
+            typeof(string),
+            typeof(PlotControl),
+            new PropertyMetadata("Energy", new PropertyChangedCallback(XLabelAltChanged)));
+        public string XLabelAlt
+        {
+            get { return (string)GetValue(XLabelAltProperty); }
+            set { SetValue(XLabelAltProperty, value); }
+        }
+        private static void XLabelAltChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
         }
 
         public static readonly DependencyProperty SelectedPeakIndexProperty = DependencyProperty.Register(
@@ -180,6 +196,54 @@ namespace XRFAnalyzer.Views.UserControls
             b.UpdateSignalPlot(false);
         }
 
+        public static readonly DependencyProperty IsXAxisUnitToggledProperty = DependencyProperty.Register(
+            "IsXAxisUnitToggled",
+            typeof(bool),
+            typeof(PlotControl),
+            new PropertyMetadata(false, new PropertyChangedCallback(IsXAxisUnitToggledChanged)));
+        public bool IsXAxisUnitToggled
+        {
+            get { return (bool)GetValue(IsXAxisUnitToggledProperty); }
+            set { SetValue(IsXAxisUnitToggledProperty, value); }
+        }
+        private static void IsXAxisUnitToggledChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.UpdateSignalPlot(false);
+        }
+
+        public static readonly DependencyProperty CalibrationCurveSlopeProperty = DependencyProperty.Register(
+            "CalibrationCurveSlope",
+            typeof(double),
+            typeof(PlotControl),
+            new PropertyMetadata(Double.MaxValue, new PropertyChangedCallback(CalibrationCurveSlopeChanged)));
+        public double CalibrationCurveSlope 
+        {
+            get { return (double)GetValue(CalibrationCurveSlopeProperty); }
+            set { SetValue(CalibrationCurveSlopeProperty, value); }
+        }
+        private static void CalibrationCurveSlopeChanged(DependencyObject a, DependencyPropertyChangedEventArgs e) 
+        {
+            PlotControl b = (PlotControl)a;
+            b.UpdateSignalPlot();
+        }
+
+        public static readonly DependencyProperty CalibrationCurveInterceptProperty = DependencyProperty.Register(
+            "CalibrationCurveIntercept",
+            typeof(double),
+            typeof(PlotControl),
+            new PropertyMetadata(Double.MaxValue, new PropertyChangedCallback(CalibrationCurveInterceptChanged)));
+        public double CalibrationCurveIntercept
+        {
+            get { return (double)GetValue(CalibrationCurveInterceptProperty); }
+            set { SetValue(CalibrationCurveInterceptProperty, value); }
+        }
+        private static void CalibrationCurveInterceptChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.UpdateSignalPlot();
+        }
+
         public void UpdateSignalPlot(bool preserveAxisLimits = true)
         {
             var limits = SpectrumWpfPlot.Plot.GetAxisLimits();
@@ -200,10 +264,14 @@ namespace XRFAnalyzer.Views.UserControls
 
             double[] values = (IsLogarithmicToggled) ?
                 Counts.Select(y => ((Math.Log10(y) == double.NegativeInfinity || Math.Log10(y) < 1) ? 0 : Math.Log10(y))).ToArray() :
-                Counts.Select(x => (double)x).ToArray();
+                Counts.Select(y => y).ToArray();
             double[] backgroundValues = (IsLogarithmicToggled) ?
                 background.Select(y => ((Math.Log10(y) == double.NegativeInfinity || Math.Log10(y) < 1) ? 0 : Math.Log10(y))).ToArray() :
-                background.Select(x => (double)x).ToArray();
+                background.Select(y => y).ToArray();
+
+            double[] XValues = (CalibrationCurveSlope != Double.MaxValue && CalibrationCurveIntercept != Double.MaxValue) ?
+                Enumerable.Range(0, values.Length).Select(x => (double)x).ToArray() :
+                Enumerable.Range(0, values.Length).Select(x => x * CalibrationCurveSlope + CalibrationCurveIntercept).ToArray();
 
             var signalPlot = SpectrumWpfPlot.Plot.AddSignal(values);
             signalPlot.FillAboveAndBelow(System.Drawing.Color.FromArgb(255, 90, 180, 90), System.Drawing.Color.Red, 0.5);
@@ -216,6 +284,10 @@ namespace XRFAnalyzer.Views.UserControls
             foreach (Tuple<int, int> peak in Peaks)
             {
                 double[] Xs = Enumerable.Range(peak.Item1, peak.Item2 - peak.Item1).Select(x => (double)x).ToArray();
+                //if (CalibrationCurveSlope != Double.MaxValue && CalibrationCurveIntercept != Double.MaxValue)
+                //{
+                //    Xs = Xs.Select(x => x * CalibrationCurveSlope + CalibrationCurveIntercept).ToArray();
+                //}
                 double[] Ys = values.Skip(peak.Item1).Take(peak.Item2 - peak.Item1).ToArray();
                 var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.Color = System.Drawing.Color.RebeccaPurple;
@@ -228,6 +300,10 @@ namespace XRFAnalyzer.Views.UserControls
             foreach (Tuple<int, int> foundRoi in FoundRois)
             {
                 double[] Xs = Enumerable.Range(foundRoi.Item1, foundRoi.Item2 - foundRoi.Item1).Select(x => (double)x).ToArray();
+                //if (CalibrationCurveSlope != Double.MaxValue && CalibrationCurveIntercept !=  Double.MaxValue) 
+                //{
+                //    Xs = Xs.Select(x => x * CalibrationCurveSlope + CalibrationCurveIntercept).ToArray();
+                //}
                 double[] Ys = values.Skip(foundRoi.Item1).Take(foundRoi.Item2 - foundRoi.Item1).ToArray();
                 var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.FillAboveAndBelow(System.Drawing.Color.RebeccaPurple, System.Drawing.Color.Purple, 0.5);
@@ -243,6 +319,18 @@ namespace XRFAnalyzer.Views.UserControls
                 string logTickLabels(double y) => y.ToString();
                 SpectrumWpfPlot.Plot.YAxis.TickLabelFormat(logTickLabels);
                 SpectrumWpfPlot.Plot.YAxis.MinorLogScale(false);
+            }
+            if (IsXAxisUnitToggled && CalibrationCurveSlope != Double.MaxValue && CalibrationCurveIntercept != Double.MaxValue) 
+            {
+                string energyTickLabels(double x) => $"{(x*CalibrationCurveSlope + CalibrationCurveIntercept):N2}";
+                SpectrumWpfPlot.Plot.XAxis.TickLabelFormat(energyTickLabels);
+                SpectrumWpfPlot.Plot.XLabel(XLabelAlt);
+            }
+            else
+            {
+                string energyTickLabels(double x) => x.ToString();
+                SpectrumWpfPlot.Plot.XAxis.TickLabelFormat(energyTickLabels);
+                SpectrumWpfPlot.Plot.XLabel(XLabel);
             }
             SpectrumWpfPlot.Plot.Render();
             SpectrumWpfPlot.Refresh();

@@ -38,13 +38,15 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private List<Tuple<int, int>> _rois;
         [ObservableProperty]
-        private List<Peak> _peaks;
+        private List<Peak> _peaks = new();
         [ObservableProperty]
         private bool _isLoaded;
         [ObservableProperty]
         private bool _isCalibrated;
         [ObservableProperty]
         private bool _isLogarithmicToggled;
+        [ObservableProperty]
+        private bool _isXAxisUnitToggled;
         [ObservableProperty]
         private bool _isPeakSelected;
         [ObservableProperty]
@@ -72,9 +74,9 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private ObservableCollection<Peak> _sumPeaks;
         [ObservableProperty]
-        private double _calibrationCurveSlope;
+        private double _calibrationCurveSlope = Double.MaxValue;
         [ObservableProperty]
-        private double _calibrationCurveIntercept;
+        private double _calibrationCurveIntercept = Double.MaxValue;
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -252,6 +254,7 @@ namespace XRFAnalyzer.ViewModels
                     this.Peaks = Peak.GetPeaksFromSpectrum(Counts, Rois);
                     GetSumPeaks();
                     CalculatePeakAreas();
+                    CalibratePeaks();
                     IsLoaded = true;
                     IsBackgroundRemoved = false;
                     RemoveBackgroundCommand.NotifyCanExecuteChanged();
@@ -283,6 +286,13 @@ namespace XRFAnalyzer.ViewModels
                 double[] yData = CalibrationRows.Select(x => x.Energy).ToArray();
                 (CalibrationCurveIntercept, CalibrationCurveSlope) = Fit.Line(xData, yData);
                 IsCalibrated = true;
+                CalibratePeaks();
+            } 
+            else 
+            {
+                (CalibrationCurveIntercept, CalibrationCurveSlope) = (Double.MaxValue, Double.MaxValue);
+                IsCalibrated = false;
+                CalibratePeaks();
             }
         }
 
@@ -492,6 +502,27 @@ namespace XRFAnalyzer.ViewModels
                 if (peak.CanBeSumPeak)
                 {
                     SumPeaks.Add(peak);
+                }
+            }
+        }
+
+        private void CalibratePeaks() 
+        {
+            if (CalibrationCurveSlope != Double.MaxValue && CalibrationCurveIntercept != Double.MaxValue)
+            {
+                foreach (Peak peak in Peaks)
+                {
+                    peak.ApexEnergy = peak.ApexChannel * CalibrationCurveSlope + CalibrationCurveIntercept;
+                    peak.EnergyRange = new(peak.ChannelRange.Item1 * CalibrationCurveSlope + CalibrationCurveIntercept,
+                        peak.ChannelRange.Item2 * CalibrationCurveSlope + CalibrationCurveIntercept);
+                }
+            }
+            else
+            {
+                foreach (Peak peak in Peaks)
+                {
+                    peak.ApexEnergy = 0;
+                    peak.EnergyRange = new(0,0);
                 }
             }
         }

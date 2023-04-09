@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,11 @@ namespace XRFAnalyzer.Models
         [ObservableProperty]
         private int _apexChannel;
         [ObservableProperty]
-        private int _apexEnergy;
+        private double _apexEnergy;
         [ObservableProperty]
         private Tuple<int, int> _channelRange = new (0, 0);
         [ObservableProperty]
-        private Tuple<double, double> _energyRange = new (0, 0);
+        private EnergyRangeTuple _energyRange = new (0, 0);
         [ObservableProperty]
         private double _grossArea;
         [ObservableProperty]
@@ -72,6 +73,26 @@ namespace XRFAnalyzer.Models
                 {
                     peak.CanBeSumPeak = true;
                 }
+            }
+        }
+
+        public partial class EnergyRangeTuple : ObservableObject 
+        {
+            [ObservableProperty]
+            private double _item1;
+            [ObservableProperty]
+            private double _item2;
+
+            public EnergyRangeTuple(double item1, double item2) 
+            {
+                this.Item1 = item1;
+                this.Item2 = item2;
+            }
+
+            public override string ToString()
+            {
+                string toReturn = String.Format("({0:N2}, {1:N2})", this.Item1, this.Item2);
+                return toReturn;
             }
         }
     }
