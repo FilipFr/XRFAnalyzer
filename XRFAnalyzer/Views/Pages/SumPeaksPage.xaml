@@ -52,17 +52,22 @@
                             IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <TextBlock 
-                    Text="{Binding LocalizationResourceManager[SumPeaksEmptyMessage]}" 
-                    HorizontalAlignment="Center"
-                    Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=SumPeaksTable}" />
-                <TextBlock 
-                    Text="{Binding LocalizationResourceManager[SumPeaksHintMessage]}"
-                    TextWrapping="Wrap"
-                    HorizontalAlignment="Center"
-                    Width="Auto"
-                    Height="Auto"
-                    Visibility="{Binding Items.IsEmpty, Converter={StaticResource InverseBooleanToVisibilityConverter}, ElementName=SumPeaksTable}" />
+                <DockPanel
+                    Margin="16"
+                    >
+                    <TextBlock 
+                        Text="{Binding LocalizationResourceManager[SumPeaksEmptyMessage]}"
+                        TextWrapping="Wrap"
+                        Foreground="WhiteSmoke"
+                        HorizontalAlignment="Center"
+                        Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=SumPeaksTable}" />
+                    <TextBlock 
+                        Text="{Binding LocalizationResourceManager[SumPeaksHintMessage]}"
+                        TextWrapping="Wrap"
+                        HorizontalAlignment="Center"
+                        Foreground="WhiteSmoke"
+                        Visibility="{Binding Items.IsEmpty, Converter={StaticResource InverseBooleanToVisibilityConverter}, ElementName=SumPeaksTable}" />  
+                </DockPanel>
             </StackPanel>
         </Grid>
     </Grid>
