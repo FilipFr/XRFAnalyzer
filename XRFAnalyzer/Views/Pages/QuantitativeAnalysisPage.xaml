@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XRFAnalyzer.Views.Pages"
       xmlns:controls="clr-namespace:XRFAnalyzer.Views.UserControls"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="QuantitativeAnalysisPage">
@@ -28,6 +29,37 @@
             Background="{DynamicResource LightThemeSecondaryColorHighlight}"
             Panel.ZIndex="2"
             >
+            <StackPanel
+                Margin="16">
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Left"
+                        Content="{Binding LocalizationResourceManager[XRaySourceSpectrumFileLabel]}"/>
+                    <Label
+                        Content="{Binding SourceSpectrumViewModel.CurrentFile}"
+                        />
+                </DockPanel>
+                <Button 
+                        x:Name="SourceSpectrumLoadButton"
+                        Style="{StaticResource MainMenuButton}"
+                        ToolTip="{Binding LocalizationResourceManager[XRaySourceSpectrumLoad]}"
+                        Command="{Binding SourceSpectrumViewModel.Load}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="Click">
+                            <behaviors:InvokeCommandAction Command="{Binding SwitchSpectrumViewModelCommand}" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                    <controls:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
+                            PackIconKind="Applicationimport"
+                            LabelContent="{Binding LocalizationResourceManager[XRaySourceSpectrumLoad]}"
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"
+                            />
+                </Button>
+                <Label/>
+                <Label/>
+                
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

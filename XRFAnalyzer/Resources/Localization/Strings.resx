@@ -271,4 +271,10 @@
   <data name="SumPeaksHintMessage" xml:space="preserve">
     <value>To delete a sum peak, select a row and press delete.</value>
   </data>
+  <data name="XRaySourceSpectrumFileLabel" xml:space="preserve">
+    <value>Current primary X-ray spectrum</value>
+  </data>
+  <data name="XRaySourceSpectrumLoad" xml:space="preserve">
+    <value>Load primary X-ray spectrum</value>
+  </data>
 </root>

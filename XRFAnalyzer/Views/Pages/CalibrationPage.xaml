@@ -88,6 +88,7 @@
                     Grid.Row="0" Grid.Column="0"
                     HorizontalAlignment="Left"
                     Margin="16 0 0 0"
+                    Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
                     Content="{Binding LocalizationResourceManager[CalibrationTableColumn1]}"/>
                 <mah:NumericUpDown
@@ -101,6 +102,7 @@
                     Grid.Row="1" Grid.Column="0"
                     HorizontalAlignment="Left"
                     Margin="16 0 0 0"
+                    Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
                     Content="{Binding LocalizationResourceManager[CalibrationTableColumn2]}"/>
                 <mah:NumericUpDown
@@ -113,6 +115,7 @@
                     Grid.Row="2" Grid.Column="0"
                     HorizontalAlignment="Left"
                     Margin="16 0 0 0"
+                    Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
                     Content="{Binding LocalizationResourceManager[CalibrationTableColumn3]}"/>
                 <ComboBox
@@ -127,6 +130,7 @@
                     Grid.Row="3" Grid.Column="0"
                     HorizontalAlignment="Left"
                     Margin="16 0 0 0"
+                    Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
                     Content="{Binding LocalizationResourceManager[CalibrationTableColumn4]}"/>
                 <ComboBox

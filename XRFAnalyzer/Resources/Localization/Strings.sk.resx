@@ -270,4 +270,10 @@
   <data name="SumPeaksHintMessage" xml:space="preserve">
     <value>Pre odstránenie píku vyberte riadok v tabuľke a stlačte klávesu delete.</value>
   </data>
+  <data name="XRaySourceSpectrumFileLabel" xml:space="preserve">
+    <value>Načítané spektrum primárneho žiarenia</value>
+  </data>
+  <data name="XRaySourceSpectrumLoad" xml:space="preserve">
+    <value>Načítať spektrum primárneho žiarenia</value>
+  </data>
 </root>

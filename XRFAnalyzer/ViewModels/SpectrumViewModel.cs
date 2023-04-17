@@ -127,7 +127,7 @@ namespace XRFAnalyzer.ViewModels
             channel = GrpcChannel.ForAddress("http://localhost:50051");
             client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
             Spectrum = new Spectrum();
-            CurrentFile = "";
+            CurrentFile = "No data";
             Counts = Spectrum.Counts;
             Rois = Spectrum.Peaks;
             CalibrationRows = new();
@@ -259,6 +259,7 @@ namespace XRFAnalyzer.ViewModels
                     IsBackgroundRemoved = false;
                     RemoveBackgroundCommand.NotifyCanExecuteChanged();
                     UndoBackgroundRemovalCommand.NotifyCanExecuteChanged();
+                    CurrentFile = openFileDialog.FileName.Split("\\").Last();
                 }
                 else
                 {

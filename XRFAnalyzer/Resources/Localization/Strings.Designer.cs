@@ -502,6 +502,24 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current primary X-ray spectrum.
+        /// </summary>
+        internal static string XRaySourceSpectrumFileLabel {
+            get {
+                return ResourceManager.GetString("XRaySourceSpectrumFileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load primary X-ray spectrum.
+        /// </summary>
+        internal static string XRaySourceSpectrumLoad {
+            get {
+                return ResourceManager.GetString("XRaySourceSpectrumLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Iterations.
         /// </summary>
         internal static string ZhangFitIterationsLabel {
