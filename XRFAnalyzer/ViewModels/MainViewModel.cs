@@ -19,25 +19,33 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private ObservableObject _characteristicSpectrumViewModel;
 
-        public RelayCommand SwitchSpectrumViewModelCommand { get; set; }
+        public RelayCommand SwitchToSourceSpectrumViewModelCommand { get; set; }
+        public RelayCommand SwitchToCharacteristicSpectrumViewModelCommand { get; set; }
 
         public MainViewModel() 
         {
             CharacteristicSpectrumViewModel = new SpectrumViewModel();
             ViewM = CharacteristicSpectrumViewModel;
             SourceSpectrumViewModel = new SpectrumViewModel();
-            SwitchSpectrumViewModelCommand = new RelayCommand(SwitchSpectrumViewModel);
+            SwitchToSourceSpectrumViewModelCommand = new RelayCommand(SwitchToSourceSpectrumViewModel);
+            SwitchToCharacteristicSpectrumViewModelCommand = new RelayCommand(SwitchToCharacteristicSpectrumViewModel);
         }
 
-        private void SwitchSpectrumViewModel() 
+        private void SwitchToSourceSpectrumViewModel() 
         {
-            if (ViewM == CharacteristicSpectrumViewModel) 
+            if (SourceSpectrumViewModel != null && ViewM != SourceSpectrumViewModel) 
             {
                 ViewM = SourceSpectrumViewModel;
-            } else 
+            } 
+        }
+
+        private void SwitchToCharacteristicSpectrumViewModel() 
+        {
+            if (CharacteristicSpectrumViewModel != null && ViewM != CharacteristicSpectrumViewModel) 
             {
                 ViewM = CharacteristicSpectrumViewModel;
             }
         }
+
     }
 }

@@ -46,7 +46,7 @@
                         Command="{Binding SourceSpectrumViewModel.Load}">
                     <behaviors:Interaction.Triggers>
                         <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction Command="{Binding SwitchSpectrumViewModelCommand}" />
+                            <behaviors:InvokeCommandAction Command="{Binding SwitchToSourceSpectrumViewModelCommand}" />
                         </behaviors:EventTrigger>
                     </behaviors:Interaction.Triggers>
                     <controls:MenuButtonContent
