@@ -20,7 +20,7 @@ using Grpc.Net.Client;
 using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.Input;
 using MathNet.Numerics;
-
+using Google.Protobuf.Collections;
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -50,6 +50,12 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private bool _isPeakSelected;
         [ObservableProperty]
+        private List<Detector> _detectors;
+        [ObservableProperty]
+        private List<DetectorGrouped> _detectorsGrouped;
+        [ObservableProperty]
+        private DetectorGrouped _currentDetector;
+        [ObservableProperty]
         private List<Element> _elements;
         [ObservableProperty]
         private ObservableCollection<CalibrationRow> _calibrationRows;
@@ -77,6 +83,12 @@ namespace XRFAnalyzer.ViewModels
         private double _calibrationCurveSlope = Double.MaxValue;
         [ObservableProperty]
         private double _calibrationCurveIntercept = Double.MaxValue;
+        [ObservableProperty]
+        private Yields _yields = new();
+        [ObservableProperty]
+        private JumpRatios _jumpRatioss = new(); 
+        [ObservableProperty]
+        private MassCoefficients _massCoefficientss = new();
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -147,8 +159,16 @@ namespace XRFAnalyzer.ViewModels
             GetCorrectedCountsCommand = new Command(() => GetBackgroundMessage());
             RemoveBackgroundCommand = new RelayCommand(RemoveBackground, CanRemoveBackground);
             UndoBackgroundRemovalCommand = new RelayCommand(UndoBackgroundRemoval, CanUndoBackgroundRemoval);
+            ShowCommand = new Command(() => Show());
             SelectedPeakIndex = -1;
             Elements = GetElementsData();
+            Detectors = Detector.LoadData("Resources\\Data\\detector_efficiency.json");
+            Yields.DeserializeYields("Resources\\Data\\fluorescent_yield.json");
+            JumpRatioss.Deserialize("Resources\\Data\\jump_ratio.json");
+            MassCoefficientss.Deserialize("Resources\\Data\\xray_mass_ceoficient.json");
+            DetectorsGrouped = new();
+            DetectorsGrouped = DetectorGrouped.GroupDetectorsByName(Detectors);
+            CurrentDetector = new();
             MaxChannel = GetMaxChannel();
             FindPeaksDTO = new();
             BackgroundDTO = new();
@@ -224,6 +244,7 @@ namespace XRFAnalyzer.ViewModels
         public ICommand GetCorrectedCountsCommand { get; set; }
         public RelayCommand RemoveBackgroundCommand { get; set; }
         public RelayCommand UndoBackgroundRemovalCommand { get; set; }
+        public ICommand ShowCommand { get; set; }
 
         
         private void LoadSpectrum()
@@ -297,38 +318,36 @@ namespace XRFAnalyzer.ViewModels
             }
         }
 
-        public partial class CalibrationRow : ObservableObject
+        public partial class DetectorGrouped : ObservableObject
         {
-            [ObservableProperty]
-            private int _channel;
-            [ObservableProperty]
-            private double _energy;
-            [ObservableProperty]
-            private Element? _element;
-       
-            private EmissionLine? _emissionLine;
+            public string Name { get; set; } = "";
+            public List<Detector> Configurations { get; set; } = new();
+            public string SelectedWindow { get; set; } = "";
 
-            public EmissionLine EmissionLine 
+            public DetectorGrouped() 
             {
-                get { return _emissionLine; }
-                set { _emissionLine = value;
-                    OnPropertyChanged();
-                    if (EmissionLine != null)
-                    {
-                        Energy = Math.Round(_emissionLine.Energy, 4);
-                    }
-                } 
             }
 
-            public CalibrationRow() { }
-
-            public CalibrationRow(int channel, double energy)  
+            public static List<DetectorGrouped> GroupDetectorsByName(List<Detector> detectors) 
             {
-                Channel = channel;
-                Energy = energy;
+                var grouped = detectors.GroupBy(x =>  x.Name).OrderBy(x=> x.Key);
+                List<DetectorGrouped> toReturn = new();
+                foreach(var detector in grouped) 
+                {
+                    DetectorGrouped item = new();
+                    item.Name = detector.Key;
+                    foreach(var config in detector) 
+                    {
+                        item.Configurations.Add(config);
+                    }
+                    toReturn.Add(item);
+                }
+                return toReturn;
             }
         }
-        
+
+      
+
         private List<Element> GetElementsData() {
             List<EmissionLine>? lines = JsonConvert.DeserializeObject<List<EmissionLine>>(File.ReadAllText("Resources\\Data\\elements_lines.json"));
             List<Element>? elements = JsonConvert.DeserializeObject<List<Element>>(File.ReadAllText("Resources\\Data\\elements_info.json"));
@@ -507,6 +526,18 @@ namespace XRFAnalyzer.ViewModels
             }
         }
 
+
+        private void Show() 
+        {
+            foreach(Peak peak in Peaks) 
+            {
+                if (peak.ConfirmedEmissionLine == null)
+                {
+                    MessageBox.Show(peak.ApexChannel.ToString());
+                }
+            }
+        }
+
         private void CalibratePeaks() 
         {
             if (CalibrationCurveSlope != Double.MaxValue && CalibrationCurveIntercept != Double.MaxValue)
@@ -516,6 +547,7 @@ namespace XRFAnalyzer.ViewModels
                     peak.ApexEnergy = peak.ApexChannel * CalibrationCurveSlope + CalibrationCurveIntercept;
                     peak.EnergyRange = new(peak.ChannelRange.Item1 * CalibrationCurveSlope + CalibrationCurveIntercept,
                         peak.ChannelRange.Item2 * CalibrationCurveSlope + CalibrationCurveIntercept);
+                    peak.FindPotentialEmissionLines(Elements, CalibrationRows, 0.05);
                 }
             }
             else

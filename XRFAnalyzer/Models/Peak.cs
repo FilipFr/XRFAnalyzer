@@ -2,10 +2,12 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace XRFAnalyzer.Models
 {
@@ -27,6 +29,10 @@ namespace XRFAnalyzer.Models
         private double _netArea;
         [ObservableProperty]
         private bool canBeSumPeak = false;
+        [ObservableProperty]
+        private ObservableCollection<EmissionLine> potentialEmissionLines = new();
+        [ObservableProperty]
+        private EmissionLine? confirmedEmissionLine = null;
 
         public static List<Peak> GetPeaksFromSpectrum(List<double> values, List<Tuple<int,int>> rois) 
         {
@@ -74,6 +80,29 @@ namespace XRFAnalyzer.Models
                     peak.CanBeSumPeak = true;
                 }
             }
+        }
+
+        public void FindPotentialEmissionLines(List<Element> elements, ObservableCollection<CalibrationRow> calibrationRows, double range) 
+        {
+            foreach(CalibrationRow row in calibrationRows) 
+            {
+                if (row.EmissionLine != null && row.EmissionLine.Energy - range <= this.ApexEnergy && this.ApexEnergy <= row.EmissionLine.Energy + range) 
+                {
+                    potentialEmissionLines.Add(row.EmissionLine);
+                    return;
+                }
+            }
+            foreach (Element element in elements) 
+            {
+                foreach (EmissionLine line in element.EmissionLines)
+                {
+                    if (this.ApexEnergy != 0 && (line.Energy - range <= this.ApexEnergy && this.ApexEnergy <= line.Energy + range))
+                    {
+                        this.potentialEmissionLines.Add(line);
+                    }
+                }
+            }
+            this.potentialEmissionLines = new ObservableCollection<EmissionLine>(this.potentialEmissionLines.OrderBy(x => x.Line).ToList());
         }
 
         public partial class EnergyRangeTuple : ObservableObject 

@@ -11,8 +11,12 @@
   <ItemGroup>
     <None Remove="Processes\Protos\XRFAnalyzer.proto" />
     <None Remove="Processes\Server\XRFAnalyzerGrpcServer.exe" />
+    <None Remove="Resources\Data\detector_efficiency.json" />
     <None Remove="Resources\Data\elements_info.json" />
     <None Remove="Resources\Data\elements_lines.json" />
+    <None Remove="Resources\Data\fluorescent_yield.json" />
+    <None Remove="Resources\Data\jump_ratio.json" />
+    <None Remove="Resources\Data\xray_mass_ceoficient.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +57,21 @@
 	<ItemGroup>
 
 		<Protobuf Include="Processes\Protos\XRFAnalyzer.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Data\detector_efficiency.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Data\fluorescent_yield.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Data\jump_ratio.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Data\xray_mass_ceoficient.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
   <ItemGroup>

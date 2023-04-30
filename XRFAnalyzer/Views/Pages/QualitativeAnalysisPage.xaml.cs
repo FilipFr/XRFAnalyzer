@@ -31,5 +31,6 @@ namespace XRFAnalyzer.Views.Pages
                 this.NavigationService.GoBack();
             }
         }
+
     }
 }

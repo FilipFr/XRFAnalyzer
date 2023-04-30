@@ -14,7 +14,7 @@ namespace XRFAnalyzer.Models
         [JsonProperty("symbol")]
         public string Symbol { get; set; } = "";
         [JsonProperty("number")]
-        public int AtomicNumber { get; set; }
+        public int Number { get; set; }
         public List<EmissionLine> EmissionLines { get; set; } = new List<EmissionLine>();
 
         Element() { }
@@ -23,13 +23,13 @@ namespace XRFAnalyzer.Models
         {
             if (lines != null)
             {
-                EmissionLines = lines.Where(x => x.AtomicNumber == AtomicNumber).ToList();
+                EmissionLines = lines.Where(x => x.Number == Number).ToList();
             }
         }
 
         public override string? ToString()
         {
-            return "" + AtomicNumber + " " + Symbol;
+            return "" + Number + " " + Symbol;
         }
     }
 }

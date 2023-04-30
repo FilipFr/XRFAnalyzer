@@ -8,7 +8,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="QualitativeAnalysisPage">
-
+    <Page.Resources>
+        <CollectionViewSource x:Key="ItemsCVS" Source="{Binding ApexEnergy}" />
+    </Page.Resources>
     <Grid Background="{StaticResource LightThemeSecondaryColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
@@ -23,11 +25,51 @@
                 LabelStyle="{StaticResource OperationMenuButtonLabel}"
                 LabelContent="{Binding LocalizationResourceManager[OperationMenuQualitativeAnalysisLabel]}"/>
         </Button>
+        <FrameworkElement x:Name="Proxy" DataContext="{Binding}"/>
         <Grid
             Grid.Row="1"
             Background="{DynamicResource LightThemeSecondaryColorHighlight}"
             Panel.ZIndex="2"
             >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Stretch"
+                Margin="8 0 8 4"
+                ItemsSource="{Binding ViewM.Peaks}"
+                MaxHeight="170"
+                MinColumnWidth="70"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                >
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Binding="{Binding EnergyRange}">
+                        
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    ItemsSource="{Binding PotentialEmissionLines}"
+                                    SelectedItem="{Binding ConfirmedEmissionLine, UpdateSourceTrigger=PropertyChanged}"
+                                    IsSynchronizedWithCurrentItem="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                
+            </DataGrid>
+            <Button 
+                Grid.Row="1"
+                Command="{Binding ViewM.ShowCommand}">
+                CLick
+            </Button>
+            
         </Grid>
     </Grid>
 </Page>

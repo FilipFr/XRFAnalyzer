@@ -277,4 +277,10 @@
   <data name="XRaySourceSpectrumLoad" xml:space="preserve">
     <value>Load primary X-ray spectrum</value>
   </data>
+  <data name="DetectorChoiceLabel" xml:space="preserve">
+    <value>Detector</value>
+  </data>
+  <data name="WindowChoiceLabel" xml:space="preserve">
+    <value>Window</value>
+  </data>
 </root>

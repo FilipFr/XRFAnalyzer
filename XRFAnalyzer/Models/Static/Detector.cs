@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.CodeDom;
 
 namespace XRFAnalyzer.Models
 {
@@ -18,18 +19,23 @@ namespace XRFAnalyzer.Models
         [JsonProperty("energy")]
         private List<double> Energies { get; set; } = new();
         [JsonProperty("total_attenuation")]
-        private List<double> TotalAttenuation { get; set; } = new();
+        private List<double> TotalAttenuations { get; set; } = new();
 
-        public List<Detector> LoadData(string filepath) 
+        public static List<Detector> LoadData(string filepath) 
         {
-            List<Detector>? detectors = JsonConvert.DeserializeObject<List<Detector>>(File.ReadAllText("Resources\\Data\\elements_lines.json"));
+            var detectors = JsonConvert.DeserializeObject<List<Detector>>(File.ReadAllText(filepath));
             if (detectors == null || detectors.Count == 0)
             { 
                 return new(); 
             }
-            
             return detectors ;
         }
+
+        public override string ToString()
+        {
+            return Name + ", " + Window + " window";
+        }
+
 
     }
 }

@@ -56,9 +56,50 @@
                             LabelStyle="{StaticResource MainMenuButtonLabel}"
                             />
                 </Button>
-                <Label/>
-                <Label/>
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                    Grid.Row="0" Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Margin="16 0 0 0"
+                    Foreground="WhiteSmoke"
+                    VerticalAlignment="Center"
+                    Content="{Binding LocalizationResourceManager[DetectorChoiceLabel]}"/>
+                    <ComboBox
+                    Grid.Row="0" Grid.Column="1"
+                    Margin="8 4"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    SelectedItem="{Binding ViewM.CurrentDetector}"
+                    ItemsSource="{Binding ViewM.DetectorsGrouped}"
+                    DisplayMemberPath="Name"
+                    />
+                    <Label
+                    Grid.Row="1" Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Margin="16 0 0 0"
+                    Foreground="WhiteSmoke"
+                    VerticalAlignment="Center"
+                    Content="{Binding LocalizationResourceManager[WindowChoiceLabel]}"/>
+                    <ComboBox
+                    Grid.Row="1" Grid.Column="1"
+                    Margin="8 4"
+                    IsEnabled="True"
+                    IsEditable="True" IsReadOnly="True" Text="Please Select"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    SelectedItem="{Binding ViewM.CurrentDetector.SelectedWindow}"
+                    ItemsSource="{Binding ViewM.CurrentDetector.Configurations}"
+                    DisplayMemberPath="Window"
+                    />
+                </Grid>
             </StackPanel>
         </Grid>
     </Grid>

@@ -115,6 +115,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detector.
+        /// </summary>
+        internal static string DetectorChoiceLabel {
+            get {
+                return ResourceManager.GetString("DetectorChoiceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Energy [kEv].
         /// </summary>
         internal static string EnergyToggleOption {
@@ -489,6 +498,15 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string UndoBackgroundRemovalLabel {
             get {
                 return ResourceManager.GetString("UndoBackgroundRemovalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window.
+        /// </summary>
+        internal static string WindowChoiceLabel {
+            get {
+                return ResourceManager.GetString("WindowChoiceLabel", resourceCulture);
             }
         }
         

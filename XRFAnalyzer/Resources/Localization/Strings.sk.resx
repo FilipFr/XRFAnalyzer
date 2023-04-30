@@ -276,4 +276,10 @@
   <data name="XRaySourceSpectrumLoad" xml:space="preserve">
     <value>Načítať spektrum primárneho žiarenia</value>
   </data>
+  <data name="WindowChoiceLabel" xml:space="preserve">
+    <value>Okno</value>
+  </data>
+  <data name="DetectorChoiceLabel" xml:space="preserve">
+    <value>Detektor</value>
+  </data>
 </root>

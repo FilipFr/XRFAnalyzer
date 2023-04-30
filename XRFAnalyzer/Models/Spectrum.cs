@@ -92,16 +92,5 @@ namespace XRFAnalyzer.Models
                 return false;
             }
         }
-
-        //private McaMetadata ?metadata;
-
-        //private class McaMetadata
-        //{
-        //    Dictionary<string, string> ?header;
-        //    Dictionary<string, string> ?config;
-        //    Dictionary<string, string> ?status;
-        //    Dictionary<string, string> ?bootFlags;
-        //}
-
     }
 }

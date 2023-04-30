@@ -34,3 +34,28 @@ message BackgroundRequest {
 message BackgroundReply {
 	repeated double corrected_counts = 1;
 }
+
+message NumericalData {
+  repeated double data = 1;
+}
+
+message QuantificationRequest {
+  repeated double p_counts = 1;
+  int32 intervals_per_channel = 2;
+  double p_slope = 3;
+  double p_intercept = 4;
+  repeated double peak_areas = 5;
+  repeated double peak_energies = 6;
+  repeated double detector_energies = 7;
+  repeated double detector_efficiencies = 8;
+  repeated double yields = 9;
+  repeated double probabilities = 10;
+  repeated double jump_ratios = 11;
+  repeated NumericalData coefficient_energies = 12;
+  repeated NumericalData absorption_data = 13;
+  repeated NumericalData attenuation_data = 14;
+}
+
+message QuantificationReply{
+  repeated double concentrations = 1;
+}
