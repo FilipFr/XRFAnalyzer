@@ -84,6 +84,7 @@ namespace XRFAnalyzer.Models
 
         public void FindPotentialEmissionLines(List<Element> elements, ObservableCollection<CalibrationRow> calibrationRows, double range) 
         {
+            PotentialEmissionLines.Clear();
             foreach(CalibrationRow row in calibrationRows) 
             {
                 if (row.EmissionLine != null && row.EmissionLine.Energy - range <= this.ApexEnergy && this.ApexEnergy <= row.EmissionLine.Energy + range) 

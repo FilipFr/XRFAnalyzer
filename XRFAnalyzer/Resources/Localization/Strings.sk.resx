@@ -282,4 +282,7 @@
   <data name="DetectorChoiceLabel" xml:space="preserve">
     <value>Detektor</value>
   </data>
+  <data name="QualitativeAnalysisIdentifiedLineLabel" xml:space="preserve">
+    <value>Identifikovaná čiara</value>
+  </data>
 </root>

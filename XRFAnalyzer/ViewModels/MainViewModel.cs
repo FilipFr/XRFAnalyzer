@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using XRFAnalyzer.Resources.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using XRFAnalyzer.Models;
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -14,6 +15,8 @@ namespace XRFAnalyzer.ViewModels
         public LocalizationResourceManager LocalizationResourceManager => LocalizationResourceManager.Instance;
         [ObservableProperty]
         private ObservableObject _viewM;
+        [ObservableProperty]
+        private Models.Static.ElementData _elementData;
         [ObservableProperty]
         private ObservableObject _sourceSpectrumViewModel;
         [ObservableProperty]
@@ -24,9 +27,10 @@ namespace XRFAnalyzer.ViewModels
 
         public MainViewModel() 
         {
-            CharacteristicSpectrumViewModel = new SpectrumViewModel();
+            ElementData = new Models.Static.ElementData();
+            CharacteristicSpectrumViewModel = new SpectrumViewModel(ElementData);
             ViewM = CharacteristicSpectrumViewModel;
-            SourceSpectrumViewModel = new SpectrumViewModel();
+            SourceSpectrumViewModel = new SpectrumViewModel(ElementData);
             SwitchToSourceSpectrumViewModelCommand = new RelayCommand(SwitchToSourceSpectrumViewModel);
             SwitchToCharacteristicSpectrumViewModelCommand = new RelayCommand(SwitchToCharacteristicSpectrumViewModel);
         }
@@ -36,7 +40,7 @@ namespace XRFAnalyzer.ViewModels
             if (SourceSpectrumViewModel != null && ViewM != SourceSpectrumViewModel) 
             {
                 ViewM = SourceSpectrumViewModel;
-            } 
+            }
         }
 
         private void SwitchToCharacteristicSpectrumViewModel() 

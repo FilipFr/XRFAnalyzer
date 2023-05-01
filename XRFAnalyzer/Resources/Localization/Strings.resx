@@ -283,4 +283,7 @@
   <data name="WindowChoiceLabel" xml:space="preserve">
     <value>Window</value>
   </data>
+  <data name="QualitativeAnalysisIdentifiedLineLabel" xml:space="preserve">
+    <value>Identified line</value>
+  </data>
 </root>

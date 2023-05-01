@@ -39,7 +39,7 @@
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Stretch"
                 Margin="8 0 8 4"
-                ItemsSource="{Binding ViewM.Peaks}"
+                ItemsSource="{Binding ViewM.Peaks, UpdateSourceTrigger=PropertyChanged}"
                 MaxHeight="170"
                 MinColumnWidth="70"
                 AutoGenerateColumns="False"
@@ -48,12 +48,18 @@
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Binding="{Binding EnergyRange}">
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[PeakEnergyRangeLabel]}"
+                        Binding="{Binding EnergyRange}"
+                        IsReadOnly="True">
                         
                     </DataGridTextColumn>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[QualitativeAnalysisIdentifiedLineLabel]}"
+                        
+                        Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
+                                
                                 <ComboBox
                                     ItemsSource="{Binding PotentialEmissionLines}"
                                     SelectedItem="{Binding ConfirmedEmissionLine, UpdateSourceTrigger=PropertyChanged}"

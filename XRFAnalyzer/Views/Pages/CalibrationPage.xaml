@@ -124,7 +124,7 @@
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     SelectedItem="{Binding ViewM.CurrentCalibrationRow.Element}"
-                    ItemsSource="{Binding ViewM.Elements}"
+                    ItemsSource="{Binding ElementData.Data}"
                     />
                 <Label
                     Grid.Row="3" Grid.Column="0"

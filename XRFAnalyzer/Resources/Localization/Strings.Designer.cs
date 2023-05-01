@@ -439,6 +439,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identified line.
+        /// </summary>
+        internal static string QualitativeAnalysisIdentifiedLineLabel {
+            get {
+                return ResourceManager.GetString("QualitativeAnalysisIdentifiedLineLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove background.
         /// </summary>
         internal static string RemoveBackgroundLabel {

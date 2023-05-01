@@ -21,6 +21,7 @@ using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.Input;
 using MathNet.Numerics;
 using Google.Protobuf.Collections;
+using XRFAnalyzer.Models.Static;
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -28,6 +29,7 @@ namespace XRFAnalyzer.ViewModels
     {
         GrpcChannel channel;
         XRFAnalyzerService.XRFAnalyzerServiceClient client;
+        ElementData elementDataReference;
 
         [ObservableProperty]
         private Spectrum _spectrum;
@@ -55,8 +57,6 @@ namespace XRFAnalyzer.ViewModels
         private List<DetectorGrouped> _detectorsGrouped;
         [ObservableProperty]
         private DetectorGrouped _currentDetector;
-        [ObservableProperty]
-        private List<Element> _elements;
         [ObservableProperty]
         private ObservableCollection<CalibrationRow> _calibrationRows;
         [ObservableProperty]
@@ -134,10 +134,11 @@ namespace XRFAnalyzer.ViewModels
         private BackgroundDTO _backgroundDTO;
 
 
-        public SpectrumViewModel()
+        public SpectrumViewModel(ElementData elementData)
         {
             channel = GrpcChannel.ForAddress("http://localhost:50051");
             client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
+            elementDataReference = elementData;
             Spectrum = new Spectrum();
             CurrentFile = "No data";
             Counts = Spectrum.Counts;
@@ -161,9 +162,8 @@ namespace XRFAnalyzer.ViewModels
             UndoBackgroundRemovalCommand = new RelayCommand(UndoBackgroundRemoval, CanUndoBackgroundRemoval);
             ShowCommand = new Command(() => Show());
             SelectedPeakIndex = -1;
-            Elements = GetElementsData();
             Detectors = Detector.LoadData("Resources\\Data\\detector_efficiency.json");
-            Yields.DeserializeYields("Resources\\Data\\fluorescent_yield.json");
+            Yields.Deserialize("Resources\\Data\\fluorescent_yield.json");
             JumpRatioss.Deserialize("Resources\\Data\\jump_ratio.json");
             MassCoefficientss.Deserialize("Resources\\Data\\xray_mass_ceoficient.json");
             DetectorsGrouped = new();
@@ -227,6 +227,7 @@ namespace XRFAnalyzer.ViewModels
                 Rois.Add(roiToAdd);
                 GetSumPeaks();
                 CalculatePeakAreas();
+                CalibratePeaks();
                 SelectedPeakIndex = Peaks.Count - 1;
             }
             else 
@@ -346,22 +347,6 @@ namespace XRFAnalyzer.ViewModels
             }
         }
 
-      
-
-        private List<Element> GetElementsData() {
-            List<EmissionLine>? lines = JsonConvert.DeserializeObject<List<EmissionLine>>(File.ReadAllText("Resources\\Data\\elements_lines.json"));
-            List<Element>? elements = JsonConvert.DeserializeObject<List<Element>>(File.ReadAllText("Resources\\Data\\elements_info.json"));
-            List<Element> toReturn = new List<Element>();
-            foreach (Element element in elements)
-            {
-                element.PopulateEmissionLines(lines);
-                if (element.EmissionLines.Count > 0) 
-                {
-                    toReturn.Add(element);
-                }
-            }
-            return toReturn;
-        }
 
         public int GetMaxChannel() 
         {
@@ -441,6 +426,7 @@ namespace XRFAnalyzer.ViewModels
                     Rois.Add(roi);
                     Peaks.Add(Peak.GetPeakFromRoi(Counts, roi));
                     CalculatePeakAreas();
+                    CalibratePeaks();
                 }
             }
             FoundRois.Clear();
@@ -547,7 +533,7 @@ namespace XRFAnalyzer.ViewModels
                     peak.ApexEnergy = peak.ApexChannel * CalibrationCurveSlope + CalibrationCurveIntercept;
                     peak.EnergyRange = new(peak.ChannelRange.Item1 * CalibrationCurveSlope + CalibrationCurveIntercept,
                         peak.ChannelRange.Item2 * CalibrationCurveSlope + CalibrationCurveIntercept);
-                    peak.FindPotentialEmissionLines(Elements, CalibrationRows, 0.05);
+                    peak.FindPotentialEmissionLines(elementDataReference.Data, CalibrationRows, 0.05);
                 }
             }
             else

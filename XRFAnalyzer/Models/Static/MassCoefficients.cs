@@ -10,22 +10,22 @@ namespace XRFAnalyzer.Models
 {
     internal class MassCoefficients
     {
-        List<Root>? massCoefficients = new List<Root>();
+        public List<Root>? Data = new List<Root>();
         public class Root
         {
             public int element { get; set; }
-            public string energy_unit { get; set; }
-            public List<double> energy { get; set; }
-            public string mass_attenuation_coefficient_unit { get; set; }
-            public List<double> mass_attenuation_coefficient { get; set; }
-            public string mass_absorption_coefficient_unit { get; set; }
-            public List<double> mass_absorption_coefficient { get; set; }
+            public string energy_unit { get; set; } = "";
+            public List<double> energy { get; set; } = new();
+            public string mass_attenuation_coefficient_unit { get; set; } = "";
+            public List<double> mass_attenuation_coefficient { get; set; } = new();
+            public string mass_absorption_coefficient_unit { get; set; } = "";
+            public List<double> mass_absorption_coefficient { get; set; } = new();
         }
 
         public void Deserialize(string filepath) 
         {
             string json = File.ReadAllText(filepath);
-            massCoefficients = JsonConvert.DeserializeObject<List<Root>>(json);
+            Data = JsonConvert.DeserializeObject<List<Root>>(json);
         }
         
     }
