@@ -20,5 +20,6 @@ namespace XRFAnalyzer.Models.DTOs
         {
             Counts = new();
         }
+        
     }
 }

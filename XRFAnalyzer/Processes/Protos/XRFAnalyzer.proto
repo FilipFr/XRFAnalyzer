@@ -5,6 +5,7 @@ option csharp_namespace="XRFAnalyzer";
 service XRFAnalyzerService {
   rpc FindPeaksMessage (FindPeaksRequest) returns (FindPeaksReply);
   rpc BackgroundMessage (BackgroundRequest) returns (BackgroundReply);
+  rpc QuantificationMessage (QuantificationRequest) returns (QuantificationReply);
 }
 
 message FindPeaksRequest {

@@ -38,7 +38,7 @@ namespace XRFAnalyzer.Models
                 {
                     if(this.Energy - detectorResolution < emissionLine.Energy && emissionLine.Energy < this.Energy + detectorResolution)
                     {
-                        probability += emissionLine.Energy;
+                        probability += emissionLine.TransitionProbability;
                     }
                 }
                 if (probability > 0) 

@@ -12,5 +12,12 @@ namespace XRFAnalyzer.Processes.Client
     {
         static GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:51001");
         XRFAnalyzerService.XRFAnalyzerServiceClient client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
+        
+        public BackgroundRequest CreateBackgroundRequest() 
+        {
+            return new BackgroundRequest();
+        }
     }
+
+    
 }

@@ -70,6 +70,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculate concentrations.
+        /// </summary>
+        internal static string CalculateConcentrationsButtonLabel {
+            get {
+                return ResourceManager.GetString("CalculateConcentrationsButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
         internal static string CalibrationTableColumn1 {
@@ -111,6 +120,15 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string ChannelToggleOption {
             get {
                 return ResourceManager.GetString("ChannelToggleOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm identification.
+        /// </summary>
+        internal static string ConfirmEmissionLinesButtonLabel {
+            get {
+                return ResourceManager.GetString("ConfirmEmissionLinesButtonLabel", resourceCulture);
             }
         }
         
@@ -322,7 +340,7 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tables of XRF constants.
+        ///   Looks up a localized string similar to X-ray data tables.
         /// </summary>
         internal static string OperationMenuDataTablesLabel {
             get {

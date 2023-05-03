@@ -30,6 +30,7 @@ namespace XRFAnalyzer.Views.UserControls
     /// </summary>
     public partial class PlotControl : UserControl
     {
+        
         public PlotControl()
         {
             InitializeComponent();
@@ -40,7 +41,6 @@ namespace XRFAnalyzer.Views.UserControls
             SpectrumWpfPlot.Plot.XLabel(XLabel);
             SpectrumWpfPlot.Plot.SetAxisLimits(0, 2048, 0, 10000);
             SpectrumWpfPlot.Render();
-            SpectrumWpfPlot.Plot.XAxis2.Layout(padding: 0, minimumSize: 8, maximumSize: 8);
         }
 
         public static readonly DependencyProperty YLabelProperty = DependencyProperty.Register(
@@ -159,6 +159,22 @@ namespace XRFAnalyzer.Views.UserControls
             set { SetValue(FoundRoisProperty, value); }
         }
         private static void FoundRoisChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.UpdateSignalPlot();
+        }
+
+        public static readonly DependencyProperty LineEnergiesProperty = DependencyProperty.Register(
+            "LineEnergies",
+            typeof(List<string>),
+            typeof(PlotControl),
+            new PropertyMetadata(new List<string>(), new PropertyChangedCallback(LineEnergiesChanged)));
+        public List<string> LineEnergies
+        {
+            get { return (List<string>)GetValue(LineEnergiesProperty); }
+            set { SetValue(LineEnergiesProperty, value); }
+        }
+        private static void LineEnergiesChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
             PlotControl b = (PlotControl)a;
             b.UpdateSignalPlot();
@@ -289,6 +305,10 @@ namespace XRFAnalyzer.Views.UserControls
                 //    Xs = Xs.Select(x => x * CalibrationCurveSlope + CalibrationCurveIntercept).ToArray();
                 //}
                 double[] Ys = values.Skip(peak.Item1).Take(peak.Item2 - peak.Item1).ToArray();
+                if(Ys.Length == 0) 
+                {
+                    continue;
+                }
                 var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.Color = System.Drawing.Color.RebeccaPurple;
                 newSignalXY.FillAboveAndBelow(System.Drawing.Color.Red, System.Drawing.Color.Purple, 0.5);
@@ -307,6 +327,16 @@ namespace XRFAnalyzer.Views.UserControls
                 double[] Ys = values.Skip(foundRoi.Item1).Take(foundRoi.Item2 - foundRoi.Item1).ToArray();
                 var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.FillAboveAndBelow(System.Drawing.Color.RebeccaPurple, System.Drawing.Color.Purple, 0.5);
+            }
+            foreach (Tuple<double, string> lines in ParseLineEnergies()) 
+            {
+                var vline = SpectrumWpfPlot.Plot.AddVerticalLine(lines.Item1);
+                vline.LineWidth = 2;
+                vline.DragEnabled = false;
+                vline.PositionLabel = true;
+                vline.PositionLabelOppositeAxis = true;
+                vline.PositionLabelBackground = vline.Color;
+                vline.PositionFormatter = new Func<double, string> (x => lines.Item2);
             }
             if (IsLogarithmicToggled) 
             {
@@ -363,6 +393,24 @@ namespace XRFAnalyzer.Views.UserControls
             
             UpdateSignalPlot();
             
+        }
+
+        public List<Tuple<double, string>> ParseLineEnergies() 
+        {
+            List<Tuple<double, string>> toReturn = new();
+            foreach(string line in LineEnergies) 
+            {
+                string[] splitLine = line.Split();
+                double item1 = Double.Parse(splitLine[0]);
+                //if (IsXAxisUnitToggled) 
+                //{
+                //    item1 = item1 * CalibrationCurveSlope + CalibrationCurveIntercept;
+                //}
+                string item2 = splitLine[1] + " " + splitLine[2];
+                Tuple<double, string> parsed = new(item1, item2);
+                toReturn.Add(parsed);
+            }
+            return toReturn;
         }
     }
 }

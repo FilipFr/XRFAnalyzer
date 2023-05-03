@@ -29,6 +29,8 @@ namespace XRFAnalyzer.Views.UserControls
         public LinearRegressionPlotControl()
         {
             InitializeComponent();
+            LinearRegressionWpfPlot.Plot.YLabel(YLabels);
+            LinearRegressionWpfPlot.Plot.XLabel(XLabels);
         }
 
         public static readonly DependencyProperty YLabelsProperty = DependencyProperty.Register(

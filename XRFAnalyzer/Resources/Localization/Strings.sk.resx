@@ -169,7 +169,7 @@
     <value>Kvantitatívna analýza</value>
   </data>
   <data name="OperationMenuDataTablesLabel" xml:space="preserve">
-    <value>Tabuľky konštánt</value>
+    <value>XRF Tabuľky</value>
   </data>
   <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
     <value>Logaritmická mierka</value>
@@ -193,7 +193,7 @@
     <value>Rozsah kanálov</value>
   </data>
   <data name="PeakEnergyRangeLabel" xml:space="preserve">
-    <value>Rozsah energii</value>
+    <value>Rozsah energií</value>
   </data>
   <data name="PeakGrossAreaLabel" xml:space="preserve">
     <value>Hrubá plocha</value>
@@ -253,7 +253,7 @@
     <value>Vlastnosti píku</value>
   </data>
   <data name="ZhangFitSmoothnessLabel" xml:space="preserve">
-    <value>Hladkosť (Lambda)</value>
+    <value>Vyhladenie (Lambda)</value>
   </data>
   <data name="ZhangFitIterationsLabel" xml:space="preserve">
     <value>Počet iterácii</value>
@@ -284,5 +284,11 @@
   </data>
   <data name="QualitativeAnalysisIdentifiedLineLabel" xml:space="preserve">
     <value>Identifikovaná čiara</value>
+  </data>
+  <data name="CalculateConcentrationsButtonLabel" xml:space="preserve">
+    <value>Vypočítať koncentrácie</value>
+  </data>
+  <data name="ConfirmEmissionLinesButtonLabel" xml:space="preserve">
+    <value>Potvrdiť identifikáciu</value>
   </data>
 </root>

@@ -40,7 +40,7 @@
                 HorizontalContentAlignment="Stretch"
                 Margin="8 0 8 4"
                 ItemsSource="{Binding ViewM.Peaks, UpdateSourceTrigger=PropertyChanged}"
-                MaxHeight="170"
+                MaxHeight="280"
                 MinColumnWidth="70"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
@@ -48,8 +48,8 @@
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[PeakEnergyRangeLabel]}"
-                        Binding="{Binding EnergyRange}"
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[CalibrationTableColumn2]}"
+                        Binding="{Binding ApexEnergy}"
                         IsReadOnly="True">
                         
                     </DataGridTextColumn>
@@ -62,7 +62,7 @@
                                 
                                 <ComboBox
                                     ItemsSource="{Binding PotentialEmissionLines}"
-                                    SelectedItem="{Binding ConfirmedEmissionLine, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding CurrentEmissionLine, UpdateSourceTrigger=PropertyChanged}"
                                     IsSynchronizedWithCurrentItem="True"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -72,8 +72,13 @@
             </DataGrid>
             <Button 
                 Grid.Row="1"
-                Command="{Binding ViewM.ShowCommand}">
-                CLick
+                Height="32"
+                Width="280"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="{Binding LocalizationResourceManager[ConfirmEmissionLinesButtonLabel]}"
+                Command="{Binding ViewM.ConfirmQualitativeAnalysisCommand}">
+                
             </Button>
             
         </Grid>

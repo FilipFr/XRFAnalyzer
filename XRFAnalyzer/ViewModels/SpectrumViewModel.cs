@@ -28,7 +28,7 @@ namespace XRFAnalyzer.ViewModels
     internal partial class SpectrumViewModel : ObservableObject
     {
         GrpcChannel channel;
-        XRFAnalyzerService.XRFAnalyzerServiceClient client;
+        public XRFAnalyzerService.XRFAnalyzerServiceClient client;
         ElementData elementDataReference;
 
         [ObservableProperty]
@@ -51,12 +51,6 @@ namespace XRFAnalyzer.ViewModels
         private bool _isXAxisUnitToggled;
         [ObservableProperty]
         private bool _isPeakSelected;
-        [ObservableProperty]
-        private List<Detector> _detectors;
-        [ObservableProperty]
-        private List<DetectorGrouped> _detectorsGrouped;
-        [ObservableProperty]
-        private DetectorGrouped _currentDetector;
         [ObservableProperty]
         private ObservableCollection<CalibrationRow> _calibrationRows;
         [ObservableProperty]
@@ -84,11 +78,9 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private double _calibrationCurveIntercept = Double.MaxValue;
         [ObservableProperty]
-        private Yields _yields = new();
+        private List<EmissionLine> _currentEmissionLines = new();
         [ObservableProperty]
-        private JumpRatios _jumpRatioss = new(); 
-        [ObservableProperty]
-        private MassCoefficients _massCoefficientss = new();
+        private List<string> lineEnergies = new();
 
         private int _calibrationSwitch;
         public int CalibrationSwitch 
@@ -145,7 +137,7 @@ namespace XRFAnalyzer.ViewModels
             Rois = Spectrum.Peaks;
             CalibrationRows = new();
             SumPeaks = new();
-            CalibrationRows.CollectionChanged += OnCollectionChanged;
+            CalibrationRows.CollectionChanged += OnCalibrationRowsChanged;
             SumPeaks.CollectionChanged += OnSumPeaksDeleted;
             CurrentCalibrationRow = new();
             IsLoaded = false;
@@ -160,15 +152,8 @@ namespace XRFAnalyzer.ViewModels
             GetCorrectedCountsCommand = new Command(() => GetBackgroundMessage());
             RemoveBackgroundCommand = new RelayCommand(RemoveBackground, CanRemoveBackground);
             UndoBackgroundRemovalCommand = new RelayCommand(UndoBackgroundRemoval, CanUndoBackgroundRemoval);
-            ShowCommand = new Command(() => Show());
+            ConfirmQualitativeAnalysisCommand = new Command(()=>ConfirmQualitativeAnalysis());
             SelectedPeakIndex = -1;
-            Detectors = Detector.LoadData("Resources\\Data\\detector_efficiency.json");
-            Yields.Deserialize("Resources\\Data\\fluorescent_yield.json");
-            JumpRatioss.Deserialize("Resources\\Data\\jump_ratio.json");
-            MassCoefficientss.Deserialize("Resources\\Data\\xray_mass_ceoficient.json");
-            DetectorsGrouped = new();
-            DetectorsGrouped = DetectorGrouped.GroupDetectorsByName(Detectors);
-            CurrentDetector = new();
             MaxChannel = GetMaxChannel();
             FindPeaksDTO = new();
             BackgroundDTO = new();
@@ -177,7 +162,18 @@ namespace XRFAnalyzer.ViewModels
             CorrectedCounts = new();
         }
 
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        public ICommand Load { get; set; }
+        public ICommand AddCalibrationPointCommand { get; set; }
+        public ICommand RemoveSelectedPeakCommand { get; set; }
+        public ICommand AddPeakCommand { get; set; }
+        public ICommand GetFindPeaksMessageCommand { get; set; }
+        public ICommand AddFoundPeaksCommand { get; set; }
+        public ICommand GetCorrectedCountsCommand { get; set; }
+        public RelayCommand RemoveBackgroundCommand { get; set; }
+        public RelayCommand UndoBackgroundRemovalCommand { get; set; }
+        public ICommand ConfirmQualitativeAnalysisCommand { get; set; }
+
+        private void OnCalibrationRowsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             CalibrationPoints.Clear();
             foreach (var row in CalibrationRows)
@@ -196,11 +192,6 @@ namespace XRFAnalyzer.ViewModels
                 {
                     if (!SumPeaks.Any(peak => Peaks[i] == peak)) 
                     {
-                        Peaks.RemoveAt(i);
-                        Rois.RemoveAt(i);
-                        int temp = SelectedPeakIndex;
-                        SelectedPeakIndex = Int32.MaxValue;
-                        SelectedPeakIndex = temp;
                         return;
                     }
                 }
@@ -235,18 +226,6 @@ namespace XRFAnalyzer.ViewModels
                 MessageBox.Show("Error: Left base channel cannot be greater or equal to right base channel");
             }
         }
-
-        public ICommand Load { get; set; }
-        public ICommand AddCalibrationPointCommand { get; set; }
-        public ICommand RemoveSelectedPeakCommand { get; set; }
-        public ICommand AddPeakCommand { get; set; }
-        public ICommand GetFindPeaksMessageCommand { get; set; }
-        public ICommand AddFoundPeaksCommand { get; set; }
-        public ICommand GetCorrectedCountsCommand { get; set; }
-        public RelayCommand RemoveBackgroundCommand { get; set; }
-        public RelayCommand UndoBackgroundRemovalCommand { get; set; }
-        public ICommand ShowCommand { get; set; }
-
         
         private void LoadSpectrum()
         {
@@ -282,6 +261,7 @@ namespace XRFAnalyzer.ViewModels
                     RemoveBackgroundCommand.NotifyCanExecuteChanged();
                     UndoBackgroundRemovalCommand.NotifyCanExecuteChanged();
                     CurrentFile = openFileDialog.FileName.Split("\\").Last();
+                    LineEnergies = new();
                 }
                 else
                 {
@@ -319,35 +299,6 @@ namespace XRFAnalyzer.ViewModels
             }
         }
 
-        public partial class DetectorGrouped : ObservableObject
-        {
-            public string Name { get; set; } = "";
-            public List<Detector> Configurations { get; set; } = new();
-            public string SelectedWindow { get; set; } = "";
-
-            public DetectorGrouped() 
-            {
-            }
-
-            public static List<DetectorGrouped> GroupDetectorsByName(List<Detector> detectors) 
-            {
-                var grouped = detectors.GroupBy(x =>  x.Name).OrderBy(x=> x.Key);
-                List<DetectorGrouped> toReturn = new();
-                foreach(var detector in grouped) 
-                {
-                    DetectorGrouped item = new();
-                    item.Name = detector.Key;
-                    foreach(var config in detector) 
-                    {
-                        item.Configurations.Add(config);
-                    }
-                    toReturn.Add(item);
-                }
-                return toReturn;
-            }
-        }
-
-
         public int GetMaxChannel() 
         {
             if(Counts.Count > 0) 
@@ -359,6 +310,7 @@ namespace XRFAnalyzer.ViewModels
 
         private void GetFindPeaksMessage() 
         {
+            
             var reply = client.FindPeaksMessage(new FindPeaksRequest
             {
                 Counts = { FindPeaksDTO.Counts },
@@ -500,26 +452,13 @@ namespace XRFAnalyzer.ViewModels
 
         private void GetSumPeaks()
         {
-            SumPeaks = new();
-            SumPeaks.CollectionChanged += OnSumPeaksDeleted;
-            foreach (Peak peak in Peaks)
+            SumPeaks.Clear();
+            foreach (Peak peak in Peaks.ToList())
             {
                 peak.DetermineIfSumPeak(Peaks);
                 if (peak.CanBeSumPeak)
                 {
                     SumPeaks.Add(peak);
-                }
-            }
-        }
-
-
-        private void Show() 
-        {
-            foreach(Peak peak in Peaks) 
-            {
-                if (peak.ConfirmedEmissionLine == null)
-                {
-                    MessageBox.Show(peak.ApexChannel.ToString());
                 }
             }
         }
@@ -533,7 +472,11 @@ namespace XRFAnalyzer.ViewModels
                     peak.ApexEnergy = peak.ApexChannel * CalibrationCurveSlope + CalibrationCurveIntercept;
                     peak.EnergyRange = new(peak.ChannelRange.Item1 * CalibrationCurveSlope + CalibrationCurveIntercept,
                         peak.ChannelRange.Item2 * CalibrationCurveSlope + CalibrationCurveIntercept);
-                    peak.FindPotentialEmissionLines(elementDataReference.Data, CalibrationRows, 0.05);
+                    peak.FindPotentialEmissionLines(elementDataReference.Data, CalibrationRows, 0.1);
+                }
+                foreach (Peak peak in Peaks)
+                {
+                    peak.SortPotentialEmissionLines(Peaks);
                 }
             }
             else
@@ -544,6 +487,22 @@ namespace XRFAnalyzer.ViewModels
                     peak.EnergyRange = new(0,0);
                 }
             }
+        }
+
+        private void ConfirmQualitativeAnalysis() 
+        {
+            CurrentEmissionLines = Peak.GetCurrentEmissionLines(Peaks);
+            LineEnergies.Clear();
+            foreach(EmissionLine line in CurrentEmissionLines) 
+            {
+                double energy = (line.Energy - CalibrationCurveIntercept) / CalibrationCurveSlope;
+                string result = energy.ToString("F") + " " + line.ToString();
+                LineEnergies.Add(result);
+                MessageBox.Show(result);
+            }
+            int temp = SelectedPeakIndex;
+            SelectedPeakIndex = -1;
+            SelectedPeakIndex = temp;
         }
     }
 }

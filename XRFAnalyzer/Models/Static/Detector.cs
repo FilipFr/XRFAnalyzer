@@ -17,9 +17,9 @@ namespace XRFAnalyzer.Models
         [JsonProperty("window")]
         public string Window { get; set; } = "";
         [JsonProperty("energy")]
-        private List<double> Energies { get; set; } = new();
+        public List<double> Energies { get; set; } = new();
         [JsonProperty("total_attenuation")]
-        private List<double> TotalAttenuations { get; set; } = new();
+        public List<double> TotalAttenuations { get; set; } = new();
 
         public static List<Detector> LoadData(string filepath) 
         {
@@ -33,7 +33,7 @@ namespace XRFAnalyzer.Models
 
         public override string ToString()
         {
-            return Name + ", " + Window + " window";
+            return Name + ", " + Window;
         }
 
 

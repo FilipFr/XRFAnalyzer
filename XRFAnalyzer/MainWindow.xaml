@@ -144,6 +144,7 @@
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption4]}"
+                        Command="{Binding SwitchToCharacteristicSpectrumViewModelCommand}"
                         BorderThickness="0">
                         <local:MenuButtonContent
                             PackIconStyle="{StaticResource MainMenuButtonIcon}"
@@ -275,6 +276,7 @@
                 Counts="{Binding ViewM.Counts}"
                 CorrectedCounts="{Binding ViewM.CorrectedCounts}"
                 Peaks="{Binding ViewM.Rois}"
+                LineEnergies="{Binding ViewM.LineEnergies}"
                 FoundRois="{Binding ViewM.FoundRois}"
                 IsLogarithmicToggled="{Binding IsOn, ElementName=LogarithmicScaleToggle}"
                 IsXAxisUnitToggled="{Binding IsOn, ElementName=XAxisUnitToggle}"

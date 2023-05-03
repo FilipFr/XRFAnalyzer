@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace XRFAnalyzer.Models
 {
@@ -32,7 +33,7 @@ namespace XRFAnalyzer.Models
         [ObservableProperty]
         private ObservableCollection<EmissionLine> potentialEmissionLines = new();
         [ObservableProperty]
-        private EmissionLine? confirmedEmissionLine = null;
+        private EmissionLine? currentEmissionLine = null;
 
         public static List<Peak> GetPeaksFromSpectrum(List<double> values, List<Tuple<int,int>> rois) 
         {
@@ -104,6 +105,46 @@ namespace XRFAnalyzer.Models
                 }
             }
             this.potentialEmissionLines = new ObservableCollection<EmissionLine>(this.potentialEmissionLines.OrderBy(x => x.Line).ToList());
+        }
+
+        public void SortPotentialEmissionLines(List<Peak> peaks) 
+        {
+            ObservableCollection<EmissionLine> sortedLines = new();
+            foreach (EmissionLine line in this.PotentialEmissionLines) 
+            {
+                foreach (Peak peak in peaks) 
+                {
+                    foreach (EmissionLine potentialLine in peak.PotentialEmissionLines) 
+                    {
+                        if (peak != this && line.Number == potentialLine.Number) 
+                        {
+                            sortedLines.Add(line);
+                        }
+                    }
+                }
+            }
+            foreach(EmissionLine line in this.PotentialEmissionLines) 
+            {
+                if (!sortedLines.Contains(line)) 
+                {
+                    sortedLines.Add(line);
+                }
+            }
+            
+            this.PotentialEmissionLines = sortedLines;
+        }
+
+        public static List<EmissionLine> GetCurrentEmissionLines(List<Peak> peaks)
+        {
+            List<EmissionLine> currentLines = new();
+            foreach (Peak peak in peaks) 
+            {
+                if(peak.CurrentEmissionLine != null) 
+                {
+                    currentLines.Add(peak.CurrentEmissionLine);
+                }
+            }
+            return currentLines;
         }
 
         public partial class EnergyRangeTuple : ObservableObject 

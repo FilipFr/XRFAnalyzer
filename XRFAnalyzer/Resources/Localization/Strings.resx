@@ -170,7 +170,7 @@
     <value>Quantitative Analysis</value>
   </data>
   <data name="OperationMenuDataTablesLabel" xml:space="preserve">
-    <value>Tables of XRF constants</value>
+    <value>X-ray data tables</value>
   </data>
   <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
     <value>Logarithmic scale</value>
@@ -285,5 +285,11 @@
   </data>
   <data name="QualitativeAnalysisIdentifiedLineLabel" xml:space="preserve">
     <value>Identified line</value>
+  </data>
+  <data name="CalculateConcentrationsButtonLabel" xml:space="preserve">
+    <value>Calculate concentrations</value>
+  </data>
+  <data name="ConfirmEmissionLinesButtonLabel" xml:space="preserve">
+    <value>Confirm identification</value>
   </data>
 </root>
