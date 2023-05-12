@@ -48,7 +48,7 @@
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[CalibrationTableColumn2]}"
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[EnergyRange]}"
                         Binding="{Binding ApexEnergy}"
                         IsReadOnly="True">
                         

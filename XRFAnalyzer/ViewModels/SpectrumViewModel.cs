@@ -22,6 +22,7 @@ using CommunityToolkit.Mvvm.Input;
 using MathNet.Numerics;
 using Google.Protobuf.Collections;
 using XRFAnalyzer.Models.Static;
+using MahApps.Metro.Converters;
 
 namespace XRFAnalyzer.ViewModels
 {
@@ -66,7 +67,7 @@ namespace XRFAnalyzer.ViewModels
         [ObservableProperty]
         private List<Tuple<int, int>> _foundRois;
         [ObservableProperty]
-        private ObservableCollection<Tuple<int, double>> _calibrationPoints;
+        private ObservableCollection<Tuple<double, double>> _calibrationPoints;
         [ObservableProperty]
         private List<double> _correctedCounts;
         [ObservableProperty]
@@ -113,6 +114,7 @@ namespace XRFAnalyzer.ViewModels
                 if (SelectedPeakIndex >= 0 && SelectedPeakIndex < Peaks.Count) 
                 {
                     SelectedPeak = Peaks[SelectedPeakIndex];
+                    CurrentCalibrationRow.Channel = Math.Round(SelectedPeak.Centroid, 2);
                 }
                 if (SelectedPeakIndex == -1) 
                 {
@@ -132,7 +134,7 @@ namespace XRFAnalyzer.ViewModels
             client = new XRFAnalyzerService.XRFAnalyzerServiceClient(channel);
             elementDataReference = elementData;
             Spectrum = new Spectrum();
-            CurrentFile = "No data";
+            CurrentFile = "NaN";
             Counts = Spectrum.Counts;
             Rois = Spectrum.Peaks;
             CalibrationRows = new();
@@ -172,6 +174,7 @@ namespace XRFAnalyzer.ViewModels
         public RelayCommand RemoveBackgroundCommand { get; set; }
         public RelayCommand UndoBackgroundRemovalCommand { get; set; }
         public ICommand ConfirmQualitativeAnalysisCommand { get; set; }
+        public ICommand EditPeakCommand { get; set; }
 
         private void OnCalibrationRowsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -190,8 +193,12 @@ namespace XRFAnalyzer.ViewModels
             {
                 if (Peaks[i].CanBeSumPeak) 
                 {
-                    if (!SumPeaks.Any(peak => Peaks[i] == peak)) 
+                    if (!SumPeaks.Any(peak => Peaks[i] == peak) && Peaks[i].CanBeSumPeak) 
                     {
+                        SelectedPeakIndex = -1;
+                        Peaks.RemoveAt(i);
+                        Rois.RemoveAt(i);
+                        
                         return;
                     }
                 }
@@ -229,6 +236,10 @@ namespace XRFAnalyzer.ViewModels
         
         private void LoadSpectrum()
         {
+            var tempCalibrationRows = new ObservableCollection<CalibrationRow>(CalibrationRows);
+            var tempCalibrationPoints = new ObservableCollection<Tuple<double, double>>(CalibrationPoints);
+            var tempCalibrationSlope = CalibrationCurveSlope;
+            var tempCalibrationIntercept = CalibrationCurveIntercept;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = false;
             openFileDialog.Filter = "mca files (*.mca)|*.mca|All files (*.*)|*.*";
@@ -250,6 +261,14 @@ namespace XRFAnalyzer.ViewModels
                     {
                         this.CalibrationRows.Add(new (channel, Spectrum.CalibrationPoints[channel]));
                     }
+                    if (this.CalibrationRows.Count == 0 && IsLoaded == true)
+                    {
+                        CalibrationRows = tempCalibrationRows;
+                        CalibrationRows.CollectionChanged += OnCalibrationRowsChanged;
+                        CalibrationPoints = tempCalibrationPoints;
+                        CalibrationCurveSlope = tempCalibrationSlope;
+                        CalibrationCurveIntercept = tempCalibrationIntercept;
+                    };
                     GetCalibrationCurveParameters();
                     this.Rois = new(Spectrum.Peaks);
                     this.Peaks = Peak.GetPeaksFromSpectrum(Counts, Rois);
@@ -472,11 +491,12 @@ namespace XRFAnalyzer.ViewModels
                     peak.ApexEnergy = peak.ApexChannel * CalibrationCurveSlope + CalibrationCurveIntercept;
                     peak.EnergyRange = new(peak.ChannelRange.Item1 * CalibrationCurveSlope + CalibrationCurveIntercept,
                         peak.ChannelRange.Item2 * CalibrationCurveSlope + CalibrationCurveIntercept);
+                    peak.Fwhm = peak.Fwhm_channels * CalibrationCurveSlope;
                     peak.FindPotentialEmissionLines(elementDataReference.Data, CalibrationRows, 0.1);
                 }
                 foreach (Peak peak in Peaks)
                 {
-                    peak.SortPotentialEmissionLines(Peaks);
+                    peak.SortPotentialEmissionLines(Peaks, CalibrationRows);
                 }
             }
             else

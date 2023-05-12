@@ -30,7 +30,8 @@ namespace XRFAnalyzer.Views.UserControls
     /// </summary>
     public partial class PlotControl : UserControl
     {
-        
+        private double x;
+        private double y;
         public PlotControl()
         {
             InitializeComponent();
@@ -108,6 +109,40 @@ namespace XRFAnalyzer.Views.UserControls
             b.UpdateSignalPlot();
         }
 
+        public static readonly DependencyProperty LeftPeakBoundaryProperty = DependencyProperty.Register(
+            "LeftPeakBoundary",
+            typeof(int),
+            typeof(PlotControl),
+            new PropertyMetadata(-1, new PropertyChangedCallback(LeftPeakBoundaryChanged)));
+        public int LeftPeakBoundary
+        {
+            get { return (int)GetValue(LeftPeakBoundaryProperty); }
+            set { SetValue(LeftPeakBoundaryProperty, value); }
+        }
+        private static void LeftPeakBoundaryChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.LeftPeakBoundary = b.LeftPeakBoundary;
+            b.UpdateSignalPlot();
+        }
+
+        public static readonly DependencyProperty RightPeakBoundaryProperty = DependencyProperty.Register(
+            "RightPeakBoundary",
+            typeof(int),
+            typeof(PlotControl),
+            new PropertyMetadata(-1, new PropertyChangedCallback(RightPeakBoundaryChanged)));
+        public int RightPeakBoundary
+        {
+            get { return (int)GetValue(RightPeakBoundaryProperty); }
+            set { SetValue(RightPeakBoundaryProperty, value); }
+        }
+        private static void RightPeakBoundaryChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
+        {
+            PlotControl b = (PlotControl)a;
+            b.RightPeakBoundary = b.RightPeakBoundary;
+            b.UpdateSignalPlot();
+        }
+
         public static readonly DependencyProperty CountsProperty = DependencyProperty.Register(
             "Counts",
             typeof(List<double>),
@@ -118,6 +153,7 @@ namespace XRFAnalyzer.Views.UserControls
             get { return (List<double>)GetValue(CountsProperty); }
             set { SetValue(CountsProperty, value); }
         }
+
         private static void CountsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
         {
             PlotControl b = (PlotControl)a;
@@ -312,7 +348,7 @@ namespace XRFAnalyzer.Views.UserControls
                 var newSignalXY = SpectrumWpfPlot.Plot.AddSignalXY(Xs, Ys);
                 newSignalXY.Color = System.Drawing.Color.RebeccaPurple;
                 newSignalXY.FillAboveAndBelow(System.Drawing.Color.Red, System.Drawing.Color.Purple, 0.5);
-                if(SelectedPeakIndex >= 0 && SelectedPeakIndex < Peaks.Count && peak == Peaks[SelectedPeakIndex]) 
+                if(SelectedPeakIndex >= 0 && SelectedPeakIndex < Peaks.Count && peak == Peaks[SelectedPeakIndex])
                 {
                     newSignalXY.FillAboveAndBelow(System.Drawing.Color.Blue, System.Drawing.Color.Purple, 0.5);
                 }
@@ -362,6 +398,7 @@ namespace XRFAnalyzer.Views.UserControls
                 SpectrumWpfPlot.Plot.XAxis.TickLabelFormat(energyTickLabels);
                 SpectrumWpfPlot.Plot.XLabel(XLabel);
             }
+            var cross = SpectrumWpfPlot.Plot.AddCrosshair(x, y);
             SpectrumWpfPlot.Plot.Render();
             SpectrumWpfPlot.Refresh();
         }
@@ -390,9 +427,27 @@ namespace XRFAnalyzer.Views.UserControls
                 }
                 counter++;
             }
-            
+            if (Keyboard.IsKeyDown(Key.A)) 
+            {
+                LeftPeakBoundary = (int)roundedX;
+
+            }
+            if (Keyboard.IsKeyDown(Key.D))
+            {
+                RightPeakBoundary = (int)roundedX;
+
+            }
+
             UpdateSignalPlot();
             
+        }
+
+        private void SpectrumWpfPlot_MouseMove(object sender, MouseEventArgs e)
+        {
+            (double x, double y) = this.SpectrumWpfPlot.GetMouseCoordinates();
+            this.x = x;
+            this.y = y;
+            UpdateSignalPlot();
         }
 
         public List<Tuple<double, string>> ParseLineEnergies() 
@@ -412,5 +467,6 @@ namespace XRFAnalyzer.Views.UserControls
             }
             return toReturn;
         }
+        
     }
 }

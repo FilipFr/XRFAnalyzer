@@ -61,6 +61,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analyzed.
+        /// </summary>
+        internal static string AnalyzedSpectrum {
+            get {
+                return ResourceManager.GetString("AnalyzedSpectrum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XRFAnalyzer.
         /// </summary>
         internal static string AppTitle {
@@ -72,81 +81,108 @@ namespace XRFAnalyzer.Resources.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Calculate concentrations.
         /// </summary>
-        internal static string CalculateConcentrationsButtonLabel {
+        internal static string CalculateConcentrations {
             get {
-                return ResourceManager.GetString("CalculateConcentrationsButtonLabel", resourceCulture);
+                return ResourceManager.GetString("CalculateConcentrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Centroid.
+        /// </summary>
+        internal static string Centroid {
+            get {
+                return ResourceManager.GetString("Centroid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
-        internal static string CalibrationTableColumn1 {
+        internal static string Channel {
             get {
-                return ResourceManager.GetString("CalibrationTableColumn1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Energy [kEv].
-        /// </summary>
-        internal static string CalibrationTableColumn2 {
-            get {
-                return ResourceManager.GetString("CalibrationTableColumn2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Element.
-        /// </summary>
-        internal static string CalibrationTableColumn3 {
-            get {
-                return ResourceManager.GetString("CalibrationTableColumn3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Emission line.
-        /// </summary>
-        internal static string CalibrationTableColumn4 {
-            get {
-                return ResourceManager.GetString("CalibrationTableColumn4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Channel.
-        /// </summary>
-        internal static string ChannelToggleOption {
-            get {
-                return ResourceManager.GetString("ChannelToggleOption", resourceCulture);
+                return ResourceManager.GetString("Channel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Confirm identification.
         /// </summary>
-        internal static string ConfirmEmissionLinesButtonLabel {
+        internal static string ConfirmIdentification {
             get {
-                return ResourceManager.GetString("ConfirmEmissionLinesButtonLabel", resourceCulture);
+                return ResourceManager.GetString("ConfirmIdentification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CurrentFile.
+        /// </summary>
+        internal static string CurrentFile {
+            get {
+                return ResourceManager.GetString("CurrentFile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Detector.
         /// </summary>
-        internal static string DetectorChoiceLabel {
+        internal static string Detector {
             get {
-                return ResourceManager.GetString("DetectorChoiceLabel", resourceCulture);
+                return ResourceManager.GetString("Detector", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Energy [kEv].
+        ///   Looks up a localized string similar to Element.
+        /// </summary>
+        internal static string Element {
+            get {
+                return ResourceManager.GetString("Element", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line.
+        /// </summary>
+        internal static string EmissionLine {
+            get {
+                return ResourceManager.GetString("EmissionLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy [keV].
+        /// </summary>
+        internal static string EnergyKev {
+            get {
+                return ResourceManager.GetString("EnergyKev", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy [keV].
         /// </summary>
         internal static string EnergyToggleOption {
             get {
                 return ResourceManager.GetString("EnergyToggleOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export results.
+        /// </summary>
+        internal static string ExportResults {
+            get {
+                return ResourceManager.GetString("ExportResults", resourceCulture);
             }
         }
         
@@ -232,11 +268,20 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WLen.
+        ///   Looks up a localized string similar to FWHM.
         /// </summary>
-        internal static string FindPeaksWLenLabel {
+        internal static string FWHM {
             get {
-                return ResourceManager.GetString("FindPeaksWLenLabel", resourceCulture);
+                return ResourceManager.GetString("FWHM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load file.
+        /// </summary>
+        internal static string LoadAnalyzedSpectrum {
+            get {
+                return ResourceManager.GetString("LoadAnalyzedSpectrum", resourceCulture);
             }
         }
         
@@ -246,15 +291,6 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string LogarithmicScaleToggleLabel {
             get {
                 return ResourceManager.GetString("LogarithmicScaleToggleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load file.
-        /// </summary>
-        internal static string MainMenuOption1 {
-            get {
-                return ResourceManager.GetString("MainMenuOption1", resourceCulture);
             }
         }
         
@@ -273,24 +309,6 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string MainMenuOption3 {
             get {
                 return ResourceManager.GetString("MainMenuOption3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export results.
-        /// </summary>
-        internal static string MainMenuOption4 {
-            get {
-                return ResourceManager.GetString("MainMenuOption4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        internal static string MainMenuOption5 {
-            get {
-                return ResourceManager.GetString("MainMenuOption5", resourceCulture);
             }
         }
         
@@ -457,6 +475,24 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Primary radiation energy.
+        /// </summary>
+        internal static string PrimaryRadiationEnergy {
+            get {
+                return ResourceManager.GetString("PrimaryRadiationEnergy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary.
+        /// </summary>
+        internal static string PrimarySpectrum {
+            get {
+                return ResourceManager.GetString("PrimarySpectrum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identified line.
         /// </summary>
         internal static string QualitativeAnalysisIdentifiedLineLabel {
@@ -475,6 +511,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spectrum type:.
+        /// </summary>
+        internal static string SpectrumType {
+            get {
+                return ResourceManager.GetString("SpectrumType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channel.
         /// </summary>
         internal static string SpectrumWpfPlotXLabel {
@@ -484,7 +529,7 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Energy [kEv].
+        ///   Looks up a localized string similar to Energy [keV].
         /// </summary>
         internal static string SpectrumWpfPlotXLabelAlt {
             get {
@@ -520,11 +565,29 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Switch spectrum.
+        /// </summary>
+        internal static string SwitchSpectrum {
+            get {
+                return ResourceManager.GetString("SwitchSpectrum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Undo background removal.
         /// </summary>
         internal static string UndoBackgroundRemovalLabel {
             get {
                 return ResourceManager.GetString("UndoBackgroundRemovalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        internal static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
         

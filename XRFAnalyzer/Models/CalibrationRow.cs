@@ -12,7 +12,7 @@ namespace XRFAnalyzer.Models
     internal partial class CalibrationRow : ObservableObject
     {
         [ObservableProperty]
-        private int _channel;
+        private double _channel;
         [ObservableProperty]
         private double _energy;
         [ObservableProperty]
@@ -36,7 +36,7 @@ namespace XRFAnalyzer.Models
 
         public CalibrationRow() { }
 
-        public CalibrationRow(int channel, double energy)
+        public CalibrationRow(double channel, double energy)
         {
             Channel = channel;
             Energy = energy;

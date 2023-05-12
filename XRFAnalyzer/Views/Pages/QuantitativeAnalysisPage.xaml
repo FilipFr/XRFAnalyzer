@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XRFAnalyzer.Views.Pages"
       xmlns:controls="clr-namespace:XRFAnalyzer.Views.UserControls"
+      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -87,7 +88,42 @@
                     Command="{Binding QuantitativeAnalysisCommand}"
                     Content="{Binding LocalizationResourceManager[CalculateConcentrationsButtonLabel]}">
                 </Button>
+                <StackPanel
+                    Margin="16 0">
+                    <Grid
+                    Margin="0 16 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="0" Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            Foreground="WhiteSmoke"
+                            VerticalAlignment="Center"
+                            Content="{Binding LocalizationResourceManager[PrimaryRadiationEnergy]}"/>
+                        <mah:NumericUpDown
+                            Grid.Row="1" Grid.Column="0"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Value="{Binding Energy, Mode=TwoWay}"
+                            >
+                        </mah:NumericUpDown>
+
+                    </Grid>
+                    <Button
+                    Margin="0 16"
+                    Background="LightGreen"
+                    Command="{Binding MonoenergeticQuantitativeAnalysisCommand}"
+                    Content="{Binding LocalizationResourceManager[CalculateConcentrationsButtonLabel]}">
+                    </Button>
+                </StackPanel>
             </StackPanel>
+            
         </Grid>
     </Grid>
 </Page>

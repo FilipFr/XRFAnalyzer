@@ -84,17 +84,16 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+
             </Grid.ColumnDefinitions>
             <DockPanel 
                 Grid.Row="0" Grid.Column="0"
-                Grid.ColumnSpan="4"
+                Grid.ColumnSpan="3"
                 Margin="16 0">
                 <DockPanel
                     DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -136,22 +135,20 @@
                     Value="{Binding ViewM.FindPeaksDTO.Height}"
                     HideUpDownButtons="True"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"/>
+                    Minimum="10"
+                    x:Name="FindPeaksHeight"
+                    HorizontalAlignment="Center">
+                    
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=FindPeaksHeight}">
+                            <behaviors:InvokeCommandAction Command="{Binding ViewM.GetFindPeaksMessageCommand}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </mah:NumericUpDown>
             </StackPanel>
-            <StackPanel 
-                Grid.Row="1" Grid.Column="1"
-                >
-                <Label
-                    DockPanel.Dock="Left"
-                    Content="{Binding LocalizationResourceManager[FindPeaksThresholdLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <mah:NumericUpDown
-                    DockPanel.Dock="Right"
-                    Value="{Binding ViewM.FindPeaksDTO.Threshold}"
-                    HideUpDownButtons="True"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
+            
             <StackPanel
-                Grid.Row="1" Grid.Column="2">
+                Grid.Row="1" Grid.Column="1">
                 <Label
                     DockPanel.Dock="Left"
                     Content="{Binding LocalizationResourceManager[FindPeaksDistanceLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -159,64 +156,43 @@
                     DockPanel.Dock="Right"
                     Value="{Binding ViewM.FindPeaksDTO.Distance}"
                     HideUpDownButtons="True"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    Minimum="0"
+                    Maximum="100"
+                    x:Name="FindPeaksDistance"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=FindPeaksDistance}">
+                            <behaviors:InvokeCommandAction Command="{Binding ViewM.GetFindPeaksMessageCommand}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </mah:NumericUpDown>
             </StackPanel>
-            <StackPanel
-                Grid.Row="1" Grid.Column="3"
-                >
-                <Label
-                    DockPanel.Dock="Left"
-                    Content="{Binding LocalizationResourceManager[FindPeaksWidthLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <mah:NumericUpDown
-                    DockPanel.Dock="Right"
-                    Value="{Binding ViewM.FindPeaksDTO.Width}"
-                        
-                    HideUpDownButtons="True"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
+
             <StackPanel 
-                Grid.Row="2" Grid.Column="0"
+                Grid.Row="1" Grid.Column="2" 
                 >
                 <Label
                     DockPanel.Dock="Left"
-                    Content="{Binding LocalizationResourceManager[FindPeaksWLenLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    Content="{Binding LocalizationResourceManager[Width]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <mah:NumericUpDown
                     DockPanel.Dock="Right"
                     Value="{Binding ViewM.FindPeaksDTO.WLen}"
                     HideUpDownButtons="True"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="2" Grid.Column="1"
-                >
-                <Label
-                    DockPanel.Dock="Left"
-                    Content="{Binding LocalizationResourceManager[FindPeaksRelHeightLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <mah:NumericUpDown
-                    DockPanel.Dock="Right"
-                    Minimum="0.1"
-                    Maximum="1"
-                    Value="{Binding ViewM.FindPeaksDTO.RelHeight}"
-                    StringFormat="N1"
-                    HideUpDownButtons="True"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-            <StackPanel 
-                Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
-                >
-                <Label
-                    DockPanel.Dock="Left"
-                    Content="{Binding LocalizationResourceManager[FindPeaksPlateauSizeLabel]}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <mah:NumericUpDown
-                    DockPanel.Dock="Right"
-                    Value="{Binding ViewM.FindPeaksDTO.PlateauSize}"
-                    HideUpDownButtons="True"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    Minimum="5"
+                    Maximum="100"
+                    x:Name="FindPeaksWidth"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=FindPeaksWidth}">
+                            <behaviors:InvokeCommandAction Command="{Binding ViewM.GetFindPeaksMessageCommand}"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </mah:NumericUpDown>
             </StackPanel>
             <Button 
-                Grid.Row="3" Grid.Column="0"
+                Grid.Row="4" Grid.Column="0"
                 Grid.ColumnSpan="4"
-                x:Name="AddCalibrationPointButton"
+                x:Name="AddFoundPeaksButton"
                 Margin="8"
                 Height="32"
                 Padding="0"

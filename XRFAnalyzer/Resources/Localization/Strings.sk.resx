@@ -126,10 +126,10 @@
   <data name="MainMenuOption6" xml:space="preserve">
     <value>Tabuľky konštánt</value>
   </data>
-  <data name="MainMenuOption5" xml:space="preserve">
+  <data name="ChangeLanguage" xml:space="preserve">
     <value>Nastavenia</value>
   </data>
-  <data name="MainMenuOption4" xml:space="preserve">
+  <data name="ExportResults" xml:space="preserve">
     <value>Exportovať výsledky</value>
   </data>
   <data name="MainMenuOption3" xml:space="preserve">
@@ -138,7 +138,7 @@
   <data name="MainMenuOption2" xml:space="preserve">
     <value>Spracovanie spektra</value>
   </data>
-  <data name="MainMenuOption1" xml:space="preserve">
+  <data name="LoadAnalyzedSpectrum" xml:space="preserve">
     <value>Načítať súbor</value>
   </data>
   <data name="SpectrumWpfPlotYLabel" xml:space="preserve">
@@ -148,7 +148,7 @@
     <value>Kanál</value>
   </data>
   <data name="SpectrumWpfPlotXLabelAlt" xml:space="preserve">
-    <value>Energia [kEv]</value>
+    <value>Energia [keV]</value>
   </data>
   <data name="OperationMenuPeaksLabel" xml:space="preserve">
     <value>Píky</value>
@@ -174,11 +174,8 @@
   <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
     <value>Logaritmická mierka</value>
   </data>
-  <data name="ChannelToggleOption" xml:space="preserve">
-    <value>Kanál</value>
-  </data>
   <data name="EnergyToggleOption" xml:space="preserve">
-    <value>Energia [kEv]</value>
+    <value>Energia [keV]</value>
   </data>
   <data name="XAxisUnitToggleLabel" xml:space="preserve">
     <value>Jednotka osi x</value>
@@ -204,17 +201,17 @@
   <data name="PeakNetAreaLabel" xml:space="preserve">
     <value>Čistá plocha</value>
   </data>
-  <data name="CalibrationTableColumn1" xml:space="preserve">
+  <data name="Channel" xml:space="preserve">
     <value>Kanál</value>
   </data>
-  <data name="CalibrationTableColumn2" xml:space="preserve">
-    <value>Energia [kEv]</value>
+  <data name="EnergyKev" xml:space="preserve">
+    <value>Energia [keV]</value>
   </data>
-  <data name="CalibrationTableColumn3" xml:space="preserve">
+  <data name="Element" xml:space="preserve">
     <value>Prvok</value>
   </data>
-  <data name="CalibrationTableColumn4" xml:space="preserve">
-    <value>Emisná čiara</value>
+  <data name="EmissionLine" xml:space="preserve">
+    <value>Čiara</value>
   </data>
   <data name="FindPeaksHeightLabel" xml:space="preserve">
     <value>Výška</value>
@@ -231,8 +228,8 @@
   <data name="FindPeaksProminenceLabel" xml:space="preserve">
     <value>Význačnosť</value>
   </data>
-  <data name="FindPeaksWLenLabel" xml:space="preserve">
-    <value>WLen</value>
+  <data name="Width" xml:space="preserve">
+    <value>Šírka</value>
   </data>
   <data name="FindPeaksRelHeightLabel" xml:space="preserve">
     <value>RelHeight</value>
@@ -279,16 +276,40 @@
   <data name="WindowChoiceLabel" xml:space="preserve">
     <value>Okno</value>
   </data>
-  <data name="DetectorChoiceLabel" xml:space="preserve">
+  <data name="Detector" xml:space="preserve">
     <value>Detektor</value>
   </data>
   <data name="QualitativeAnalysisIdentifiedLineLabel" xml:space="preserve">
     <value>Identifikovaná čiara</value>
   </data>
-  <data name="CalculateConcentrationsButtonLabel" xml:space="preserve">
+  <data name="CalculateConcentrations" xml:space="preserve">
     <value>Vypočítať koncentrácie</value>
   </data>
-  <data name="ConfirmEmissionLinesButtonLabel" xml:space="preserve">
+  <data name="ConfirmIdentification" xml:space="preserve">
     <value>Potvrdiť identifikáciu</value>
+  </data>
+  <data name="Centroid" xml:space="preserve">
+    <value>Stred píku</value>
+  </data>
+  <data name="FWHM" xml:space="preserve">
+    <value>FWHM</value>
+  </data>
+  <data name="CurrentFile" xml:space="preserve">
+    <value>Načítaný súbor</value>
+  </data>
+  <data name="AnalyzedSpectrum" xml:space="preserve">
+    <value>Analyzované</value>
+  </data>
+  <data name="PrimarySpectrum" xml:space="preserve">
+    <value>Primárne</value>
+  </data>
+  <data name="SpectrumType" xml:space="preserve">
+    <value>Typ spektra:</value>
+  </data>
+  <data name="SwitchSpectrum" xml:space="preserve">
+    <value>Prepnúť spektrum</value>
+  </data>
+  <data name="PrimaryRadiationEnergy" xml:space="preserve">
+    <value>Energia primárneho žiarenia</value>
   </data>
 </root>

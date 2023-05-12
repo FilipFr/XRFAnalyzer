@@ -126,10 +126,10 @@
   <data name="MainMenuOption6" xml:space="preserve">
     <value>Tables of XRF constants</value>
   </data>
-  <data name="MainMenuOption5" xml:space="preserve">
+  <data name="ChangeLanguage" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="MainMenuOption4" xml:space="preserve">
+  <data name="ExportResults" xml:space="preserve">
     <value>Export results</value>
   </data>
   <data name="MainMenuOption3" xml:space="preserve">
@@ -138,7 +138,7 @@
   <data name="MainMenuOption2" xml:space="preserve">
     <value>Spectrum processing</value>
   </data>
-  <data name="MainMenuOption1" xml:space="preserve">
+  <data name="LoadAnalyzedSpectrum" xml:space="preserve">
     <value>Load file</value>
   </data>
   <data name="SpectrumWpfPlotYLabel" xml:space="preserve">
@@ -148,7 +148,7 @@
     <value>Channel</value>
   </data>
   <data name="SpectrumWpfPlotXLabelAlt" xml:space="preserve">
-    <value>Energy [kEv]</value>
+    <value>Energy [keV]</value>
   </data>
   <data name="OperationMenuPeaksLabel" xml:space="preserve">
     <value>Peaks</value>
@@ -175,11 +175,11 @@
   <data name="LogarithmicScaleToggleLabel" xml:space="preserve">
     <value>Logarithmic scale</value>
   </data>
-  <data name="ChannelToggleOption" xml:space="preserve">
-    <value>Channel</value>
+  <data name="CurrentFile" xml:space="preserve">
+    <value>CurrentFile</value>
   </data>
   <data name="EnergyToggleOption" xml:space="preserve">
-    <value>Energy [kEv]</value>
+    <value>Energy [keV]</value>
   </data>
   <data name="XAxisUnitToggleLabel" xml:space="preserve">
     <value>X Axis unit</value>
@@ -205,17 +205,17 @@
   <data name="PeakNetAreaLabel" xml:space="preserve">
     <value>Net area</value>
   </data>
-  <data name="CalibrationTableColumn1" xml:space="preserve">
+  <data name="Channel" xml:space="preserve">
     <value>Channel</value>
   </data>
-  <data name="CalibrationTableColumn2" xml:space="preserve">
-    <value>Energy [kEv]</value>
+  <data name="EnergyKev" xml:space="preserve">
+    <value>Energy [keV]</value>
   </data>
-  <data name="CalibrationTableColumn3" xml:space="preserve">
+  <data name="Element" xml:space="preserve">
     <value>Element</value>
   </data>
-  <data name="CalibrationTableColumn4" xml:space="preserve">
-    <value>Emission line</value>
+  <data name="EmissionLine" xml:space="preserve">
+    <value>Line</value>
   </data>
   <data name="FindPeaksHeightLabel" xml:space="preserve">
     <value>Height</value>
@@ -232,8 +232,8 @@
   <data name="FindPeaksProminenceLabel" xml:space="preserve">
     <value>Prominence</value>
   </data>
-  <data name="FindPeaksWLenLabel" xml:space="preserve">
-    <value>WLen</value>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
   </data>
   <data name="FindPeaksRelHeightLabel" xml:space="preserve">
     <value>RelHeight</value>
@@ -277,7 +277,7 @@
   <data name="XRaySourceSpectrumLoad" xml:space="preserve">
     <value>Load primary X-ray spectrum</value>
   </data>
-  <data name="DetectorChoiceLabel" xml:space="preserve">
+  <data name="Detector" xml:space="preserve">
     <value>Detector</value>
   </data>
   <data name="WindowChoiceLabel" xml:space="preserve">
@@ -286,10 +286,31 @@
   <data name="QualitativeAnalysisIdentifiedLineLabel" xml:space="preserve">
     <value>Identified line</value>
   </data>
-  <data name="CalculateConcentrationsButtonLabel" xml:space="preserve">
+  <data name="CalculateConcentrations" xml:space="preserve">
     <value>Calculate concentrations</value>
   </data>
-  <data name="ConfirmEmissionLinesButtonLabel" xml:space="preserve">
+  <data name="ConfirmIdentification" xml:space="preserve">
     <value>Confirm identification</value>
+  </data>
+  <data name="Centroid" xml:space="preserve">
+    <value>Centroid</value>
+  </data>
+  <data name="FWHM" xml:space="preserve">
+    <value>FWHM</value>
+  </data>
+  <data name="AnalyzedSpectrum" xml:space="preserve">
+    <value>Analyzed</value>
+  </data>
+  <data name="PrimarySpectrum" xml:space="preserve">
+    <value>Primary</value>
+  </data>
+  <data name="SpectrumType" xml:space="preserve">
+    <value>Spectrum type:</value>
+  </data>
+  <data name="SwitchSpectrum" xml:space="preserve">
+    <value>Switch spectrum</value>
+  </data>
+  <data name="PrimaryRadiationEnergy" xml:space="preserve">
+    <value>Primary radiation energy</value>
   </data>
 </root>

@@ -8,23 +8,27 @@
         xmlns:converters="clr-namespace:XRFAnalyzer.Converters"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="XRFAnalyzer"
         TitleCharacterCasing="Normal"
         x:Name="AppWindow"
         Width="1366" Height="768"
-        MinWidth="800" MinHeight="600"
+        MinWidth="1024" MinHeight="600"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         WindowTitleBrush="{StaticResource LightThemeSecondaryColor}"
         NonActiveWindowTitleBrush="{StaticResource LightThemeSecondaryColor}"
-                 
         >
     <Window.Resources>
         <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="x" Command="{Binding ViewM.RemoveSelectedPeakCommand}" />
+    </Window.InputBindings>
+
 
     <!--Window Layout-->
     <Grid Background="{StaticResource LightThemePrimaryColor}">
@@ -39,7 +43,7 @@
             <ColumnDefinition Width="352"/>
         </Grid.ColumnDefinitions>
 
-        <!--Side Navigation Menu Container-->
+        <!--Menu Container-->
         <Grid
             Grid.ColumnSpan="3"
             Grid.Row="1"
@@ -108,48 +112,41 @@
                     <Button 
                         x:Name="MainMenuButton1"
                         Style="{StaticResource MainMenuButton}"
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption1]}"
-                        Command="{Binding ViewM.Load}">
+                        ToolTip="{Binding LocalizationResourceManager[LoadAnalyzedSpectrum]}"
+                        Command="{Binding CharacteristicSpectrumViewModel.Load}">
                         <local:MenuButtonContent
                             PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Applicationimport"
-                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption1]}"
+                            LabelContent="{Binding LocalizationResourceManager[LoadAnalyzedSpectrum]}"
                             LabelStyle="{StaticResource MainMenuButtonLabel}"
                             />
-                    </Button>
-
-                    <Button
-                        x:Name="MainMenuButton2"
-                        Style="{StaticResource MainMenuButton}"
-                        Click="Load_Click"
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption2]}"
-                        >
-                        <local:MenuButtonContent
-                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
-                            PackIconKind="Charthistogram"
-                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption2]}"
-                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="Click">
+                                <behaviors:InvokeCommandAction Command="{Binding SwitchToCharacteristicSpectrumViewModelCommand}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
                     </Button>
 
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption3]}">
-                        <local:MenuButtonContent
-                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
-                            PackIconKind="Flask"
-                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption3]}"
-                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
-                    </Button>
-
-                    <Button 
-                        Style="{StaticResource MainMenuButton}" 
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption4]}"
-                        Command="{Binding SwitchToCharacteristicSpectrumViewModelCommand}"
+                        ToolTip="{Binding LocalizationResourceManager[ExportResults]}"
+                        Command="{Binding SwitchSpectrumViewModelCommand}"
                         BorderThickness="0">
                         <local:MenuButtonContent
                             PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Fileexportoutline"
-                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption4]}"
+                            LabelContent="{Binding LocalizationResourceManager[ExportResults]}"
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
+                    </Button>
+                    <Button 
+                        Style="{StaticResource MainMenuButton}" 
+                        ToolTip="{Binding LocalizationResourceManager[SwitchSpectrum]}"
+                        Command="{Binding SwitchSpectrumViewModelCommand}"
+                        BorderThickness="0">
+                        <local:MenuButtonContent
+                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
+                            PackIconKind="Swaphorizontalbold"
+                            LabelContent="{Binding LocalizationResourceManager[SwitchSpectrum]}"
                             LabelStyle="{StaticResource MainMenuButtonLabel}"/>
                     </Button>
 
@@ -165,24 +162,13 @@
                     <Button
                         Click="ChangeLanguage_Click"
                         Style="{StaticResource MainMenuButton}" 
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption5]}"
+                        ToolTip="{Binding LocalizationResourceManager[ChangeLanguage]}"
                         >
                         <local:MenuButtonContent
                             PackIconStyle="{StaticResource MainMenuButtonIcon}"
-                            PackIconKind="Cog"
-                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption5]}"
+                            PackIconKind="Language"
+                            LabelContent="{Binding LocalizationResourceManager[ChangeLanguage]}"
                             LabelStyle="{StaticResource MainMenuButtonLabel}"/>
-                    </Button>
-
-                    <Button 
-                        Style="{StaticResource MainMenuButton}" 
-                        ToolTip="{Binding LocalizationResourceManager[MainMenuOption6]}">
-                        <local:MenuButtonContent
-                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
-                            PackIconKind="Tablelarge"
-                            LabelContent="{Binding LocalizationResourceManager[MainMenuOption6]}"
-                            LabelStyle="{StaticResource MainMenuButtonLabel}"
-                            />
                     </Button>
 
                     <Button 
@@ -212,7 +198,7 @@
                 Grid.Row="0"
                 Orientation="Horizontal">
                 <Label
-                    Content="Current file:"
+                    Content="{Binding LocalizationResourceManager[CurrentFile]}"
                     VerticalAlignment="Center" 
                     Margin="32 0 0 0"
                    
@@ -261,6 +247,22 @@
                 </mah:ToggleSwitch>
 
             </StackPanel>
+            <StackPanel 
+                Grid.Row="1"
+                Orientation="Horizontal">
+                <Label
+                    Content="{Binding LocalizationResourceManager[SpectrumType]}"
+                    VerticalAlignment="Center" 
+                    Margin="32 0 0 0"
+                   
+                    FontFamily="Open Sans"/>
+                <Label 
+                    Content="{Binding ViewM.SpectrumType}" 
+                    VerticalAlignment="Center" 
+                    Margin="16 0 0 0"
+                    FontFamily="Open Sans"/>
+            </StackPanel>
+        
         </Grid>
 
         <!--Plot Container-->
@@ -277,6 +279,8 @@
                 CorrectedCounts="{Binding ViewM.CorrectedCounts}"
                 Peaks="{Binding ViewM.Rois}"
                 LineEnergies="{Binding ViewM.LineEnergies}"
+                LeftPeakBoundary="{Binding ViewM.RoiLeftBoundary, Mode=TwoWay}"
+                RightPeakBoundary="{Binding ViewM.RoiRightBoundary,Mode=TwoWay}"
                 FoundRois="{Binding ViewM.FoundRois}"
                 IsLogarithmicToggled="{Binding IsOn, ElementName=LogarithmicScaleToggle}"
                 IsXAxisUnitToggled="{Binding IsOn, ElementName=XAxisUnitToggle}"
@@ -285,14 +289,15 @@
                 SelectedPeakIndex="{Binding ViewM.SelectedPeakIndex, Mode=TwoWay}"
                 />
 
+            <!--Peak information panel-->
             <StackPanel
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Visibility="{Binding ViewM.SelectedPeakIndex, Converter={StaticResource IntToVisibilityConverter}}"
                 Width="108"
-                Margin="32 16"
+                Margin="32 24 24 0"
                 Background="#55F5F5AA"
-                Orientation="Vertical">
+                Orientation="Vertical"
+                Visibility="{Binding ViewM.SelectedPeakIndex, Converter={StaticResource IntToVisibilityConverter}}">
                 <Label
                     x:Name="PeakHeightLabel"
                     FontFamily="Futura"
@@ -354,7 +359,23 @@
                     HorizontalAlignment="Right"
                     Margin="0 0 0 8"
                     Text="{Binding ViewM.SelectedPeak.NetArea, StringFormat=N2}"/>
-                
+                <Label
+                    x:Name="PeakCentroidLabel"
+                    Content="{Binding LocalizationResourceManager[Centroid]}"/>
+                <TextBlock
+                    x:Name="PeakCentroidValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.Centroid, StringFormat=N2}"/>
+                <Label
+                    x:Name="PeakFwhmLabel"
+                    Content="{Binding LocalizationResourceManager[FWHM]}"/>
+                <TextBlock
+                    x:Name="PeakFwhmValue"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 8"
+                    Text="{Binding ViewM.SelectedPeak.Fwhm, StringFormat=N2}"/>
+
 
             </StackPanel>
 

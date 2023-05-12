@@ -9,5 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <WpfPlot 
         x:Name="SpectrumWpfPlot"
-        MouseDoubleClick="SpectrumWpfPlot_MouseDoubleClick"></WpfPlot>
+        MouseDoubleClick="SpectrumWpfPlot_MouseDoubleClick"
+        MouseMove="SpectrumWpfPlot_MouseMove"
+        ></WpfPlot>
 </UserControl>

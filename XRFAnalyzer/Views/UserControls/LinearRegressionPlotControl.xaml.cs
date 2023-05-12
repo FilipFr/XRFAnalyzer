@@ -71,12 +71,12 @@ namespace XRFAnalyzer.Views.UserControls
 
         public static readonly DependencyProperty CalibrationPointsProperty = DependencyProperty.Register(
             "CalibrationPoints",
-            typeof(ObservableCollection<Tuple<int, double>>),
+            typeof(ObservableCollection<Tuple<double, double>>),
             typeof(LinearRegressionPlotControl),
-            new PropertyMetadata(new ObservableCollection<Tuple<int, double>>(), new PropertyChangedCallback(CalibrationPointsChanged)));
-        public ObservableCollection<Tuple<int, double>> CalibrationPoints
+            new PropertyMetadata(new ObservableCollection<Tuple<double, double>>(), new PropertyChangedCallback(CalibrationPointsChanged)));
+        public ObservableCollection<Tuple<double, double>> CalibrationPoints
         {
-            get { return (ObservableCollection<Tuple<int, double>>)GetValue(CalibrationPointsProperty); }
+            get { return (ObservableCollection<Tuple<double, double>>)GetValue(CalibrationPointsProperty); }
             set { SetValue(CalibrationPointsProperty, value); }
         }
         private static void CalibrationPointsChanged(DependencyObject a, DependencyPropertyChangedEventArgs e)
@@ -91,7 +91,7 @@ namespace XRFAnalyzer.Views.UserControls
                 double X2 = 0;
                 if (b.CalibrationPoints.Count > 1)
                 {
-                    foreach (Tuple<int, double> kvp in b.CalibrationPoints)
+                    foreach (Tuple<double, double> kvp in b.CalibrationPoints)
                     {
                         Xs = Xs.Append(kvp.Item1).ToArray();
                         Ys = Ys.Append(kvp.Item2).ToArray();
@@ -125,7 +125,7 @@ namespace XRFAnalyzer.Views.UserControls
 
             if (e.NewValue != null)
             {
-                var coll = (ObservableCollection<Tuple<int, double>>)e.NewValue;
+                var coll = (ObservableCollection<Tuple<double, double>>)e.NewValue;
                 coll.CollectionChanged += action;
             }
         }

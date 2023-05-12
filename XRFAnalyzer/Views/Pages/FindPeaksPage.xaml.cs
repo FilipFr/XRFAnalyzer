@@ -31,5 +31,10 @@ namespace XRFAnalyzer.Views.Pages
                 this.NavigationService.GoBack();
             }
         }
+
+        private void NumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+
+        }
     }
 }

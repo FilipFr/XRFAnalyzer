@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace XRFAnalyzer.Models.DTOs
 {
@@ -38,5 +39,27 @@ namespace XRFAnalyzer.Models.DTOs
         private List<List<double>> _absorptionData = new();
         [ObservableProperty]
         private List<List<double>> _attenuationData = new();
+
+        public string ValidationMessage()
+        {
+            string msg = "";
+            if (this.PCounts.Count < 1)
+                return "Cannot perform full analysis without primary spectrum.";
+            if (this.PSlope == 0 || this.PSlope == Double.MaxValue) 
+            {
+                return "Cannot perform full analysis without calibration.";
+            }
+            if (this.PeakAreas.Count < 2) 
+            {
+                return "Analysis makes sense only for more than one identified peak";
+            }
+            if (this.DetectorEnergies.Count < 1) 
+            {
+                return "No detector selected.";
+            }
+            return msg;
+        }
     }
+
+    
 }
