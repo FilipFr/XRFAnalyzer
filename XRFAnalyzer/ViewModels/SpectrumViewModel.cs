@@ -334,13 +334,12 @@ namespace XRFAnalyzer.ViewModels
             {
                 Counts = { FindPeaksDTO.Counts },
                 Height = FindPeaksDTO.Height,
-                Threshold = FindPeaksDTO.Threshold,
+
                 Distance = FindPeaksDTO.Distance,
                 Prominence = FindPeaksDTO.Prominence,
-                Width = FindPeaksDTO.Width,
+
                 Wlen = FindPeaksDTO.WLen,
-                RelHeight = FindPeaksDTO.RelHeight,
-                PlateauSize = FindPeaksDTO.PlateauSize
+
             });
             if (reply != null
                 && reply.Peaks != null

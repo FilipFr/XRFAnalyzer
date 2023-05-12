@@ -312,4 +312,7 @@
   <data name="PrimaryRadiationEnergy" xml:space="preserve">
     <value>Energia primárneho žiarenia</value>
   </data>
+  <data name="CalculateConcentrationsMono" xml:space="preserve">
+    <value>Vypočítať koncentrácie (mono)</value>
+  </data>
 </root>

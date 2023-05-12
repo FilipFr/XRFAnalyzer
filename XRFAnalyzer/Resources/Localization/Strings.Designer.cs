@@ -88,6 +88,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculate concentrations (mono).
+        /// </summary>
+        internal static string CalculateConcentrationsMono {
+            get {
+                return ResourceManager.GetString("CalculateConcentrationsMono", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Centroid.
         /// </summary>
         internal static string Centroid {

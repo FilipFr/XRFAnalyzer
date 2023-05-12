@@ -48,7 +48,7 @@
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[EnergyRange]}"
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[EnergyKev]}"
                         Binding="{Binding ApexEnergy}"
                         IsReadOnly="True">
                         
@@ -76,7 +76,7 @@
                 Width="280"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Content="{Binding LocalizationResourceManager[ConfirmEmissionLinesButtonLabel]}"
+                Content="{Binding LocalizationResourceManager[ConfirmIdentification]}"
                 Command="{Binding ViewM.ConfirmQualitativeAnalysisCommand}">
                 
             </Button>

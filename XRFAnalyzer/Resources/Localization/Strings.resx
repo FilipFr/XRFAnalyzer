@@ -313,4 +313,7 @@
   <data name="PrimaryRadiationEnergy" xml:space="preserve">
     <value>Primary radiation energy</value>
   </data>
+  <data name="CalculateConcentrationsMono" xml:space="preserve">
+    <value>Calculate concentrations (mono)</value>
+  </data>
 </root>

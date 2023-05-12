@@ -72,7 +72,7 @@
                         HorizontalAlignment="Left"
                         Foreground="WhiteSmoke"
                         VerticalAlignment="Center"
-                        Content="{Binding LocalizationResourceManager[DetectorChoiceLabel]}"/>
+                        Content="{Binding LocalizationResourceManager[Detector]}"/>
                     <ComboBox
                         Grid.Row="1" Grid.Column="0"
                         VerticalContentAlignment="Center"
@@ -86,7 +86,7 @@
                     Height="48"
                     Background="LightGreen"
                     Command="{Binding QuantitativeAnalysisCommand}"
-                    Content="{Binding LocalizationResourceManager[CalculateConcentrationsButtonLabel]}">
+                    Content="{Binding LocalizationResourceManager[CalculateConcentrations]}">
                 </Button>
                 <StackPanel
                     Margin="16 0">
@@ -119,7 +119,7 @@
                     Margin="0 16"
                     Background="LightGreen"
                     Command="{Binding MonoenergeticQuantitativeAnalysisCommand}"
-                    Content="{Binding LocalizationResourceManager[CalculateConcentrationsButtonLabel]}">
+                    Content="{Binding LocalizationResourceManager[CalculateConcentrationsMono]}">
                     </Button>
                 </StackPanel>
             </StackPanel>

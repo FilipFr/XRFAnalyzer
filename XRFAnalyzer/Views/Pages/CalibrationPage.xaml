@@ -54,19 +54,19 @@
                 >
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[CalibrationTableColumn1]}"
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[Channel]}"
                         Binding="{Binding Channel}"
                         IsReadOnly="True"/>
                     <DataGridTextColumn 
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[CalibrationTableColumn2]}"
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[EnergyKev]}"
                         Binding="{Binding Energy}"
                         IsReadOnly="True"/>
                     <DataGridTextColumn 
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[CalibrationTableColumn3]}" 
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[Element]}" 
                         Binding="{Binding Element.Symbol}"
                         IsReadOnly="True"/>
                     <DataGridTextColumn 
-                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[CalibrationTableColumn4]}" 
+                        Header="{Binding Source={x:Reference Proxy}, Path=DataContext.LocalizationResourceManager[EmissionLine]}" 
                         Binding="{Binding EmissionLine}"
                         Width="*"
                         IsReadOnly="True"/>
@@ -90,7 +90,7 @@
                     Margin="16 0 0 0"
                     Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
-                    Content="{Binding LocalizationResourceManager[CalibrationTableColumn1]}"/>
+                    Content="{Binding LocalizationResourceManager[Channel]}"/>
                 <mah:NumericUpDown
                     Grid.Row="0" Grid.Column="1"
                     Minimum="0" 
@@ -104,7 +104,7 @@
                     Margin="16 0 0 0"
                     Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
-                    Content="{Binding LocalizationResourceManager[CalibrationTableColumn2]}"/>
+                    Content="{Binding LocalizationResourceManager[EnergyKev]}"/>
                 <mah:NumericUpDown
                     Grid.Row="1" Grid.Column="1"
                     Margin="8 4"
@@ -117,7 +117,7 @@
                     Margin="16 0 0 0"
                     Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
-                    Content="{Binding LocalizationResourceManager[CalibrationTableColumn3]}"/>
+                    Content="{Binding LocalizationResourceManager[Element]}"/>
                 <ComboBox
                     Grid.Row="2" Grid.Column="1"
                     Margin="8 4"
@@ -132,7 +132,7 @@
                     Margin="16 0 0 0"
                     Foreground="WhiteSmoke"
                     VerticalAlignment="Center"
-                    Content="{Binding LocalizationResourceManager[CalibrationTableColumn4]}"/>
+                    Content="{Binding LocalizationResourceManager[EmissionLine]}"/>
                 <ComboBox
                     Grid.Row="3" Grid.Column="1"
                     Margin="8 4"

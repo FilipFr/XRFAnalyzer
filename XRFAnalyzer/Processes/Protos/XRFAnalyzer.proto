@@ -11,13 +11,9 @@ service XRFAnalyzerService {
 message FindPeaksRequest {
   repeated double counts = 1;
   int32 height = 2;
-  int32 threshold = 3;
-  int32 distance = 4;
-  int32 prominence = 5;
-  int32 width = 6;
-  int32 wlen = 7;
-  double rel_height = 8;
-  int32 plateau_size = 9;
+  int32 distance = 3;
+  int32 prominence = 4;
+  int32 wlen = 5;
 }
 
 message FindPeaksReply {

@@ -29,11 +29,11 @@ namespace XRFAnalyzer
             {
                 process.Kill();
             }
-            //ProcessStartInfo processInfo = new ProcessStartInfo("Processes/Server/XRFAnalyzerGrpcServer.exe");
-            //// Configure the process using the StartInfo properties.
-            //processInfo.CreateNoWindow = true;
-            //processInfo.UseShellExecute = false;
-            //Process.Start(processInfo);
+            ProcessStartInfo processInfo = new ProcessStartInfo("Processes/Server/XRFAnalyzerGrpcServer.exe");
+            // Configure the process using the StartInfo properties.
+            processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = false;
+            Process.Start(processInfo);
 
             MainWindow = new MainWindow()
             {

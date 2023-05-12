@@ -235,8 +235,8 @@
                     Header="{Binding LocalizationResourceManager[XAxisUnitToggleLabel]}"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
-                    OnContent="{Binding LocalizationResourceManager[EnergyToggleOption]}"
-                    OffContent="{Binding LocalizationResourceManager[ChannelToggleOption]}"
+                    OnContent="{Binding LocalizationResourceManager[Energy]}"
+                    OffContent="{Binding LocalizationResourceManager[Channel]}"
                     IsOn="False"
                     IsEnabled="{Binding ViewM.IsCalibrated}"
 
@@ -255,11 +255,6 @@
                     VerticalAlignment="Center" 
                     Margin="32 0 0 0"
                    
-                    FontFamily="Open Sans"/>
-                <Label 
-                    Content="{Binding ViewM.SpectrumType}" 
-                    VerticalAlignment="Center" 
-                    Margin="16 0 0 0"
                     FontFamily="Open Sans"/>
             </StackPanel>
         
