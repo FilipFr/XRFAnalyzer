@@ -13,21 +13,27 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11XRFAnalyzer.proto\"\xb2\x01\n\x10\x46indPeaksRequest\x12\x0e\n\x06\x63ounts\x18\x01 \x03(\x01\x12\x0e\n\x06height\x18\x02 \x01(\x05\x12\x11\n\tthreshold\x18\x03 \x01(\x05\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x12\x12\n\nprominence\x18\x05 \x01(\x05\x12\r\n\x05width\x18\x06 \x01(\x05\x12\x0c\n\x04wlen\x18\x07 \x01(\x05\x12\x12\n\nrel_height\x18\x08 \x01(\x01\x12\x14\n\x0cplateau_size\x18\t \x01(\x05\"H\n\x0e\x46indPeaksReply\x12\r\n\x05peaks\x18\x01 \x03(\x05\x12\x12\n\nleft_bases\x18\x02 \x03(\x05\x12\x13\n\x0bright_bases\x18\x03 \x03(\x05\"H\n\x11\x42\x61\x63kgroundRequest\x12\x0e\n\x06\x63ounts\x18\x01 \x03(\x01\x12\x0f\n\x07lambda_\x18\x02 \x01(\x05\x12\x12\n\niterations\x18\x03 \x01(\x05\"+\n\x0f\x42\x61\x63kgroundReply\x12\x18\n\x10\x63orrected_counts\x18\x01 \x03(\x01\x32\x87\x01\n\x12XRFAnalyzerService\x12\x36\n\x10\x46indPeaksMessage\x12\x11.FindPeaksRequest\x1a\x0f.FindPeaksReply\x12\x39\n\x11\x42\x61\x63kgroundMessage\x12\x12.BackgroundRequest\x1a\x10.BackgroundReplyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11XRFAnalyzer.proto\"f\n\x10\x46indPeaksRequest\x12\x0e\n\x06\x63ounts\x18\x01 \x03(\x01\x12\x0e\n\x06height\x18\x02 \x01(\x05\x12\x10\n\x08\x64istance\x18\x03 \x01(\x05\x12\x12\n\nprominence\x18\x04 \x01(\x05\x12\x0c\n\x04wlen\x18\x05 \x01(\x05\"H\n\x0e\x46indPeaksReply\x12\r\n\x05peaks\x18\x01 \x03(\x05\x12\x12\n\nleft_bases\x18\x02 \x03(\x05\x12\x13\n\x0bright_bases\x18\x03 \x03(\x05\"H\n\x11\x42\x61\x63kgroundRequest\x12\x0e\n\x06\x63ounts\x18\x01 \x03(\x01\x12\x0f\n\x07lambda_\x18\x02 \x01(\x05\x12\x12\n\niterations\x18\x03 \x01(\x05\"+\n\x0f\x42\x61\x63kgroundReply\x12\x18\n\x10\x63orrected_counts\x18\x01 \x03(\x01\"\x1d\n\rNumericalData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x03(\x01\"\x90\x03\n\x15QuantificationRequest\x12\x10\n\x08p_counts\x18\x01 \x03(\x01\x12\x1d\n\x15intervals_per_channel\x18\x02 \x01(\x05\x12\x0f\n\x07p_slope\x18\x03 \x01(\x01\x12\x13\n\x0bp_intercept\x18\x04 \x01(\x01\x12\x12\n\npeak_areas\x18\x05 \x03(\x01\x12\x15\n\rpeak_energies\x18\x06 \x03(\x01\x12\x19\n\x11\x64\x65tector_energies\x18\x07 \x03(\x01\x12\x1d\n\x15\x64\x65tector_efficiencies\x18\x08 \x03(\x01\x12\x0e\n\x06yields\x18\t \x03(\x01\x12\x15\n\rprobabilities\x18\n \x03(\x01\x12\x13\n\x0bjump_ratios\x18\x0b \x03(\x01\x12,\n\x14\x63oefficient_energies\x18\x0c \x03(\x0b\x32\x0e.NumericalData\x12\'\n\x0f\x61\x62sorption_data\x18\r \x03(\x0b\x32\x0e.NumericalData\x12(\n\x10\x61ttenuation_data\x18\x0e \x03(\x0b\x32\x0e.NumericalData\"-\n\x13QuantificationReply\x12\x16\n\x0e\x63oncentrations\x18\x01 \x03(\x01\x32\xce\x01\n\x12XRFAnalyzerService\x12\x36\n\x10\x46indPeaksMessage\x12\x11.FindPeaksRequest\x1a\x0f.FindPeaksReply\x12\x39\n\x11\x42\x61\x63kgroundMessage\x12\x12.BackgroundRequest\x1a\x10.BackgroundReply\x12\x45\n\x15QuantificationMessage\x12\x16.QuantificationRequest\x1a\x14.QuantificationReplyb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'XRFAnalyzer_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _FINDPEAKSREQUEST._serialized_start=22
-  _FINDPEAKSREQUEST._serialized_end=200
-  _FINDPEAKSREPLY._serialized_start=202
-  _FINDPEAKSREPLY._serialized_end=274
-  _BACKGROUNDREQUEST._serialized_start=276
-  _BACKGROUNDREQUEST._serialized_end=348
-  _BACKGROUNDREPLY._serialized_start=350
-  _BACKGROUNDREPLY._serialized_end=393
-  _XRFANALYZERSERVICE._serialized_start=396
-  _XRFANALYZERSERVICE._serialized_end=531
+  _FINDPEAKSREQUEST._serialized_start=21
+  _FINDPEAKSREQUEST._serialized_end=123
+  _FINDPEAKSREPLY._serialized_start=125
+  _FINDPEAKSREPLY._serialized_end=197
+  _BACKGROUNDREQUEST._serialized_start=199
+  _BACKGROUNDREQUEST._serialized_end=271
+  _BACKGROUNDREPLY._serialized_start=273
+  _BACKGROUNDREPLY._serialized_end=316
+  _NUMERICALDATA._serialized_start=318
+  _NUMERICALDATA._serialized_end=347
+  _QUANTIFICATIONREQUEST._serialized_start=350
+  _QUANTIFICATIONREQUEST._serialized_end=750
+  _QUANTIFICATIONREPLY._serialized_start=752
+  _QUANTIFICATIONREPLY._serialized_end=797
+  _XRFANALYZERSERVICE._serialized_start=800
+  _XRFANALYZERSERVICE._serialized_end=1006
 # @@protoc_insertion_point(module_scope)

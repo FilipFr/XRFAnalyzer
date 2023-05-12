@@ -6,6 +6,7 @@ import XRFAnalyzer_pb2_grpc
 from scipy.signal import find_peaks
 from sklearn import metrics
 from BaselineRemoval import BaselineRemoval
+from xrf_quantitative import quantitative_analysis, quantitative_analysis_mono
 
 
 def get_key(input, key):
@@ -32,21 +33,13 @@ class XRFAnalyzer(XRFAnalyzer_pb2_grpc.XRFAnalyzerServiceServicer):
     def FindPeaksMessage(self, request, context):
         data = request.counts
         height = None if (request.height <= 0) else request.height
-        threshold = None if (request.threshold <= 0) else request.threshold
         distance = None if (request.distance <= 0) else request.distance
         prominence = None if (request.prominence <= 0) else request.prominence
-        width = None if (request.width <= 0) else request.width
         wlen = None if (request.wlen <= 0) else request.wlen
-        rel_height = None if (request.rel_height <= 0) else request.rel_height
-        plateau_size = None if (request.plateau_size <= 0) else request.plateau_size
 
-        peaks, left_bases, right_bases, p = get_peaks(data, height, threshold, distance,
-                                                      prominence, width, wlen, rel_height, plateau_size)
-        print(data)
-        print(peaks)
-        print(left_bases)
-        print(right_bases)
-        print(p)
+        peaks, left_bases, right_bases, p = get_peaks(data, height=height, distance=distance,
+                                                      prominence=prominence, wlen=wlen)
+
         return XRFAnalyzer_pb2.FindPeaksReply(peaks=peaks, left_bases=left_bases, right_bases=right_bases)
 
     def BackgroundMessage(self, request, context):
@@ -57,6 +50,42 @@ class XRFAnalyzer(XRFAnalyzer_pb2_grpc.XRFAnalyzerServiceServicer):
         if bool(data):
             data = get_corrected(data, lambda_, iterations)
         return XRFAnalyzer_pb2.BackgroundReply(corrected_counts=data)
+
+    def QuantificationMessage(self, request, context):
+        coefficient_energies = []
+        absorption_data = []
+        attenuation_data = []
+
+        for i in request.coefficient_energies:
+            values = []
+            for j in i.data:
+                values.append(j)
+            coefficient_energies.append(values)
+        for i in request.absorption_data:
+            values = []
+            for j in i.data:
+                values.append(j)
+            absorption_data.append(values)
+        for i in request.attenuation_data:
+            values = []
+            for j in i.data:
+                values.append(j)
+            attenuation_data.append(values)
+
+        if len(request.p_counts) <= 2:
+            concentrations = quantitative_analysis_mono(request.p_counts[0], request.peak_areas, request.peak_energies,
+                                  request.detector_energies, request.detector_efficiencies,
+                                  request.yields, request.probabilities, request.jump_ratios,
+                                  coefficient_energies, absorption_data, attenuation_data)
+            return XRFAnalyzer_pb2.QuantificationReply(concentrations=concentrations)
+
+        concentrations = \
+            quantitative_analysis(request.p_counts, request.intervals_per_channel, request.p_slope,
+                                  request.p_intercept, request.peak_areas, request.peak_energies,
+                                  request.detector_energies, request.detector_efficiencies,
+                                  request.yields, request.probabilities, request.jump_ratios,
+                                  coefficient_energies, absorption_data, attenuation_data)
+        return XRFAnalyzer_pb2.QuantificationReply(concentrations=concentrations)
 
 
 def serve():

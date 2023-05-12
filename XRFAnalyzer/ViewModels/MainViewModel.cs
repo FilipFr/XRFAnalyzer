@@ -37,6 +37,7 @@ namespace XRFAnalyzer.ViewModels
         public RelayCommand SwitchToSourceSpectrumViewModelCommand { get; set; }
         public RelayCommand QuantitativeAnalysisCommand { get; set; }
         public RelayCommand MonoenergeticQuantitativeAnalysisCommand { get; set; }
+        public RelayCommand ShowAboutCommand { get; set; }
 
         public MainViewModel() 
         {
@@ -50,6 +51,7 @@ namespace XRFAnalyzer.ViewModels
             SwitchToSourceSpectrumViewModelCommand = new RelayCommand(SwitchToSourceSpectrumViewModel);
             QuantitativeAnalysisCommand = new RelayCommand(QuantitativeAnalysis);
             MonoenergeticQuantitativeAnalysisCommand = new RelayCommand(MonoenergeticQuantitativeAnalysis);
+            ShowAboutCommand = new RelayCommand(ShowAbout);
         }
 
         private void SwitchSpectrumViewModel() 
@@ -179,6 +181,11 @@ namespace XRFAnalyzer.ViewModels
             }
             ExportResults();
             MessageBox.Show(report.ToString());
+        }
+
+        private void ShowAbout() 
+        {
+            MessageBox.Show("XRFAnalyzer v0.1");
         }
 
         private async void MonoenergeticQuantitativeAnalysis()

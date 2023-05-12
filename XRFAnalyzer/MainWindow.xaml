@@ -173,12 +173,14 @@
 
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
+                        Command="{Binding ShowAboutCommand}"
                         ToolTip="{Binding LocalizationResourceManager[MainMenuOption7]}">
                         <local:MenuButtonContent
                             PackIconStyle="{StaticResource MainMenuButtonIcon}"
                             PackIconKind="Information"
                             LabelContent="{Binding LocalizationResourceManager[MainMenuOption7]}"
-                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
+                            LabelStyle="{StaticResource MainMenuButtonLabel}"
+                            />
                     </Button>
 
                 </StackPanel>

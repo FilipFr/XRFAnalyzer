@@ -24,6 +24,11 @@ class XRFAnalyzerServiceStub(object):
                 request_serializer=XRFAnalyzer__pb2.BackgroundRequest.SerializeToString,
                 response_deserializer=XRFAnalyzer__pb2.BackgroundReply.FromString,
                 )
+        self.QuantificationMessage = channel.unary_unary(
+                '/XRFAnalyzerService/QuantificationMessage',
+                request_serializer=XRFAnalyzer__pb2.QuantificationRequest.SerializeToString,
+                response_deserializer=XRFAnalyzer__pb2.QuantificationReply.FromString,
+                )
 
 
 class XRFAnalyzerServiceServicer(object):
@@ -41,6 +46,12 @@ class XRFAnalyzerServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def QuantificationMessage(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_XRFAnalyzerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_XRFAnalyzerServiceServicer_to_server(servicer, server):
                     servicer.BackgroundMessage,
                     request_deserializer=XRFAnalyzer__pb2.BackgroundRequest.FromString,
                     response_serializer=XRFAnalyzer__pb2.BackgroundReply.SerializeToString,
+            ),
+            'QuantificationMessage': grpc.unary_unary_rpc_method_handler(
+                    servicer.QuantificationMessage,
+                    request_deserializer=XRFAnalyzer__pb2.QuantificationRequest.FromString,
+                    response_serializer=XRFAnalyzer__pb2.QuantificationReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +111,22 @@ class XRFAnalyzerService(object):
         return grpc.experimental.unary_unary(request, target, '/XRFAnalyzerService/BackgroundMessage',
             XRFAnalyzer__pb2.BackgroundRequest.SerializeToString,
             XRFAnalyzer__pb2.BackgroundReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def QuantificationMessage(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/XRFAnalyzerService/QuantificationMessage',
+            XRFAnalyzer__pb2.QuantificationRequest.SerializeToString,
+            XRFAnalyzer__pb2.QuantificationReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -3,18 +3,15 @@ syntax = "proto3";
 service XRFAnalyzerService {
   rpc FindPeaksMessage (FindPeaksRequest) returns (FindPeaksReply);
   rpc BackgroundMessage (BackgroundRequest) returns (BackgroundReply);
+  rpc QuantificationMessage (QuantificationRequest) returns (QuantificationReply);
 }
 
 message FindPeaksRequest {
   repeated double counts = 1;
   int32 height = 2;
-  int32 threshold = 3;
-  int32 distance = 4;
-  int32 prominence = 5;
-  int32 width = 6;
-  int32 wlen = 7;
-  double rel_height = 8;
-  int32 plateau_size = 9;
+  int32 distance = 3;
+  int32 prominence = 4;
+  int32 wlen = 5;
 }
 
 message FindPeaksReply {
@@ -31,4 +28,29 @@ message BackgroundRequest {
 
 message BackgroundReply {
 	repeated double corrected_counts = 1;
+}
+
+message NumericalData {
+  repeated double data = 1;
+}
+
+message QuantificationRequest {
+  repeated double p_counts = 1;
+  int32 intervals_per_channel = 2;
+  double p_slope = 3;
+  double p_intercept = 4;
+  repeated double peak_areas = 5;
+  repeated double peak_energies = 6;
+  repeated double detector_energies = 7;
+  repeated double detector_efficiencies = 8;
+  repeated double yields = 9;
+  repeated double probabilities = 10;
+  repeated double jump_ratios = 11;
+  repeated NumericalData coefficient_energies = 12;
+  repeated NumericalData absorption_data = 13;
+  repeated NumericalData attenuation_data = 14;
+}
+
+message QuantificationReply{
+  repeated double concentrations = 1;
 }

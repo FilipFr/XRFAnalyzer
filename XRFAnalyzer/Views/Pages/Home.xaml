@@ -69,12 +69,6 @@
                     LabelStyle="{StaticResource OperationMenuButtonLabel}"
                     LabelContent="{Binding LocalizationResourceManager[OperationMenuQuantitativeAnalysisLabel]}"/>
         </Button>
-        <Button Style="{StaticResource OperationMenuButton}">
-            <controls:MenuButtonContent 
-                    PackIconStyle="{StaticResource OperationPackIconStyle}"                
-                    PackIconKind="Menuright"
-                    LabelStyle="{StaticResource OperationMenuButtonLabel}"
-                    LabelContent="{Binding LocalizationResourceManager[OperationMenuDataTablesLabel]}"/>
-        </Button>
+        
     </StackPanel>
 </UserControl>
