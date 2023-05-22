@@ -279,7 +279,7 @@ namespace XRFAnalyzer.ViewModels
                     this.Results.Add(reply.Concentrations[i]);
                 }
             }
-          
+            ExportResults();
             MessageBox.Show(report.ToString());
         }
 
@@ -293,7 +293,7 @@ namespace XRFAnalyzer.ViewModels
                 + "Gross area (counts)".PadRight(20, ' ')
                 + "Line".PadRight(20, ' ')
                 + "Line energy (keV)".PadRight(20, ' ')
-                + "Mass concentration (%)";
+                + "Mass concentration (%)\n";
             int counter = 0;
             for (int i = 0; i < this.CharacteristicSpectrumViewModel.Peaks.Count; i++) 
             {
@@ -315,7 +315,6 @@ namespace XRFAnalyzer.ViewModels
                 }
                 result += "\n";
             }
-            MessageBox.Show(result);
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text file (*.txt)|*.txt";
             if (saveFileDialog.ShowDialog() == true)

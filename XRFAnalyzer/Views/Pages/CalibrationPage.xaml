@@ -41,7 +41,8 @@
                 Margin="0 8 0 4"
                 FontSize="14"
                 FontWeight="Bold"
-                FontFamily="Open Sans">Calibration Points</Label>
+                FontFamily="Open Sans"
+                Content="{Binding LocalizationResourceManager[CalibrationPoints]}"></Label>
             <DataGrid
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Stretch"
@@ -155,8 +156,8 @@
         </StackPanel>
         <Grid Grid.Row="2">
             <controls:LinearRegressionPlotControl
-                YLabels="{Binding LocalizationResourceManager[SpectrumWpfPlotYLabel]}"
-                XLabels="{Binding LocalizationResourceManager[SpectrumWpfPlotXLabel]}"
+                YLabels="{Binding LocalizationResourceManager[EnergyKev]}"
+                XLabels="{Binding LocalizationResourceManager[Channel]}"
                 CalibrationPoints="{Binding ViewM.CalibrationPoints, Mode=TwoWay}"></controls:LinearRegressionPlotControl>
         </Grid>
     </Grid>

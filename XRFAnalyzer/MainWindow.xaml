@@ -126,18 +126,6 @@
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Button>
-
-                    <Button 
-                        Style="{StaticResource MainMenuButton}" 
-                        ToolTip="{Binding LocalizationResourceManager[ExportResults]}"
-                        Command="{Binding SwitchSpectrumViewModelCommand}"
-                        BorderThickness="0">
-                        <local:MenuButtonContent
-                            PackIconStyle="{StaticResource MainMenuButtonIcon}"
-                            PackIconKind="Fileexportoutline"
-                            LabelContent="{Binding LocalizationResourceManager[ExportResults]}"
-                            LabelStyle="{StaticResource MainMenuButtonLabel}"/>
-                    </Button>
                     <Button 
                         Style="{StaticResource MainMenuButton}" 
                         ToolTip="{Binding LocalizationResourceManager[SwitchSpectrum]}"

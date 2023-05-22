@@ -127,7 +127,7 @@
     <value>Tables of XRF constants</value>
   </data>
   <data name="ChangeLanguage" xml:space="preserve">
-    <value>Settings</value>
+    <value>Change language</value>
   </data>
   <data name="ExportResults" xml:space="preserve">
     <value>Export results</value>
@@ -315,5 +315,23 @@
   </data>
   <data name="CalculateConcentrationsMono" xml:space="preserve">
     <value>Calculate concentrations (mono)</value>
+  </data>
+  <data name="AddPeak" xml:space="preserve">
+    <value>Add peak</value>
+  </data>
+  <data name="LeftBaseChannel" xml:space="preserve">
+    <value>Left base channel</value>
+  </data>
+  <data name="RightBaseChannel" xml:space="preserve">
+    <value>Right base channel</value>
+  </data>
+  <data name="RemoveSelectedPeak" xml:space="preserve">
+    <value>Remove selected peak</value>
+  </data>
+  <data name="AddFoundPeaks" xml:space="preserve">
+    <value>Add found peaks</value>
+  </data>
+  <data name="CalibrationPoints" xml:space="preserve">
+    <value>Calibration points</value>
   </data>
 </root>

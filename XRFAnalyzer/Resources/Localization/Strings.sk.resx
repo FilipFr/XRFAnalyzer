@@ -127,7 +127,7 @@
     <value>Tabuľky konštánt</value>
   </data>
   <data name="ChangeLanguage" xml:space="preserve">
-    <value>Nastavenia</value>
+    <value>Zmeniť jazyk</value>
   </data>
   <data name="ExportResults" xml:space="preserve">
     <value>Exportovať výsledky</value>
@@ -314,5 +314,23 @@
   </data>
   <data name="CalculateConcentrationsMono" xml:space="preserve">
     <value>Vypočítať koncentrácie (mono)</value>
+  </data>
+  <data name="LeftBaseChannel" xml:space="preserve">
+    <value>Ľavá hranica (kanál)</value>
+  </data>
+  <data name="RightBaseChannel" xml:space="preserve">
+    <value>Pravá hranica (kanál)</value>
+  </data>
+  <data name="AddPeak" xml:space="preserve">
+    <value>Pridať pík</value>
+  </data>
+  <data name="RemoveSelectedPeak" xml:space="preserve">
+    <value>Odstrániť zvolený pík</value>
+  </data>
+  <data name="AddFoundPeaks" xml:space="preserve">
+    <value>Pridať nájdené píky</value>
+  </data>
+  <data name="CalibrationPoints" xml:space="preserve">
+    <value>Kalibračné body</value>
   </data>
 </root>

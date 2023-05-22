@@ -61,6 +61,24 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add found peaks.
+        /// </summary>
+        internal static string AddFoundPeaks {
+            get {
+                return ResourceManager.GetString("AddFoundPeaks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add peak.
+        /// </summary>
+        internal static string AddPeak {
+            get {
+                return ResourceManager.GetString("AddPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analyzed.
         /// </summary>
         internal static string AnalyzedSpectrum {
@@ -97,6 +115,15 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calibration points.
+        /// </summary>
+        internal static string CalibrationPoints {
+            get {
+                return ResourceManager.GetString("CalibrationPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Centroid.
         /// </summary>
         internal static string Centroid {
@@ -106,7 +133,7 @@ namespace XRFAnalyzer.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Change language.
         /// </summary>
         internal static string ChangeLanguage {
             get {
@@ -282,6 +309,15 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string FWHM {
             get {
                 return ResourceManager.GetString("FWHM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left base channel.
+        /// </summary>
+        internal static string LeftBaseChannel {
+            get {
+                return ResourceManager.GetString("LeftBaseChannel", resourceCulture);
             }
         }
         
@@ -516,6 +552,24 @@ namespace XRFAnalyzer.Resources.Localization {
         internal static string RemoveBackgroundLabel {
             get {
                 return ResourceManager.GetString("RemoveBackgroundLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected peak.
+        /// </summary>
+        internal static string RemoveSelectedPeak {
+            get {
+                return ResourceManager.GetString("RemoveSelectedPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right base channel.
+        /// </summary>
+        internal static string RightBaseChannel {
+            get {
+                return ResourceManager.GetString("RightBaseChannel", resourceCulture);
             }
         }
         

@@ -49,8 +49,17 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0">Left base channel</Label>
-            <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="24,0,0,0">Right base channel</Label>
+            <Label 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Margin="24,0,0,0"
+                Content="{Binding LocalizationResourceManager[LeftBaseChannel]}"></Label>
+            <Label 
+                Grid.Row="1" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Margin="24,0,0,0"
+                Content="{Binding LocalizationResourceManager[RightBaseChannel]}"></Label>
             <mah:NumericUpDown
                 Value="{Binding ViewM.RoiLeftBoundary}"
                 Minimum="0"
@@ -71,7 +80,7 @@
                 Padding="0">
                 <controls:MenuButtonContent
                     PackIconKind="Plusbold"
-                    LabelContent="Add Peak"
+                    LabelContent="{Binding LocalizationResourceManager[AddPeak]}"
                     />
             </Button>
 
@@ -197,7 +206,7 @@
                 Height="32"
                 Padding="0"
                 Command="{Binding ViewM.AddFoundPeaksCommand}">
-                <controls:MenuButtonContent LabelContent="Add found peaks" PackIconKind="Plus"/>
+                <controls:MenuButtonContent LabelContent="{Binding LocalizationResourceManager[AddFoundPeaks]}" PackIconKind="Plus"/>
             </Button>
         </Grid>
 
@@ -210,7 +219,7 @@
                 Command="{Binding ViewM.RemoveSelectedPeakCommand}">
             <controls:MenuButtonContent
                     PackIconKind="Removebold"
-                    LabelContent="Remove peak"/>
+                    LabelContent="{Binding LocalizationResourceManager[RemoveSelectedPeak]}"/>
         </Button>
 
     </Grid>

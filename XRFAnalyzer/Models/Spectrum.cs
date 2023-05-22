@@ -78,6 +78,11 @@ namespace XRFAnalyzer.Models
                 this.Counts = newSpectrum.Counts;
                 this.Peaks = newSpectrum.Peaks;
                 this.CalibrationPoints = newSpectrum.CalibrationPoints;
+                if(this.Counts == null || this.Counts.Count == 0) 
+                {
+                    parsingResultMessage = "The file format is not valid.";
+                    throw new Exception();
+                }
                 parsingResultMessage = "Load successful";
                 return true;
             } 
@@ -89,6 +94,11 @@ namespace XRFAnalyzer.Models
             catch (IOException)
             {
                 parsingResultMessage = "Unable to open file " + filePath;
+                return false;
+            }
+            catch (Exception e) 
+            {
+                parsingResultMessage = "Invalid file format.";
                 return false;
             }
         }

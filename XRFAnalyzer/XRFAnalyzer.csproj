@@ -14,8 +14,17 @@
     <None Remove="Resources\Data\detector_efficiency.json" />
     <None Remove="Resources\Data\elements_info.json" />
     <None Remove="Resources\Data\elements_lines.json" />
+    <None Remove="Resources\Data\Fe50Cr50.mca" />
+    <None Remove="Resources\Data\Fe80Cr20.mca" />
+    <None Remove="Resources\Data\Fe85Cr15.mca" />
+    <None Remove="Resources\Data\Fe90Cr10.mca" />
+    <None Remove="Resources\Data\Fe95Cr5.mca" />
+    <None Remove="Resources\Data\Fe98Cr2.mca" />
+    <None Remove="Resources\Data\Fe99Cr1.mca" />
     <None Remove="Resources\Data\fluorescent_yield.json" />
     <None Remove="Resources\Data\jump_ratio.json" />
+    <None Remove="Resources\Data\SN-MX22054855_Ag PX5.mca" />
+    <None Remove="Resources\Data\steel316.mca" />
     <None Remove="Resources\Data\xray_mass_ceoficient.json" />
   </ItemGroup>
 
@@ -27,6 +36,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Data\elements_lines.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe50Cr50.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe80Cr20.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe85Cr15.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe90Cr10.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe95Cr5.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe98Cr2.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\Fe99Cr1.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\SN-MX22054855_Ag PX5.mca">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Data\steel316.mca">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

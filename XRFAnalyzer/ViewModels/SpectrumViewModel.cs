@@ -195,9 +195,8 @@ namespace XRFAnalyzer.ViewModels
                 {
                     if (!SumPeaks.Any(peak => Peaks[i] == peak) && Peaks[i].CanBeSumPeak) 
                     {
-                        SelectedPeakIndex = -1;
-                        Peaks.RemoveAt(i);
-                        Rois.RemoveAt(i);
+                        SelectedPeakIndex = i;
+                        RemoveSelectedPeak();
                         
                         return;
                     }
@@ -211,7 +210,7 @@ namespace XRFAnalyzer.ViewModels
             {
                 Peaks.RemoveAt(SelectedPeakIndex);
                 Rois.RemoveAt(SelectedPeakIndex);
-                GetSumPeaks();
+
                 SelectedPeakIndex = -1;
             }
             
@@ -517,10 +516,9 @@ namespace XRFAnalyzer.ViewModels
                 double energy = (line.Energy - CalibrationCurveIntercept) / CalibrationCurveSlope;
                 string result = energy.ToString("F") + " " + line.ToString();
                 LineEnergies.Add(result);
-                MessageBox.Show(result);
             }
             int temp = SelectedPeakIndex;
-            SelectedPeakIndex = -1;
+            SelectedPeakIndex = Int32.MaxValue;
             SelectedPeakIndex = temp;
         }
     }
