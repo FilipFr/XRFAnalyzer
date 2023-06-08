@@ -222,10 +222,10 @@
                 </mah:ToggleSwitch>
                 <mah:ToggleSwitch
                     x:Name="XAxisUnitToggle"
-                    Header="{Binding LocalizationResourceManager[EnergyKev]}"
+                    Header="{Binding LocalizationResourceManager[XAxisUnitToggleLabel]}"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
-                    OnContent="{Binding LocalizationResourceManager[Energy]}"
+                    OnContent="{Binding LocalizationResourceManager[EnergyKev]}"
                     OffContent="{Binding LocalizationResourceManager[Channel]}"
                     IsOn="False"
                     IsEnabled="{Binding ViewM.IsCalibrated}"
