@@ -185,7 +185,7 @@ namespace XRFAnalyzer.ViewModels
 
         private void ShowAbout() 
         {
-            MessageBox.Show("XRFAnalyzer v0.1");
+            MessageBox.Show("XRFAnalyzer v0.9");
         }
 
         private async void MonoenergeticQuantitativeAnalysis()
