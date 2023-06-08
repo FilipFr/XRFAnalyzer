@@ -379,6 +379,7 @@ namespace XRFAnalyzer.Views.UserControls
                 string logTickLabels(double y) => Math.Pow(10, y).ToString();
                 SpectrumWpfPlot.Plot.YAxis.TickLabelFormat(logTickLabels);
                 SpectrumWpfPlot.Plot.YAxis.MinorLogScale(true);
+                SpectrumWpfPlot.Plot.AxisAuto();
             } 
             else
             {

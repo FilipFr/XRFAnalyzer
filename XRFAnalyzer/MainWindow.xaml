@@ -222,7 +222,7 @@
                 </mah:ToggleSwitch>
                 <mah:ToggleSwitch
                     x:Name="XAxisUnitToggle"
-                    Header="{Binding LocalizationResourceManager[XAxisUnitToggleLabel]}"
+                    Header="{Binding LocalizationResourceManager[EnergyKev]}"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
                     OnContent="{Binding LocalizationResourceManager[Energy]}"
@@ -237,17 +237,7 @@
                 </mah:ToggleSwitch>
 
             </StackPanel>
-            <StackPanel 
-                Grid.Row="1"
-                Orientation="Horizontal">
-                <Label
-                    Content="{Binding LocalizationResourceManager[SpectrumType]}"
-                    VerticalAlignment="Center" 
-                    Margin="32 0 0 0"
-                   
-                    FontFamily="Open Sans"/>
-            </StackPanel>
-        
+
         </Grid>
 
         <!--Plot Container-->

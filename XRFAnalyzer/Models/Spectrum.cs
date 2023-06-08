@@ -56,7 +56,7 @@ namespace XRFAnalyzer.Models
                                     string[] line_parts = line.Split(' ');
                                     if (!newSpectrum.CalibrationPoints.ContainsKey(Int32.Parse(line_parts[0]))) 
                                     { 
-                                        newSpectrum.CalibrationPoints[Int32.Parse(line_parts[0])] = Double.Parse(line_parts[1]);
+                                        newSpectrum.CalibrationPoints[Int32.Parse(line_parts[0])] = Double.Parse(line_parts[1], System.Globalization.CultureInfo.InvariantCulture);
                                         break;
                                     }
                                     break;
@@ -98,7 +98,7 @@ namespace XRFAnalyzer.Models
             }
             catch (Exception e) 
             {
-                parsingResultMessage = "Invalid file format.";
+                parsingResultMessage = e.Message;
                 return false;
             }
         }
