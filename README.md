@@ -37,6 +37,6 @@ Quantitative analysis uses the fundamental parameter method (only standardless a
 
 [Click here to watch the video demonstration on youtube](https://youtu.be/YPiHeNg0FEo "Click here to watch the video demonstration on youtube")
 ### Links to similar software
-[Peakaboo](https://www.peakaboo.org/ "Peakaboo")
-[NIST DTSA-II](https://www.cstl.nist.gov/div837/837.02/epq/dtsa2/index.html "NIST DTSA-II")
-[Larch](https://xraypy.github.io/xraylarch/ "Larch")
+- [Peakaboo](https://www.peakaboo.org/ "Peakaboo")
+- [NIST DTSA-II](https://www.cstl.nist.gov/div837/837.02/epq/dtsa2/index.html "NIST DTSA-II")
+- [Larch](https://xraypy.github.io/xraylarch/ "Larch")
